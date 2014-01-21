@@ -17,8 +17,6 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
-
-
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 2
@@ -53,8 +51,8 @@ priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 defa
 ;Hit/Miss/Dodge type (Def: Hit)
 pausetime = 8, 8                 ;Time attacker pauses, time opponent shakes
 sparkno = S7000                      ;Spark anim no (Def: set above)
-sparkxy = -15, 0              ;X-offset for the "hit spark" rel. to p2,
-;Y-offset for the spark rel. to p1
+sparkxy = -5, 0              ;X-offset for the "hit spark" rel. to p2,
+			;Y-offset for the spark rel. to p1
 hitsound = S7020, 0                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
@@ -143,14 +141,14 @@ guardflag = M
 hitflag = MAF
 pausetime = 12,12
 sparkno = S7001
-sparkxy = -5, -15
+sparkxy = -5, -10
 hitsound   = S7040,1
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 15
-ground.velocity = -1.5, -3
-air.velocity = -1.5,-3
+ground.velocity = -1.1, -3
+air.velocity = -1.1,-3
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -203,10 +201,10 @@ value = S7000, 1
 
 [State 220, Explod]
 type = Explod
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 4
 anim = 7012
 ID = 220
-pos = 10, -25
+pos = 7, -29
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -232,7 +230,7 @@ guardflag = HA
 priority = 4
 pausetime = 12, 12
 sparkno = S7002
-sparkxy = 0, -35
+sparkxy = -10, -35
 hitsound   = S7020,2
 guardsound = 6,0
 animtype = DiagUp
@@ -289,9 +287,9 @@ value = S7010, 1
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 3
-anim = 7013
+anim = 7010
 ID = 200
-pos = 18, 0
+pos = 20, 3
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -300,28 +298,6 @@ vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
-scale = 1,1
-sprpriority = 2
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
-
-[State 200, Explod]
-type = Explod
-trigger1 = AnimElem = 3
-anim = 7015
-ID = 201
-pos = 10, -5
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = -1
-bindtime = -1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = 8
 scale = 1,1
 sprpriority = 2
 ontop = 0
@@ -340,7 +316,7 @@ animtype  = Light
 hitflag = MAF
 guardflag = M
 pausetime = 8, 8
-sparkno = S7005
+sparkno = S7000
 sparkxy = -5,0
 hitsound   = S7040,0
 guardsound = 6,0
@@ -385,60 +361,16 @@ facep2 = 1
 
 [State 410, 1]
 type = PlaySnd
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 value = S7000, 0
 
-[State 200, Explod]
+
+[State 210, Explod]
 type = Explod
 trigger1 = AnimElem = 3
-anim = 7013
-ID = 200
-pos = 25, -22
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = -1
-bindtime = -1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 2
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
-
-[State 200, Explod]
-type = Explod
-trigger1 = AnimElem = 2
-anim = 7015
-ID = 201
-pos = -8, -5
-postype = p1  ;p2,front,back,left,right
-facing = -1
-vfacing = -1
-bindtime = -1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = 6
-scale = 1,1
-sprpriority = 2
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
-
-
-[State 200, Explod]
-type = Explod
-trigger1 = AnimElem = 3
-anim = 7015
-ID = 201
-pos = 20, -18
+anim = 7011
+ID = 210
+pos = 0, -28
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -446,7 +378,7 @@ bindtime = -1
 vel = 0,0
 accel = 0,0
 random = 0,0
-removetime = 12
+removetime = -2
 scale = 1,1
 sprpriority = 2
 ontop = 0
@@ -464,8 +396,8 @@ animtype  = Medium
 hitflag = MAF
 guardflag = L
 pausetime = 10,10
-sparkno = S7006
-sparkxy = -9, -25
+sparkno = S7001
+sparkxy = -9, -5
 hitsound   = S7020,2
 guardsound = 6,0
 ground.type = Low
@@ -511,7 +443,7 @@ facep2 = 1
 
 [State 420, 1]
 type = PlaySnd
-trigger1 = AnimElem = 4
+trigger1 = AnimElem = 2
 value = S7000,1
 
 [State 420, 2]
@@ -559,6 +491,29 @@ type = VelSet
 trigger1 = AnimElem = 3
 x = 0
 
+
+[State 210, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7008
+ID = 210
+pos = 40, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
 [State 220, 3]
 type = ChangeState
 trigger1 = AnimTime = 0
@@ -603,7 +558,7 @@ Y = 0.3
 
 [State 200, Explod]
 type = Explod
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 trigger1 = Anim = 600
 anim = 7013
 ID = 201
@@ -639,8 +594,8 @@ damage    = 20
 guardflag = HA
 priority = 3
 pausetime = 7,8
-sparkno = S7000
-sparkxy = 0, -16
+sparkno = S7004
+sparkxy = -5, -36
 hitsound   =  S7020,0
 guardsound = 6,0
 ground.type = High
@@ -739,8 +694,8 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 6
 ground.hittime  = 10
-ground.velocity = -0.5, -5
-air.velocity = -0.5,-5
+ground.velocity = -0.5, -3
+air.velocity = -0.5,-3
 air.hittime = 14
 givepower = 36, 36
 palfx.add = 200, 200, 200
@@ -816,7 +771,7 @@ trigger1 = Anim = 620
 trigger1 = AnimElem = 2
 anim = 7015
 ID = 210
-pos = -10, 10
+pos = 0, 0
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1

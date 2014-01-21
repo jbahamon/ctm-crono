@@ -652,16 +652,16 @@ triggerall =  command = "dfab" || command = "dfbc" || command = "dbab" || comman
 trigger1 = statetype != A
 trigger1 = ctrl
 ;---------------------------------------------------------------------------
-[State -1, Dark Mist]
+[State -1, Cyclone]
 type = ChangeState
 value = 1010
-triggerall = command = "dfa" || command = "dfb" || command = "dfc"
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = statetype != A 
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
 trigger3 = (stateno = [400, 499]) && movecontact
 ;---------------------------------------------------------------------------
-[State -1, Elemental Magic]
+[State -1, Lightning]
 type = ChangeState
 value = 1000
 triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
@@ -705,7 +705,6 @@ triggerall = command = "a"
 triggerall = command != "holddown"
 trigger1 = statetype = S
 trigger1 = ctrl
-trigger2 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 ;---------------------------------------------------------------------------
 [State -1, Stand Mid]
 type = ChangeState
@@ -716,7 +715,6 @@ trigger1 = statetype = S
 trigger1 = ctrl
 trigger2 = (stateno = 200) 
 trigger2 = movecontact
-trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 
 ;---------------------------------------------------------------------------
 [State -1, Stand Strong]
@@ -729,7 +727,6 @@ trigger1 = statetype = S
 trigger1 = ctrl
 trigger2 = (stateno = 200) || (stateno = 210)
 trigger2 = movecontact
-trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 
 ;---------------------------------------------------------------------------
 ;Taunt
@@ -752,7 +749,6 @@ trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = (stateno = 200)
 trigger2 = movecontact
-trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 
 ;---------------------------------------------------------------------------
 ;Crouching Mid
@@ -765,7 +761,6 @@ trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = (stateno = 200) || (stateno = 210) || (stateno = 400) 
 trigger2 = movecontact
-trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 
 ;---------------------------------------------------------------------------
 ;Crouching Strong
@@ -778,7 +773,6 @@ trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = (stateno = 400) || (stateno = 410) || (stateno = 200) || (stateno = 210)
 trigger2 = movecontact
-trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 
 ;---------------------------------------------------------------------------
 ;Jump Light
