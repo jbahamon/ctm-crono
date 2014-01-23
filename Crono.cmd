@@ -619,23 +619,23 @@ trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
-[State -1, Hell's Geyser]
+[State -1, Luminaire]
 type = ChangeState
 value = 2000
-triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2000)
+triggerall = !NumHelper(2003)
 trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
-[State -1, Dark Matter]
+[State -1, Confuse]
 type = ChangeState
 value = 2010
-triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
+triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
-triggerall = !NumHelper(2010)
 trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
@@ -645,10 +645,11 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
-[State -1, Shadow Walk]
+[State -1, Volt Hit]
 type = ChangeState
 value = 1020
-triggerall =  command = "dfab" || command = "dfbc" || command = "dbab" || command = "dbbc"
+triggerall =  command = "dba" || command = "dbb" || command = "dbc"
+triggerall = !NumHelper(1020) && Var(22) <= 0
 trigger1 = statetype != A
 trigger1 = ctrl
 ;---------------------------------------------------------------------------
@@ -669,13 +670,13 @@ triggerall = roundstate = 2 && statetype != A && !numhelper(1000)
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && MoveContact
 ;--------------------------------------------------------------------------
-[State -1, Black Hole]
+[State -1, Spincut]
 type = ChangeState
 value = 1030
-triggerall = Command = "dba" || Command = "dbb" || Command = "dbc" 
-trigger1 = statetype != A
+triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
+trigger1 = statetype = A
 trigger1 = ctrl
-
+trigger2 = (StateNo = [600, 629]) && MoveContact
 ;===========================================================================
 ; Throws, Rolls, Etc
 ;===========================================================================

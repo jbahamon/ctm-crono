@@ -11,7 +11,7 @@ juggle  = 3
 ctrl = 0
 anim = 1000
 sprpriority = 1
-poweradd = IfElse(Var(21) > 0, 0, 72)
+poweradd = IfElse(Var(21) > 0 || Var(22) > 0, 0, 72)
 facep2 = 1
 
 
@@ -53,7 +53,7 @@ trigger1 = AnimElem = 3
 name = "Lightning"
 ID = 1000
 stateno = 1001
-pos = 50 + 50 * Var(0), 0
+pos = 50 + (50 + IfElse(Var(22) > 0, 30, 0)) * Var(0) , 0
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
@@ -71,15 +71,17 @@ ctrl = 1
 type = A
 physics = N
 movetype = A
-anim = 7100
+anim = 7100 + IfElse(Root, Var(22) > 0, 3, 0)
 ctrl = 0
 velset = 0,0
 sprpriority = 3
 
-[State 1002, Strength]
-type = VarSet
-trigger1 = !time
-var(0) = (root, var(0))
+[State 1001, ParentVar]
+type = ParentVarSet
+trigger1 = !Time
+trigger1 = Anim = 7103
+var(22) = 0
+ignorehitpause = 1
 
 [State 1001, NoShadow]
 type = AssertSpecial
@@ -90,6 +92,9 @@ ignorehitpause = 1
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 5
+trigger1 = Anim = 7100
+trigger2 = AnimElem = 4
+trigger2 = Anim = 7103
 anim = 7101
 ID = 200
 postype = p1  ;p2,front,back,left,right
@@ -100,7 +105,7 @@ vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
-scale = 1.2, 0.7
+scale = 1.2 + IfElse(Anim = 7103, 0.3, 0), 0.7 + IfElse(Anim = 7103, 0.3, 0)
 sprpriority = 0
 ontop = 0
 shadow = 0,0,0
@@ -115,7 +120,7 @@ triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
 attr = A,SP
-damage = Floor(Parent, FVar(39)*40), 4
+damage = Floor(Parent, FVar(39)*40) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*80), 0)
 animtype = Hard
 hitflag = MAF
 guardflag = MA
@@ -136,7 +141,7 @@ guard.dist = 100
 envshake.time = 8
 envshake.freq = 120
 envshake.ampl = 2
-getpower = IfElse(Parent, Var(21) > 0, 0, 20)
+getpower = IfElse(Parent, Var(21) > 0 || Parent, Var(22) > 0, 0, 20)
 
 [State 1001, Dampen]
 Type = ParentVarset
@@ -290,7 +295,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 2 || !AnimTime
 attr = S, SA
-damage = IfElse(var(0) = 2, 35, IfElse(var(0) = 1, 31, 25)), 7
+damage = IfElse(var(0) = 2, 45, IfElse(var(0) = 1, 41, 35)), 9
 animtype = Hard
 guardflag = HA
 hitflag = MAF
@@ -325,7 +330,7 @@ palfx.time = 10
 
 [State 1040, End]
 type = ChangeState
-trigger1 = Time > 60 && !AnimTime
+trigger1 = Time > 30 && !AnimTime
 value = 0
 ctrl = 1
 
@@ -340,7 +345,7 @@ juggle  = 3
 ctrl = 0
 anim = 1020
 sprpriority = 1
-poweradd = IfElse(Var(21) > 0, 0, -72)
+poweradd = -100
 facep2 = 1
 
 [State 200, Explod]
@@ -385,6 +390,7 @@ persistent = 0
 [State 1000, Pawnch]
 type = Helper
 trigger1 = Var(22) > 0
+trigger1 = !NumHelper(1020)
 name = "Volt Spark"
 ID = 1020
 stateno = 1022
@@ -397,7 +403,7 @@ persistent = 0
 
 [State 1040, End]
 type = ChangeState
-trigger1 = NumHelper(1020)
+trigger1 = NumHelper(1020) && !NumHelper(1021)
 value = 0
 ctrl = 1
 
@@ -410,11 +416,6 @@ anim = 7100
 ctrl = 0
 velset = 0,0
 sprpriority = 3
-
-[State 1002, Strength]
-type = VarSet
-trigger1 = !time
-var(0) = (root, var(0))
 
 [State 1001, NoShadow]
 type = AssertSpecial
@@ -491,7 +492,7 @@ ignorehitpause = 1
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = AnimElem = 6
-var(22) = 600
+var(22) = 360
 persistent = 0
 ignorehitpause = 1
 
@@ -537,18 +538,58 @@ trigger1 = Root, Var(22) <= 0
 ignorehitpause = 1
 
 ;---------------------------------------------------------------------------
-; Black Hole
+; Spincut
 [Statedef 1030]
-type    = S
+type    = A
 movetype= A
-physics = S
+physics = N
 juggle  = 3
 ctrl = 0
 anim = 1030
-sprpriority = 2
-facep2 = 1
 velset = 0,0
-poweradd = -500
+poweradd=IfElse(Var(21) > 0, 0, 115)
+sprpriority=1
+facep2= 1
+
+[State 1030, Fall]
+type = ChangeAnim
+trigger1 = Time > 0
+trigger1 = Anim = 1030
+trigger1 = AnimElemNo(0) = 1
+trigger1 = Command = "a" || Command = "b" || Command = "c"
+value = 1030
+elem = 2
+persistent = 0
+
+[State -3: AfterImageTime]
+type = AfterImageTime
+trigger1 = AnimElemNo(0) = 1
+trigger1 = Anim = 1030
+time = 3
+ignorehitpause = 1
+
+[State 1020, Afterimage]
+type = AfterImage
+trigger1 = !Time
+length = 8
+palbright = 0, 0, 0
+palcolor = 256
+paladd = 1,1,1
+palcontrast = 256, 256, 256
+palmul = 1, 1, 1
+timegap  = 2
+framegap = 2
+trans = none
+;alpha = 256, 0
+time = 2; only 2 ticks!!!
+ignorehitpause = 1
+
+[State -3: AfterImageTime]
+type = AfterImageTime
+trigger1 = AnimElemNo(0) != 1
+trigger2 = Anim != 1030
+time = 0
+ignorehitpause = 1
 
 [State 1030, Jump]
 type = PlaySnd
@@ -560,324 +601,86 @@ type = VarSet
 trigger1 = !Time
 var(0) = 0
 
-[State 1030, Wave]
-type = Helper
-trigger1 = AnimElem = 5
-name = "Black Hole"
+[State 1030, Jump]
+type = VelSet
+trigger1 = !Time
+X = 0.9
+Y = -4.1
+
+[State 1030, Jump]
+type = VelAdd
+trigger1 = Anim = 1030
+trigger1 = AnimElemNo(0) = 1
+Y = 0.2
+
+[State 1030, Jump]
+type = VelSet
+trigger1 = Anim = 1030
+trigger1 = AnimElem = 2
+Y = 0.2
+
+[State 220, Explod]
+type = Explod
+trigger1 = Anim = 1030
+trigger1 = AnimElem = 2
+anim = 7130
 ID = 1030
-stateno = 1031
-pos = 0, 0
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
+pos = 20, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
 ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
 persistent = 0
+
 
 [State 1030, Hit]
 type = HitDef
-trigger1 = AnimElem = 5
-attr = A, ST 
-hitflag = M-
-priority = 2, Miss
+trigger1 = !Time
+damage = 120, 10
+pausetime = 12, 12
+attr = A, SA 
+hitflag = M
 sparkno = -1
 hitsound = s7010, 0
-p1stateno = 1034
-p2stateno = 1036
 guard.dist = 0
-ground.velocity = 0,0
+ground.velocity = -6,-0.5
+ground.velocity = -6,-0.5
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
 persistent = 0
-ID = 1030
-nochainID = 1030
+palfx.add=200,200,200
+palfx.mul=256,256,256
+palfx.time=18
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 4
+getpower=IfElse(Var(21) > 0, 0, 50)
 
-[State 1030, End]
+[State 1030, Fall]
+type = ChangeAnim
+trigger1 = Anim = 1030
+trigger1 = !AnimTime
+value = 42
+elem = 2
+
+[State 1030, Fall]
+type = VelAdd
+trigger1 = Anim = 42
+Y = 0.3
+
+
+[State 1030, Landing]
 type = ChangeState
-trigger1 = AnimElemNo(0) >= 5 && !NumHelper(1030) && !NumHelper(1031)
-value = 0
-ctrl = 1
-
-; The Black Hole
-[Statedef 1031]
-type    = S
-movetype= I
-physics = S
-juggle  = 3
-ctrl = 0
-anim = 7050
-sprpriority = -1
-
-[State 1030, Wave]
-type = Helper
-trigger1 = Time = 35
-name = "Black Hole"
-ID = 1031
-stateno = 1032
-pos = 0, 0
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 1
-persistent = 0
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = Time = [0, 35]
-scale = 0.7 * Time /35.0 , 0.35 * Time /35.0 
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = Time > 35
-scale = 0.7 , 0.35
-
-[State 7010, Appear]
-type = trans
-trigger1 = 1
-trans = addalpha
-alpha = 128, 128
-ignorehitpause = 1
-
-[State 7010, NoShadow]
-type = AssertSpecial
-trigger1 = 1
-flag = NoShadow
-ignorehitpause = 1
-
-[State 1031, HB]
-type = NotHitBy
-trigger1 = 1
-time = -1
-value = , NT, ST, HT
-ignorehitpause = 1
-
-[State 1031, End]
-type = DestroySelf
-trigger1 = Time > 80 || !(Parent, StateNo = 1030 || Parent, StateNo = 1034)
-
-; Black Hole second layer
-[Statedef 1032]
-type    = S
-movetype= I
-physics = N
-ctrl = 0
-anim = 7050
-sprpriority = 0
-
-[State 1031, Scale]
-type = VarSet
-trigger1 = Time <= 35
-V = 0
-value = Time
-ignorehitpause = 1
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = Time = [0, 35]
-scale = 0.7 * Time /35.0 , 0.35 * Time /35.0 
-
-[State 1031, Scale]
-type = ChangeState
-trigger1 = Time > 70
-trigger2 = Root, StateNo != 1030 
-trigger2 = Root, StateNo != 1034
-trigger2 = Var(0) > 0 
-value = 1033
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = Time > 35
-scale = 0.7 , 0.35
-
-[State 1031, Pal]
-type = PalFX
-trigger1 = 1
-invertall = 1
-time = 1
-
-[State 7010, NoShadow]
-type = AssertSpecial
-trigger1 = 1
-flag = NoShadow
-ignorehitpause = 1
-
-; Black Hole End
-[Statedef 1033]
-type    = S
-movetype= I
-physics = N
-ctrl = 0
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = !Time
-scale = 0.7, 0.35
-
-[State 1031, Scale]
-type = AngleDraw
-trigger1 = Time
-scale = 0.7 * Var(0)/35.0 , 0.35 * Var(0)/35.0
-
-[State 1031, Scale]
-type = VarAdd
-trigger1 = 1
-V = 0
-value = -1
-
-[State 1031, Pal]
-type = PalFX
-trigger1 = 1
-invertall = 1
-time = 1
-
-[State 7010, NoShadow]
-type = AssertSpecial
-trigger1 = 1
-flag = NoShadow
-ignorehitpause = 1
-
-[State 1031, End]
-type = DestroySelf
-trigger1 = !Var(0)
-ignorehitpause = 1
-
-;Black Hole - Success
-[Statedef 1034]
-type    = S
-movetype= A
-physics = N
-ctrl = 0
-anim = 1031
-sprpriority = 2
-poweradd = 0
-velset = 0,0
-
-[State 1034, FollowPlayer]
-type = VarSet
-trigger1 = !Time
-FV = 0
-value = Facing * (Target, ScreenPos X - ScreenPos X)
-ignorehitpause = 1
-
-[State 1034, Life]
-type = TargetLifeAdd
-trigger1 = !NumHelper(1030) && !NumHelper(1031)
-value = Floor(-110*FVar(39))
-ignorehitpause = 1
-
-[State 1034, Super Pause]
-type = VarSet
-trigger1 = NumHelper(1031)
-trigger1 = Helper(1031), StateNo = 1033
-FV = 0
-value = FVar(0) * 0.95
-ignorehitpause = 1
-
-[State 1034, Super Pause]
-type = TargetState
-trigger1 = NumHelper(1031)
-trigger1 = Helper(1031), StateNo = 1033
-value = 1037
-ignorehitpause = 1
-persistent = 0
-
-[State 1034, Super Pause]
-type = TargetBind
-trigger1 = NumTarget
-pos  = FVar(0), 0
-ignorehitpause = 1
-
-[State 1034, End]
-type = ChangeState
-trigger1 = !NumHelper(1030) && !NumHelper(1031)
-value = 1035
-ctrl = 0
-ignorehitpause = 1
-
-;Black Hole End
-[Statedef 1035]
-type    = S
-movetype= A
-physics = N
-ctrl = 0
-sprpriority = 2
-poweradd = 0
-velset = 0,0
-
-[State 1035, Super Pause]
-type = TargetBind
-trigger1 = 1
-pos  = 50, -40
-ignorehitpause = 1
-
-[State 1035, End]
-type = ChangeState
-trigger1 = Time > 64
-value = 0
-ctrl = 1
-ignorehitpause = 1
-
-; Black Hole - Hit
-[Statedef 1036]
-type = A
-movetype = H
-physics = N
-sprpriority = 1
-
-[State 2023, Anim]
-type = ScreenBound
-trigger1 = 1
-value = 0
-ignorehitpause = 1
-
-[State 802, Exit]
-type = SelfState
-trigger1 = !gethitvar(isbound)
-value = 5050
-
-[State 2023, Anim]
-type = ChangeAnim2
-trigger1 = !Time
-value = 2023
-ignorehitpause = 1
-
-; Black Hole - Dragged
-[Statedef 1037]
-type = A
-movetype = H
-physics = N
-sprpriority = 1
-
-[State 2023, Anim]
-type = ScreenBound
-trigger1 = 1
-value = 0
-ignorehitpause = 1
-
-[State 802, Exit]
-type = SelfState
-trigger1 = !gethitvar(isbound)
-value = 5050
-
-[State 2023, Anim]
-type = ChangeAnim2
-trigger1 = !Time
-value = 2023
-ignorehitpause = 1
-
-[State 802, Exit]
-type = Trans 
-trigger1 = Time = [0, 16]
-trans = addalpha
-alpha = 256 - 16 * Time, 16* Time
-
-[State 802, Exit]
-type = Trans 
-trigger1 = Time > 16
-trans = addalpha
-alpha = 0, 256
-
-[State 802, Exit]
-type = AngleDraw
-trigger1 = Time = [0, 16]
-scale = 1 - Time/16.0, 1 - Time/16.0
+trigger1 = Vel Y > 0
+trigger1 = pos y > -vel y
+value = 621

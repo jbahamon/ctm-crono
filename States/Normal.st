@@ -491,11 +491,10 @@ type = VelSet
 trigger1 = AnimElem = 3
 x = 0
 
-
 [State 210, Explod]
 type = Explod
 trigger1 = AnimElem = 2
-anim = 7008
+anim = 7009
 ID = 210
 pos = 40, 0
 postype = p1  ;p2,front,back,left,right
@@ -635,7 +634,6 @@ anim = 610
 sprpriority = 1
 facep2 = 1
 
-
 [State 610, Boom]
 type = VelAdd
 trigger1 = Anim = 610
@@ -685,6 +683,7 @@ trigger1 = Time = 0
 attr = A, NA
 damage = 45
 guardflag = HA
+animtype = Medium
 priority = 3
 pausetime = 8,8
 sparkno = S7007
@@ -694,13 +693,14 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 6
 ground.hittime  = 10
-ground.velocity = -0.5, -3
-air.velocity = -0.5,-3
+ground.velocity = -0.5, 0
+air.velocity = -0.5,3
 air.hittime = 14
 givepower = 36, 36
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+air.fall = 1
 
 [State 200, Dampen]
 Type=Varset
@@ -763,7 +763,6 @@ ctrl = 0
 anim = 620
 sprpriority = 1
 facep2 = 1
-
 
 [State 210, Explod]
 type = Explod
@@ -829,7 +828,7 @@ animtype = Med
 ground.type = High
 ground.slidetime = 12
 ground.hittime  = 14
-ground.velocity = -2, 7
+ground.velocity = -2, 0	
 air.velocity = -2, 7
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 36, 36
@@ -852,7 +851,6 @@ trigger1 = Anim = 620
 trigger1 = !AnimTime
 trigger1 = Vel X > 0
 value = 42
-elem = 3
 
 [State 610, Fall]
 type = ChangeAnim

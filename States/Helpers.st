@@ -113,9 +113,9 @@ Trigger1=1
 value=0
 
 [State 6965, Var]
-Type = ParentVarAdd
+Type = ParentVarSet
 Trigger1 = GetHitVar(damage) > 0
-var(22) = -200
+var(22) = 1
 ignorehitpause=1
 
 [State 6965, DestroySelf]

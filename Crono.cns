@@ -44,12 +44,12 @@ walk.fwd  = 1.7      ;Walk forward
 walk.back = -1.7     ;Walk backward
 run.fwd  = 3.6, 0    ;Run forward (x, y)
 run.back = -3.6,-4.2 ;Hop backward (x, y)
-jump.neu = 0,-7    ;Neutral jumping velocity (x, y)
+jump.neu = 0,-6    ;Neutral jumping velocity (x, y)
 jump.back = -1.5    ;Jump back Speed (x, y)
 jump.fwd = 1.5       ;Jump forward Speed (x, y)
-runjump.back = -1.8,-7 ;Running jump speeds (opt)
-runjump.fwd = 1.8,-7      ;.
-airjump.neu = 0,-7      ;.
+runjump.back = -1.8,-6 ;Running jump speeds (opt)
+runjump.fwd = 1.8,-6      ;.
+airjump.neu = 0,-6      ;.
 airjump.back = -1.7      ;Air jump speeds (opt)
 airjump.fwd = 1.5         ;.
 air.gethit.groundrecover = -.15,-3.5  ;Velocity for ground recovery state (x, y) **MUGEN 1.0**
@@ -156,7 +156,7 @@ ignorehitpause=1
 type = PalFX
 trigger1 = NumHelper(11777) > 0
 time = 1
-add = 128 + Floor(128 * Sin(GameTime/10.0)) ,96 + Floor(96* Sin(GameTime/10.0)),0
+add = 100 + Floor(100* Sin(GameTime/10.0)) ,100 + Floor(100* Sin(GameTime/10.0)), 40 + Floor(40* Sin(GameTime/10.0))
 mul = 256,256,256
 invertall = 0
 color = 256
@@ -206,14 +206,7 @@ ignorehitpause = 1
 
 [State -3, EndProtect]
 type = VarAdd
-trigger1 = Var(22) > 0 
-v = 22
-value = 0
-ignorehitpause = 1
-
-[State -3, EndProtect]
-type = VarAdd
-trigger1 = Var(22)
+trigger1 = Var(22) > 0
 v = 22
 value = -1
 ignorehitpause = 1
