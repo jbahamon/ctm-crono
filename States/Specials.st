@@ -295,7 +295,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 2 || !AnimTime
 attr = S, SA
-damage = IfElse(var(0) = 2, 45, IfElse(var(0) = 1, 41, 35)), 9
+damage = IfElse(var(0) = 2, 55, IfElse(var(0) = 1, 51, 45)), 9
 animtype = Hard
 guardflag = HA
 hitflag = MAF
@@ -648,7 +648,8 @@ trigger1 = !Time
 damage = 120, 10
 pausetime = 12, 12
 attr = A, SA 
-hitflag = M
+guardflag = MA
+hitflag = MAF
 sparkno = -1
 hitsound = s7010, 0
 guard.dist = 0

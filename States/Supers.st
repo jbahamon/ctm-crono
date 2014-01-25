@@ -16,6 +16,37 @@ juggle = 14
 
 
 [State 2000, up!]
+type = VarSet
+trigger1 = !Time
+var(1) = 0
+persistent=0
+
+[State 2000, up!]
+type = VarSet
+trigger1 = !Time
+var(2) = 0
+persistent=0
+
+[State 2000, up!]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = PrevStateNo = 2020
+trigger1 = var(2) := 60
+ignorehitpause = 1
+value = 2000
+elem = 4
+
+[State 2000, up!]
+type = VarAdd
+trigger1 = 1
+var(2) = 1
+
+[State 2000, up!]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 2000, up!]
 type = StateTypeSet
 trigger1 = AnimElemNo(0) > 3
 statetype = A
@@ -30,8 +61,8 @@ persistent=0
 
 [State 3110, Stop]
 type = VelSet
-trigger1 = time > 80
-y = -0.3*sin((pi/60)*(35-time))
+trigger1 = Var(2) > 60
+y = -0.3*Cos((pi/60)*(Var(2) - 60))
 
 [State 2000, NHB]
 type = NotHitBy
@@ -106,17 +137,52 @@ movetype= A
 physics = N
 poweradd= 0
 ctrl = 0
-anim = 7200
 sprpriority = 3
 velset = 0,0
 
 
+[State 2020, Var]
+type = ParentVarSet
+trigger1 = MoveHit
+var(1) = 1
+ignorehitpause = 1
+
+[State 2001, Anim]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = PrevStateNo != 2002
+value = 7200
+ignorehitpause = 1
+
+[State 2001, Anim]
+type = VarSet
+trigger1 = !Time
+trigger1 = PrevStateNo != 2002
+var(0) = 0
+ignorehitpause = 1
+
+[State 2001, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1021, HitOverride]
+type = HitOverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP
+stateno = 2002
+ignorehitpause = 1
+
 [State 3101, hitdef]
 type = HitDef
 trigger1 = !Time
+trigger1 = AnimElemNo(0) < 30
 attr = A,HP
 numhits=1
-damage=floor(139* parent, fvar(39)),0
+damage=floor(159* parent, fvar(39)),0
 animtype=Hard
 hitflag = MAF
 hitsound = S7010,3
@@ -138,17 +204,26 @@ palfx.color=0
 palfx.add = 120, 120, 30
 palfx.time=60
 getpower=0
+ID = 2000
+nochainID = 2000
 
-[State 2003, BGPal]
-type = BGPalFX
-trigger1 = AnimElemTime(1) = [30, 62]
-time = 1
-add = (AnimElemTime(1) - 30) * 8, (AnimElemTime(1) - 30) * 8, (AnimElemTime(1) - 30) * 8
+[State 1001, Dampen]
+Type = ParentVarset
+Trigger1 = MoveHit
+fvar(39) = parent, Fvar(39)*0.76
+persistent = 0
 ignorehitpause = 1
 
 [State 2003, BGPal]
 type = BGPalFX
-trigger1 = AnimElemTime(1) > 62
+trigger1 = AnimElemTime(1) = [30, 46]
+time = 1
+add = (AnimElemTime(1) - 30) * 16, (AnimElemTime(1) - 30) * 16, (AnimElemTime(1) - 30) * 16
+ignorehitpause = 1
+
+[State 2003, BGPal]
+type = BGPalFX
+trigger1 = AnimElemTime(1) > 46
 trigger1 = AnimTime <= -32
 time = 1
 add = 256, 256, 256
@@ -180,6 +255,59 @@ type = DestroySelf
 trigger1 = !AnimTime
 ignorehitpause = 1
 
+;Luminaire GetHit
+[Statedef 2002]
+type    = A
+movetype= H
+physics = N
+poweradd= 0
+ctrl = 0
+sprpriority = 3
+
+[State 2003, RealTime]
+trigger1 = 1
+type = AssertSpecial
+flag = noshadow
+ignorehitpause = 1
+
+[State 2003, RealTime]
+trigger1 = 1
+type = Trans
+trans = addalpha
+alpha = 256, 256
+ignorehitpause = 1
+
+
+[State 12007]
+Type=VarAdd
+Trigger1=1
+var(0)=1
+
+[State 1021, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1021, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1021, Var]
+type = ChangeState
+trigger1 = var(0) >= 12
+value = 2001
+
+
+[State 2003, End]
+type = DestroySelf
+trigger1 = !AnimTime
+ignorehitpause = 1
+
 ;Luminaire Ray
 [Statedef 2003]
 type    = A
@@ -199,29 +327,41 @@ ignorehitpause = 1
 [State 2003, Rotating Speed]
 type = VarSet
 trigger1 = !Time
-fvar(1) = ((Random/1000.0 * 0.4) + 0.1)* IfElse(Random % 2, -1, 1)
+fvar(1) = ((Random/1000.0 * 0.2) + 0.4)* IfElse(GameTime % 2 > 0, -1, 1)
 ignorehitpause = 1
 
-[State 2003, Rotating Speed]
+[State 2003, Extending Speed]
 type = VarSet
 trigger1 = !Time
 fvar(2) = Random/1000.0 * 0.2
 ignorehitpause = 1
 
+[State 2003, Initial Size]
+type = VarSet
+trigger1 = !Time
+fvar(3) = 0.2*(Random/1000.0) + 0.6
+ignorehitpause = 1
+
+
 [State 2003, Rotating Speed]
 type = VarSet
 trigger1 = Time
-trigger2 = GameTime % 3 = 0
 fvar(0) = Floor((fvar(0) + 3*fvar(1))) % 360
 ignorehitpause = 1
 
+[State 2003, Angle in Radians]
+type = VarSet
+trigger1 = Time
+fvar(4) = FVar(0) * 0.01745329251 + Pi/2.0
+ignorehitpause = 1
+
+;An ellipse in polar form :)
 [State 2003, RealTime]
 trigger1 = 1
 type = AngleDraw
-scale = 0.7 + fvar(2) * Sin(GameTime / 10 + fvar(0)), 0.1
+scale = 2.1 / (exp(0.5*ln(6*Sin(FVar(4))*Sin(FVar(4)) + 16*Cos(fvar(4))*Cos(FVar(4))))), 0.1
 value = fvar(0)
 ignorehitpause = 1
-
 
 [State 2003, RealTime]
 trigger1 = Time = [0, 16]
@@ -409,6 +549,13 @@ movetype = A
 poweradd = 0
 velset = 0,0
 
+[State 2023, Shake]
+type = BGPalFx
+trigger1 = Time = [0, 16]
+add = 256 -16 * Time, 256 -16 * Time, 256-16 * Time
+mul = 256, 256, 256
+time = 1
+ignorehitpause = 1
 
 [State 2012, Pos]
 type = Turn
@@ -576,7 +723,7 @@ ignorehitpause = 1
 
 [State 2022, End]
 type = VarSet
-trigger1 = Time > 200
+trigger1 = Time > 120
 trigger1 = Abs(Cos(fvar(2)) - 1) < 0.3
 trigger1 = Abs(Sin(fvar(2))) < 0.3
 var(2) = 1
@@ -648,7 +795,7 @@ time = 4
 [State 2023, Shake]
 type = LifeAdd
 trigger1 = (Time % 20 = 0 )
-value = -12
+value = -16
 kill = 0
 
 [State 2023, End]
@@ -663,6 +810,13 @@ movetype = H
 physics = N
 sprpriority = 1
 velset = -3, - 7
+
+[State 2023, Shake]
+type = LifeAdd
+trigger1 = !Time
+value = -10
+kill = 0
+
 
 [State 2023, Shake]
 type = PalFx
@@ -742,3 +896,398 @@ value = 0
 [State 2021, End]
 type = DestroySelf
 trigger1 = Parent, Stateno != 2012
+
+;---------------------------------------------------------------------------
+; Lightning 2/Thundastorm
+[Statedef 2020]
+type    = S
+movetype= A
+physics = S
+ctrl = 0
+anim = 2020
+poweradd = -1000
+sprpriority = 2
+juggle = 14
+
+[State 2000, up!]
+type = VarSet
+trigger1 = !Time
+var(1) = 0
+persistent=0
+
+[State 2000, up!]
+type = VarSet
+trigger1 = !Time
+var(2) = 0
+persistent=0
+
+[State 2000, up!]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = PrevStateNo = 2000
+trigger1 = var(2) := 60
+ignorehitpause = 1
+value = 2000
+elem = 4
+
+[State 2000, up!]
+type = VarAdd
+trigger1 = 1
+var(2) = 1
+
+[State 2000, up!]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 2000, up!]
+type = StateTypeSet
+trigger1 = AnimElemNo(0) > 3
+statetype = A
+physics = N
+persistent = 0
+
+[State 2000, up!]
+type = Velset
+trigger1 = AnimElemNo(0) > 3
+y = -0.3
+persistent=0
+
+[State 3110, Stop]
+type = VelSet
+trigger1 = Var(2) > 60
+y = -0.3*Cos((pi/60)*(Var(2) - 60))
+
+
+[State 2000, NHB]
+type = NotHitBy
+trigger1 = Time < 45
+time = 1
+value = SCA
+
+[State 2000, Super Pause FX]
+type = helper
+trigger1 = time = 5
+helpertype = normal
+stateno = 7000
+ID = 7000
+name = "Super Charge"
+postype = p1
+pos = 0,0
+ownpal = 1
+persistent = 0
+supermovetime = 9999
+
+[State 1022, Sparks]
+type = Helper
+trigger1 = Time = 3
+helpertype = Normal
+name = "Gathering Sparks"
+id = 2022
+pos = 0, -20
+postype = p1
+facing = 1
+stateno = 2022
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999
+pausemovetime = 0
+
+[State 2000, Super Pause]
+type = superpause
+trigger1 = time = 1
+time = 50
+movetime = 50
+anim = -1
+sound = S7010,2
+p2defmul = 1
+darken = 0
+
+[State 2020, Var]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 2020, Var]
+type = VarSet
+trigger1 = !Time
+var(1) = 0
+
+[State 2000, Geyser]
+type = Helper
+trigger1 = Time > 50 && !NumHelper(7000)
+trigger1 = GameTime % 8 = 0
+trigger1 = Var(0) < 4
+trigger1 = (Var(0) := (Var(0) + 1))
+name = "Thunder"
+ID = 2020
+stateno = 2021
+postype = p1 ;p2,front,back,left,right
+pos = IfElse(Var(0) = 1, 20, IfElse(Var(0) = 2, 80, IfElse(Var(0) = 3, 35, 58))), - Floor(Pos Y)
+facing = IfElse(Random % 2 > 0, 1, -1)
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999
+
+[State 2010, End]
+type = ChangeState
+trigger1 = Time > 5 && !NumHelper(7000) && Var(0) >= 4
+value = 50
+ctrl = 0
+
+;The Lightnings
+[Statedef 2021]
+type = A
+physics = N
+movetype = A
+anim = 7103
+velset = 0,0
+sprpriority = 3
+
+[State 1001, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = NoShadow
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 4
+anim = 7101
+ID = 200
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1.5, 1
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1001, hitdef]
+type = HitDef
+triggerall = !MoveContact
+triggerall = !MoveReversed
+trigger1 = Time > 0
+priority = 6, Hit
+attr = A,SP
+damage = Floor(Parent, FVar(39)*50), 4
+animtype = Hard
+hitflag = MAF
+guardflag = MA
+pausetime = 4, 30
+sparkno = -1
+ground.type = High
+ground.slidetime = 20
+ground.hittime = 20
+ground.velocity = -0.4,-3
+air.velocity  = -0.4, -3
+fall = 1
+air.fall = 1
+p2facing = 1
+palfx.invertall = 1
+palfx.color = 0
+palfx.add = 120, 120, 20
+palfx.time = 12
+guard.dist = 100
+envshake.time = 8
+envshake.freq = 120
+envshake.ampl = 2
+getpower = IfElse(Parent, Var(21) > 0, 0, 20)
+
+
+[State 2020, Var]
+type = ParentVarSet
+trigger1 = MoveHit
+var(1) = 1
+ignorehitpause = 1
+
+[State 1001, Dampen]
+Type = ParentVarset
+Trigger1 = MoveHit
+fvar(39) = parent, Fvar(39)*0.95
+persistent = 0
+ignorehitpause = 1
+
+[State 1001, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1000, burst]
+type = Trans
+trigger1 = AnimElemTime(6) > 0
+trans = addalpha
+alpha = 256 - 8 * AnimElemTime(6), 256
+ignorehitpause = 1
+
+[State 1001, burst]
+type = DestroySelf
+trigger1 = AnimElemTime(6) > 32
+trigger2 = MoveReversed
+ignorehitpause = 1
+
+
+;Gathering Sparks
+[Statedef 2022]
+type = A
+movetype = I
+physics = N
+anim = 7300
+
+[State 2022, VarRandom]
+type = VarRandom
+trigger1 = 1
+v = 0
+range = -60,60
+     
+[State 2022, VarRandom]
+type = VarRandom
+trigger1 = 1
+v = 1
+range = -60,60
+
+[State 2022, VarRandom]
+type = BindToParent
+trigger1 = 1
+pos = 0, -20
+
+[State 2022, Helper]
+type = Helper
+trigger1 = ((GameTime%6) = 0)
+helpertype = Normal
+name = "Spark"
+id = 2023
+pos = var(0),var(1)
+postype = p1
+facing = 1
+stateno = 2023
+keyctrl = 0
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 0
+ignorehitpause = 1
+
+[State 2022, End]
+type = DestroySelf
+trigger1 = Parent, NumHelper(2020)
+
+;Spark
+[Statedef 2023]
+type = A
+movetype = I
+physics = N
+anim = 7102
+sprpriority = 3
+
+[State 2023]
+type = PosAdd
+trigger1 = 1
+X = (ParentDist X)/5.0 
+Y = (ParentDist Y)/5.0
+
+[State 9002, End]
+type = DestroySelf
+trigger1 = (ParentDist X <= 5) && (ParentDist Y <= 5) && (Time > 10)
+
+
+;Frenzy Activation
+[Statedef 2200]
+type = S
+movetype = I
+physics = S
+anim = 2020
+ctrl = 0
+velset = 0,0
+sprpriority = 1
+facep2 = 1
+
+[State 1000, Pawnch]
+type = Helper
+trigger1 = Time = 10
+name = "Haste Clock"
+ID = 7200
+stateno = 7200
+pos = 0, -100
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 99999
+
+[State 200, Explod]
+type = Explod
+trigger1 = Time = 10
+anim = 7231
+ID = 200
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = Facing
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999999
+
+[State 2010, NHB]
+type = NotHitBy
+trigger1 = 1
+time = 1
+value = SCA
+
+[State 2110, Super Pause FX]
+type = helper
+trigger1 = time = 1
+helpertype = normal
+stateno = 7000
+ID = 7000
+name = "Super Charge"
+postype = p1
+pos = 0,0
+ownpal = 1
+persistent = 0
+supermovetime = 9999
+
+[State 2110, Super Pause]
+type = SuperPause
+trigger1 = Time = 1
+time = 80
+movetime = 80
+anim = -1
+pos = 0, -20
+sound = S7010,2
+p2defmul = 1
+darken = 0
+
+
+[State 2110, VarSet]
+type = VarSet
+trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2200)
+v = 21
+value = 1
+
+[State 2110, End]
+type = ChangeState
+trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2200) && Var(21) > 0
+value = 0
+ctrl = 1
+

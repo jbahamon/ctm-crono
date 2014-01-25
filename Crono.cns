@@ -201,7 +201,7 @@ ignorehitpause= 1
 [State -3, Dampener]
 Type = AttackMulSet
 Trigger1 = 1
-value = fvar(39)
+value = IfElse(Var(21) > 0, 0.43, fvar(39))
 ignorehitpause = 1
 
 [State -3, EndProtect]

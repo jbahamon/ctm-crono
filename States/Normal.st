@@ -696,6 +696,7 @@ ground.hittime  = 10
 ground.velocity = -0.5, 0
 air.velocity = -0.5,3
 air.hittime = 14
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 36, 36
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256

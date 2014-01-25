@@ -609,20 +609,22 @@ triggerall = Var(21) > 0
 trigger1 = statetype != A
 trigger1 = ctrl || ((stateno = [200, 299]) && time <= 10)
 ;---------------------------------------------------------------------------
-[State -1, Black Wind]
+[State -1, Lightning 2]
 type = ChangeState
 value = 2020
-triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
+triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
+triggerall = !NumHelper(2020)
 trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
+trigger4 = ( StateNo = 2000 ) && Time && Var(1)
 ;---------------------------------------------------------------------------
 [State -1, Luminaire]
 type = ChangeState
 value = 2000
-triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
+triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2000)
 triggerall = !NumHelper(2003)
@@ -630,11 +632,12 @@ trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
+trigger4 = ( StateNo = 2020 ) && Time && Var(1)
 ;---------------------------------------------------------------------------
 [State -1, Confuse]
 type = ChangeState
 value = 2010
-triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
 trigger1 = statetype != A
 trigger1 = ctrl
