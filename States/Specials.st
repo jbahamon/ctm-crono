@@ -68,7 +68,7 @@ ctrl = 1
 
 ;The Lightning
 [Statedef 1001]
-type = A
+type = S
 physics = N
 movetype = A
 anim = 7100 + IfElse(Root, Var(22) > 0, 3, 0)
@@ -119,11 +119,11 @@ triggerall = !MoveContact
 triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
-attr = A,SP
+attr = S,SP
 damage = Floor(Parent, FVar(39)*40) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*80), 0)
 animtype = Hard
 hitflag = MAF
-guardflag = MA
+guardflag = H
 pausetime = 4, 30
 sparkno = -1
 ground.type = High
@@ -297,7 +297,7 @@ trigger1 = AnimElem = 2 || !AnimTime
 attr = S, SA
 damage = IfElse(var(0) = 2, 55, IfElse(var(0) = 1, 51, 45)), 9
 animtype = Hard
-guardflag = HA
+guardflag = MA
 hitflag = MAF
 priority = 4, Hit
 pausetime = 7, 7
@@ -645,10 +645,10 @@ persistent = 0
 [State 1030, Hit]
 type = HitDef
 trigger1 = !Time
-damage = 120, 10
+damage = 73, 10
 pausetime = 12, 12
 attr = A, SA 
-guardflag = MA
+guardflag = HA
 hitflag = MAF
 sparkno = -1
 hitsound = s7010, 0

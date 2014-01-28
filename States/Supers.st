@@ -132,14 +132,13 @@ ctrl = 0
 
 ;Luminaire Aura
 [Statedef 2001]
-type    = A
+type    = S
 movetype= A
 physics = N
 poweradd= 0
 ctrl = 0
 sprpriority = 3
 velset = 0,0
-
 
 [State 2020, Var]
 type = ParentVarSet
@@ -180,9 +179,9 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 trigger1 = AnimElemNo(0) < 30
-attr = A,HP
+attr = S, HP
 numhits=1
-damage=floor(159* parent, fvar(39)),0
+damage=floor(153* parent, fvar(39)),0
 animtype=Hard
 hitflag = MAF
 hitsound = S7010,3
@@ -257,7 +256,7 @@ ignorehitpause = 1
 
 ;Luminaire GetHit
 [Statedef 2002]
-type    = A
+type    = S
 movetype= H
 physics = N
 poweradd= 0
@@ -310,7 +309,7 @@ ignorehitpause = 1
 
 ;Luminaire Ray
 [Statedef 2003]
-type    = A
+type    = S
 movetype= I
 physics = N
 poweradd= 0
@@ -685,14 +684,9 @@ value = 2013 + var(1)
 [State 2022, Move]
 type = TargetBind
 trigger1 = Target, StateNo = 2013
-trigger1 = !NumHelper(2010)
-ignorehitpause = 1
-
-[State 2022, Move]
-type = TargetBind
-trigger1 = Target, StateNo = 2013
 trigger1 = NumHelper(2010)
 pos = ((Helper(2010), Pos X) - Pos X) * Facing , FVar(3) - Pos Y
+time = 1
 ignorehitpause = 1
 
 [State 2022, Move]
@@ -703,14 +697,14 @@ value = IfElse(Sin(pi * time/20.0)*Facing > 0, 2, 0)
 [State 1020, Afterimage]
 type = AfterImage
 trigger1 = !Time
-length = 8
+length = 10
 palbright = 0, 0, 0
 palcolor = 256
 paladd = 1,1,1
 palcontrast = 256, 256, 256
 palmul = 1, 1, 1
-timegap  = 2
-framegap = 5
+timegap  = 1
+framegap = 1
 trans = none
 time = 2; only 2 ticks!!!
 ignorehitpause = 1
@@ -727,7 +721,6 @@ trigger1 = Time > 120
 trigger1 = Abs(Cos(fvar(2)) - 1) < 0.3
 trigger1 = Abs(Sin(fvar(2))) < 0.3
 var(2) = 1
-
 
 [State 2023, Shake]
 type = EnvShake
@@ -795,7 +788,7 @@ time = 4
 [State 2023, Shake]
 type = LifeAdd
 trigger1 = (Time % 20 = 0 )
-value = -16
+value = -13
 kill = 0
 
 [State 2023, End]
@@ -1023,7 +1016,7 @@ name = "Thunder"
 ID = 2020
 stateno = 2021
 postype = p1 ;p2,front,back,left,right
-pos = IfElse(Var(0) = 1, 20, IfElse(Var(0) = 2, 80, IfElse(Var(0) = 3, 35, 58))), - Floor(Pos Y)
+pos = IfElse(Var(0) = 1, 20, IfElse(Var(0) = 2, 70, IfElse(Var(0) = 3, 35, 52))), - Floor(Pos Y)
 facing = IfElse(Random % 2 > 0, 1, -1)
 keyctrl = 0
 ownpal = 1
@@ -1037,11 +1030,12 @@ ctrl = 0
 
 ;The Lightnings
 [Statedef 2021]
-type = A
+type = S
 physics = N
 movetype = A
 anim = 7103
 velset = 0,0
+juggle = 3
 sprpriority = 3
 
 [State 1001, NoShadow]
@@ -1077,7 +1071,7 @@ triggerall = !MoveContact
 triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
-attr = A,SP
+attr = S,HP
 damage = Floor(Parent, FVar(39)*50), 4
 animtype = Hard
 hitflag = MAF
@@ -1102,7 +1096,6 @@ envshake.freq = 120
 envshake.ampl = 2
 getpower = IfElse(Parent, Var(21) > 0, 0, 20)
 
-
 [State 2020, Var]
 type = ParentVarSet
 trigger1 = MoveHit
@@ -1112,7 +1105,7 @@ ignorehitpause = 1
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit
-fvar(39) = parent, Fvar(39)*0.95
+fvar(39) = parent, Fvar(39)*0.88
 persistent = 0
 ignorehitpause = 1
 
@@ -1180,6 +1173,7 @@ ignorehitpause = 1
 [State 2022, End]
 type = DestroySelf
 trigger1 = Parent, NumHelper(2020)
+trigger2 = Parent, StateNo != 2020
 
 ;Spark
 [Statedef 2023]
@@ -1201,7 +1195,7 @@ trigger1 = (ParentDist X <= 5) && (ParentDist Y <= 5) && (Time > 10)
 
 
 ;Frenzy Activation
-[Statedef 2200]
+[Statedef 2100]
 type = S
 movetype = I
 physics = S
@@ -1214,7 +1208,7 @@ facep2 = 1
 [State 1000, Pawnch]
 type = Helper
 trigger1 = Time = 10
-name = "Haste Clock"
+name = "Frenzy Clone"
 ID = 7200
 stateno = 7200
 pos = 0, -100
@@ -1281,13 +1275,612 @@ darken = 0
 
 [State 2110, VarSet]
 type = VarSet
-trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2200)
+trigger1 = Time > 1 && NumHelper(7200) 
 v = 21
 value = 1
 
 [State 2110, End]
 type = ChangeState
-trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2200) && Var(21) > 0
+trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2100) && Var(21) > 0
 value = 0
 ctrl = 1
 
+
+;Shining Sword Attack
+[Statedef 2200]
+type=S
+physics=N
+movetype=A
+anim=2200
+ctrl=0
+velset=0,0
+sprpriority=1
+poweradd = -3000
+
+[State 2110, VarSet]
+type = VarSet
+trigger1 = !Time
+v = 21
+value = 0
+
+[State 200, Explod]
+type = Explod
+trigger1 = GameTime % 5 = 0
+trigger1 = Anim = 2200
+anim = 7102
+ID = 1000
+postype = p1  ;p2,front,back,left,right
+bindtime = 1
+vel = 0,-1 + (Random/1000.0)*0.7
+accel = 0,-0.3
+random = 27,7
+sprpriority = 2
+removetime = -2
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+supermovetime = 99999
+removeongethit = 1
+ignorehitpause = 1
+
+
+[State 3060, nhb]
+type = VarSet
+trigger1 = !Time
+V = 21
+value = 0
+ignorehitpause = 1
+
+[State 3060, nhb]
+type = NotHitBy
+trigger1 = Time <=32
+value = SCA
+time = 1
+ignorehitpause = 1
+
+[State 2010, Super Pause FX]
+type = helper
+trigger1 = time = 1
+helpertype = normal
+stateno = 7000
+ID = 7000
+name = "Super Charge"
+postype = p1
+pos = 0,0
+ownpal = 1
+persistent = 0
+supermovetime = 9999
+
+[State 2010, Super Pause FX]
+type = PalFX
+trigger1 = time = [0, 32]
+add = 256 - 8 * Time, 256 - 8 * Time, 64 - 2 * Time
+time = 2
+
+[State 2010, Super Pause]
+type = superpause
+trigger1 = time = 1
+time = 32
+movetime = 32
+anim = -1
+sound = S7000,2
+p2defmul = 1
+darken = 0
+
+[State 3060,Hit]
+type = HitDef
+trigger1 = time = 1
+attr = S,HT
+hitflag = MA-
+priority = 1, Miss
+sparkno = -1
+hitsound = S7002,3
+p1sprpriority = 1
+p2sprpriority = 0
+p1facing = 1
+p2facing = 1
+p1stateno = 2202
+p2stateno = 2102
+guard.dist = 0
+fall = 1
+getpower = 0
+
+[State -3: AfterImageTime]
+type = AfterImageTime
+trigger1 = AnimElemNo(0) = 2
+time = 5
+ignorehitpause = 1
+
+[State 1020, Afterimage]
+type = AfterImage
+trigger1 = AnimElem = 2
+length = 10
+palbright = 0, 0, 0
+palcontrast = 256, 256, 128
+paladd = 0,0,0
+palmul = 1, 1, 1
+timegap  = 2
+framegap = 2
+trans = add1
+time = 2; only 2 ticks!!!
+ignorehitpause = 1
+
+[State 1020, Pal]
+type = PalFX
+trigger1 = AnimElemNo(0) = 2
+add = Floor(40 + 40*Sin(AnimElemTime(2)/10.0)), Floor(40 + 40*Sin(AnimElemTime(2)/10.0)), Floor(40 + 40*Sin(AnimElemTime(2)/10.0))
+mul = 256, 256, 128
+time = 2
+
+[State 2020, Attack]
+type = VelSet
+trigger1 = AnimElemNo(0) >= 2
+X = 3.3
+
+[State 2020, Attack]
+type = ChangeState
+trigger1 = Time >= 65 && !MoveHit
+value = 2201
+
+;Shining Sword Miss
+[Statedef 2201]
+type = C
+physics = C
+movetype = I
+anim = 2201
+ctrl = 0
+sprpriority = 1
+
+[State 2021, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+;Shining Sword Success
+[Statedef 2202]
+type = S
+physics = S
+movetype = A
+anim = 2202
+ctrl = 0
+velset = 0, 0
+sprpriority = 1
+
+[State 1020, Pal]
+type = AfterImageTime
+trigger1 = !Time
+time = 0
+ignorehitpause = 1
+
+
+[State 1020, Pal]
+type = PalFX
+trigger1 = Anim = 2202
+add = Floor(40 + 40*Sin(Time/10.0)), Floor(40 + 40*Sin(Time/10.0)), Floor(40 + 40*Sin(Time/10.0))
+mul = 256, 256, 128
+time = 2
+ignorehitpause = 1
+
+[State 2102, StartPos]
+type = VarSet
+trigger1 = !Time
+trigger1 = NumTarget
+FV = 0
+value = (Target, Pos X - Pos X) * Facing
+ignorehitpause = 1
+
+[State 2102, StartPos]
+type = VarSet
+trigger1 = !Time
+trigger1 = NumTarget
+FV = 1
+value = Target, Pos Y - Pos Y
+ignorehitpause = 1
+
+[State 2202, Trans]
+type = Trans
+trigger1 = Anim = 2202
+trigger1 = AnimElemTime(2) > 10
+trans = addalpha
+alpha = 256 - (AnimElemTime(2) - 10)* 16, (AnimElemTime(2) - 10)* 16
+ignorehitpause = 1
+
+[State 2022, Bound]
+type = TargetBind
+trigger1 = NumTarget
+trigger1 = Target, StateNo = 2102
+pos = FVar(0), FVar(1)
+ignorehitpause = 1
+
+[State 2102, Launch]
+type = EnvShake
+trigger1 = Anim = 2202
+trigger1 = AnimElem = 2
+ampl = 8
+freq = 120
+time = 12
+
+[State 2022, Bound]
+type = ChangeAnim
+trigger1 = Anim = 2202
+trigger1 = !AnimTime
+value = 7300
+
+[State 2102, Launch]
+type = VarAdd
+trigger1 = Anim = 7300
+trigger1 = AnimElemTime(1) = [5, 10]
+trigger2 = Anim = 2202
+trigger2 = AnimElemNo(0) = 2
+FV = 0
+value = 0.6
+
+[State 2102, Launch]
+type = VarAdd
+trigger1 = Anim = 7300
+trigger1 = AnimElemTime(1) < 10
+trigger2 = Anim = 2202
+trigger2 = AnimElemNo(0) = 2
+FV = 1
+value = -8 + 0.3 * (Time - 1)
+
+[State 2102, Launch]
+type = Helper
+trigger1 = Anim = 7300
+ID = 2200
+name = "Fake Crono"
+stateno = 2203
+pos = Floor(FVar(0))+ 30 + Target, Const(size.air.back), -154
+postype = p1    ;p2,front,back,left,right
+facing = -1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 99999
+persistent = 0
+
+[State 2202, Signal from clone]
+type = VarSet
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 2103, Signal from clone]
+type = VarAdd
+trigger1 = Anim = 7300
+trigger1 = AnimElemTime(1) > 10
+trigger1 = !NumHelper(2200)
+trigger2 = Anim = 0
+V = 1
+value = 1
+
+[State 2202, Signal from clone]
+type = VarSet
+trigger1 = !Time
+var(2) = 0
+ignorehitpause = 1
+
+[State 2202, Signal from clone]
+type = VarSet
+trigger1 = NumTarget
+trigger1 = Target, StateNo = 2102
+trigger1 = Target, Time >= 200
+var(2) = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 2103, Trans]
+type = ChangeAnim
+trigger1 = Var(1) > 0
+value = 0
+persistent = 0
+
+[State 2103, Trans]
+type = Trans
+trigger1 = Var(1) > 0
+trans = addalpha
+alpha = 16 * Var(1), 256 - 16 * Var(1)
+
+[State 2103, End]
+type = TargetState
+trigger1 = Var(2) > 0 
+value = 2103
+persistent = 0
+
+[State 2103, End]
+type = AssertSpecial
+trigger1 = Var(1) > 0
+flag = noautoturn
+
+[State 2103, End]
+type = Turn
+trigger1 = Var(1) > 0
+persistent = 0
+
+[State 2103, End]
+type = ChangeState
+trigger1 = Var(1) >= 16
+value = 0
+ctrl = 1
+
+;Fake Crono
+[Statedef 2203]
+type = A
+physics = N
+movetype = A
+anim = 2203
+ctrl = 0
+velset = 0, 2.7
+sprpriority = 2
+
+
+[State 200, Explod]
+type = Explod
+trigger1 = GameTime % 5 = 0
+trigger1 = !Var(1)
+anim = 7102
+ID = 1000
+postype = p1  ;p2,front,back,left,right
+bindtime = 1
+vel = 0,-1 + (Random/1000.0)*0.7
+accel = 0,-0.3
+random = 27,7
+sprpriority = 3
+removetime = -2
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1020, Pal]
+type = PalFX
+trigger1 = 1
+add = Floor(40 + 40*Sin(Time/10.0)), Floor(40 + 40*Sin(Time/10.0)), Floor(40 + 40*Sin(Time/10.0))
+mul = 256, 256, 128
+time = 2
+
+[State 2203, Anim]
+type= Trans
+trigger1 = Anim = 2203
+trans = addalpha
+alpha = 16*AnimElemTime(1), 256 - 16*AnimElemTime(1)
+
+[State 2203, Anim]
+type= VelSet
+trigger1 = Anim = 2204
+Y = 0
+
+[State 2203, Anim]
+type= ChangeAnim
+trigger1 = Anim = 2203
+trigger1 = !AnimTime
+value = 2204
+
+[State 2203, EnvShake]
+type= EnvShake
+trigger1 = Anim = 2204
+trigger1 = AnimElem = 2
+ampl = 16
+time = 18
+freq = 120
+persistent = 0
+
+[State 2203, EnvShake]
+type= EnvShake
+trigger1 = AnimElemTime(AnimElemNo(0)) = 1
+trigger1 = AnimElemNo(0) = [3, 20]
+trigger1 = AnimElemNo(0) % 2 = 0 
+ampl = 4
+time = 4
+freq = 120
+
+[State 2102, Ki]
+type = Helper
+trigger1 = Anim = 2204
+trigger1 = AnimElemTime(22) = 10
+ID = 2201
+name = "Beam Attack"
+stateno = 2205
+pos = 12, -12
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 99999
+
+[State 2103, Shake]
+type = EnvShake
+trigger1 = NumHelper(2201)
+trigger1 = Helper(2201), AnimElemTime(6) = 0
+time = 30
+ampl = 16
+freq = 100
+
+[State 2103, Signal for Parent]
+type = VarSet
+trigger1 = !Time
+V = 0
+value = 0
+
+[State 2103, Signal for Parent]
+type = VarSet
+trigger1 = NumHelper(2201)
+trigger1 = Helper(2201), AnimElemTime(6) = 20
+V = 0
+value = 1
+
+[State 2103, Signal from Beam]
+type = VarSet
+trigger1 = !Time
+V = 1
+value = 0
+
+[State 2103, Shake]
+type = ParentVarAdd
+trigger1 = NumHelper(2201)
+trigger1 = Helper(2201), AnimElemTime(6) = [0, 10]
+FV = 0
+value = - 2
+
+[State 2203, Anim]
+type= Trans
+trigger1 = Anim = 2203
+trans = addalpha
+alpha = 16*AnimElemTime(1), 256 - 16*AnimElemTime(1)
+
+[State 2103, Signal from Beam]
+type = VarAdd
+trigger1 = Anim = 2204
+trigger1 = AnimElemTime(22) > 30
+trigger1 = !NumHelper(2201)
+V = 1
+value = 1
+
+[State 2103, Trans]
+type = Trans
+trigger1 = Var(1)
+trans = addalpha
+alpha = 256 - 16 * Var(1), 16 * Var(1)
+
+[State 2103, End]
+type = DestroySelf
+trigger1 = Var(1) >= 16
+
+
+;Beam Attack
+[Statedef 2205]
+type = A
+movetype = I
+physics = N
+anim = 7250
+sprpriority = 2
+
+[State 2205, Assert]
+type = AngleDraw
+trigger1 = 1
+scale = 1.5, 1.5
+ignorehitpause = 1
+
+[State 2205, Assert]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 1000, burst]
+type = Trans
+trigger1 = AnimElemTime(6) < 20
+trans = add
+ignorehitpause = 1
+
+[State 1000, burst]
+type = Trans
+trigger1 = AnimElemTime(6) > 20
+trans = addalpha
+alpha = 256 - 8 * (AnimElemTime(6) - 20), 256
+ignorehitpause = 1
+
+[State 1001, burst]
+type = DestroySelf
+trigger1 = AnimElemTime(6) > 32
+ignorehitpause = 1
+
+
+; Shining Sword - Hit
+[Statedef 2102]
+type = A
+movetype = H
+physics = N
+sprpriority = 0
+
+[State Hit, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 2210
+ignorehitpause = 1
+
+[State 802, Exit]
+type = PalFX
+trigger1 = Time = 50
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 18
+
+[State 802, Exit]
+type = LifeAdd
+trigger1 = Time = 50
+value = -30
+kill = 0
+
+[State 802, Exit]
+type = PalFX
+triggerall = Time = [60, 166]
+trigger1 = (Time - 60) % 10 = 8
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 3
+
+[State 802, Exit]
+type = LifeAdd
+triggerall = Time = [60, 166]
+trigger1 = (Time - 60) % 10 = 8
+value = -6
+kill = 0
+
+[State 802, Exit]
+type = PalFX
+trigger1 = Time = 180
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 22
+
+[State 802, Exit]
+type = LifeAdd
+trigger1 = Time = 180
+value = -147
+kill = 0
+
+
+[State 802, Exit]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+
+; Shining Sword - Hit 2
+[Statedef 2103]
+type = A
+movetype = H
+physics = N
+sprpriority = 0
+
+[State 2024, Vel]
+type = VelSet
+trigger1 = !Time
+y = -9
+x = 2
+
+[State 2024, Vel]
+type = VelAdd
+trigger1 = 1
+y = .56
+
+[State 2024, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 2211
+
+[State 2024, Vel]
+type = ChangeAnim2
+trigger1 = Vel Y > 0
+value = 2212
+
+[State 803, Hit Ground]
+type = SelfState
+trigger1 = (Vel y > 0) && (Pos y >= -Vel Y)
+value = 5100
+ctrl = 0

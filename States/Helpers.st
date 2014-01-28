@@ -133,6 +133,13 @@ anim = 0
 ctrl = 0
 velset = 0, 0
 
+[State 7200, Pal]
+type = PalFX
+trigger1 = 1
+add = 80, 80, 80
+time = 1
+ignorehitpause = 1
+
 [State 775, End]
 type = changestate
 trigger1 = !ishelper(7200)
@@ -237,19 +244,19 @@ ignorehitpause = 1
 
 [State 3510, Elem]
 Type = ChangeAnim
-trigger1 = root, selfanimexist(Var(IfElse(GameTime % 10 > 5, GameTime % 5 - 1, GameTime % 10 + 4))) 
+trigger1 = root, selfanimexist(Var((GameTime % 10 + 5) % 10))
 trigger1 = ifelse((root, movetype = H), (root, stateno = [5000, 5300]), 1)
-trigger1 = Anim != Var((GameTime % 10 + 6) % 10) || AnimElemNo(0) != Var(10 + ((GameTime % 10 + 6) % 10))
-Value = Var((GameTime % 10 + 6) % 10)
-Elem = Var(10 + ((GameTime % 10 + 6) % 10))
+trigger1 = Anim != Var((GameTime % 10 + 5) % 10) || AnimElemNo(0) != Var(10 + ((GameTime % 10 + 5) % 10))
+Value = Var((GameTime % 10 + 5) % 10)
+Elem = Var(10 + ((GameTime % 10 + 5) % 10))
 ignorehitpause = 1
 
 
 [State 3510, Positioning]
 Type = PosSet
 Trigger1 = 1
-X = Var(20 + ((GameTime % 10 + 6) % 10))
-Y = Var(30 + ((GameTime % 10 + 6) % 10))
+X = Var(20 + ((GameTime % 10 + 5) % 10))
+Y = Var(30 + ((GameTime % 10 + 5) % 10))
 ignorehitpause = 1
 
 [State 775, customstatesanim]
@@ -272,6 +279,7 @@ TriggerAll = IsHelper(7200)
 TriggerAll = NumHelper(7201) = 0
 Trigger1 = Time = 0
 ID = 7201
+name = "Frenzy Clone"
 Pos = 0, 0
 PosType = P1
 Facing = 1
@@ -288,19 +296,19 @@ ignorehitpause = 1
 
 [State 775, sts]
 type = statetypeset
-trigger1 = Var(40 + ((GameTime % 10 + 6) % 10)) = 0
+trigger1 = Var(40 + ((GameTime % 10 + 5) % 10)) = 0
 movetype = A
 ignorehitpause = 1
 
 [State 775, sts]
 type = statetypeset
-trigger1 = Var(40 + ((GameTime % 10 + 6) % 10)) = 1
+trigger1 = Var(40 + ((GameTime % 10 + 5) % 10)) = 1
 movetype = H
 ignorehitpause = 1
 
 [State 775, sts]
 type = statetypeset
-trigger1 = Var(40 + ((GameTime % 10 + 6) % 10)) = 2
+trigger1 = Var(40 + ((GameTime % 10 + 5) % 10)) = 2
 movetype = I
 ignorehitpause = 1
 
@@ -312,7 +320,7 @@ ignorehitpause = 1
 [State 775, dampener]
 type = attackmulset
 trigger1 = 1
-value = 0.43
+value = 0.35
 ignorehitpause = 1
 
 [State 200, 1]
@@ -601,3 +609,7 @@ envshake.ampl = 4
 getpower=0
 ignorehitpause = 1
 
+[State 7200, End]
+type = DestroySelf
+trigger1 = Root, Var(21) <= 0
+ignorehitpause = 1

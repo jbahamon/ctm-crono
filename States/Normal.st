@@ -78,7 +78,6 @@ fvar(39) = fvar(39)*0.95
 persistent = 0
 ignorehitpause = 1
 
-
 [State 200, 2]
 type = PlaySnd
 trigger1 = AnimElem = 2
@@ -226,7 +225,8 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 damage = 72
-guardflag = HA
+guardflag = H
+hitflag = MAF
 priority = 4
 pausetime = 12, 12
 sparkno = S7002
@@ -363,7 +363,6 @@ facep2 = 1
 type = PlaySnd
 trigger1 = AnimElem = 3
 value = S7000, 0
-
 
 [State 210, Explod]
 type = Explod
@@ -590,6 +589,7 @@ type = HitDef
 trigger1 = Time = 0
 attr = A, NA
 damage    = 20
+hitflag = MAF
 guardflag = HA
 priority = 3
 pausetime = 7,8
@@ -676,12 +676,12 @@ ownpal = 1
 removeongethit = 1
 ignorehitpause = 1
 
-
 [State 610, 2]
 type = HitDef
 trigger1 = Time = 0
 attr = A, NA
 damage = 45
+hitflag = MAF
 guardflag = HA
 animtype = Medium
 priority = 3
@@ -818,6 +818,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 damage = 72
+hitflag = MAF
 guardflag = HA
 priority = 4
 pausetime = 12,12

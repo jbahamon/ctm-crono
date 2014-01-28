@@ -601,9 +601,9 @@ trigger1 = ctrl
 ;===========================================================================
 ; Super Moves
 ;===========================================================================
-[State -1, Midnight Blackness]
+[State -1, Shining Sword Attack]
 type = ChangeState
-value = 2100
+value = 2200
 triggerall = Command = "qcfhcba" || Command = "qcfhcbb" || Command = "qcfhcbc"
 triggerall = Var(21) > 0
 trigger1 = statetype != A
@@ -690,9 +690,9 @@ trigger1 = (command = "recovery" || command = "2p") && (command = "holdfwd" || c
 trigger1 = roundstate = 2 && ctrl && statetype = S && stateno != 100
 value = 800
 
-[State -1, Magic Wall]
+[State -1, Frenzy]
 type = ChangeState
-value = 2200
+value = 2100
 triggerall = Command = "a+c" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
 triggerall = Power >= 3000
 triggerall = Var(21) = 0
