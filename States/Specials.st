@@ -43,8 +43,8 @@ var(0) = IfElse(command = "qcfc", 2, IfElse(command = "qcfb", 1, 0))
 
 [State 1100, JumpSnd]
 type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7000,1
+trigger1 = !Time
+value = S7100,0
 ignorehitpause = 1
 
 [State 1000, Pawnch]
@@ -75,6 +75,12 @@ anim = 7100 + IfElse(Root, Var(22) > 0, 3, 0)
 ctrl = 0
 velset = 0,0
 sprpriority = 3
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,1
+ignorehitpause = 1
 
 [State 1001, ParentVar]
 type = ParentVarSet
@@ -120,7 +126,7 @@ triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
 attr = S,SP
-damage = Floor(Parent, FVar(39)*40) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*80), 0)
+damage = Floor(Parent, FVar(39)*60) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*50), 0)
 animtype = Hard
 hitflag = MAF
 guardflag = H
@@ -176,12 +182,21 @@ ignorehitpause = 1
 type    = S
 movetype= A
 physics = S
-juggle  = 3
+juggle  = 5
 ctrl = 0
 anim = 1010
 sprpriority = 1
 poweradd = IfElse(Var(21) > 0, 0, 72)
 facep2 = 1
+
+[State 1010, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7110,0
+channel = 0
+loop = 1
+ignorehitpause = 1
+persistent = 0
 
 [State 1010, Strength]
 type = VarSet
@@ -295,14 +310,14 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 2 || !AnimTime
 attr = S, SA
-damage = IfElse(var(0) = 2, 55, IfElse(var(0) = 1, 51, 45)), 9
+damage = 51, 9
 animtype = Hard
 guardflag = MA
 hitflag = MAF
 priority = 4, Hit
 pausetime = 7, 7
 sparkno = -1
-hitsound = s2, 6
+hitsound = -1
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
@@ -310,6 +325,7 @@ ground.hittime = 16
 ground.velocity = -0.7, -1
 air.type = Low
 air.velocity = -0.7, -1
+air.juggle = 5
 guard.cornerpush.veloff = 0;-12.74
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 24, 48)), IfElse(Var(21) > 0, 0, 12)
 givepower = 12, 12
@@ -327,6 +343,13 @@ palfx.color = 0
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 10
+
+[State 1010, Snd]
+type = StopSnd
+trigger1 = Time > 30 && !AnimTime
+channel = 0
+ignorehitpause = 1
+persistent = 0
 
 [State 1040, End]
 type = ChangeState
@@ -347,6 +370,12 @@ anim = 1020
 sprpriority = 1
 poweradd = -100
 facep2 = 1
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,0
+ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
@@ -416,6 +445,12 @@ anim = 7100
 ctrl = 0
 velset = 0,0
 sprpriority = 3
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,1
+ignorehitpause = 1
 
 [State 1001, NoShadow]
 type = AssertSpecial
@@ -568,6 +603,11 @@ trigger1 = Anim = 1030
 time = 3
 ignorehitpause = 1
 
+[State 220, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 [State 1020, Afterimage]
 type = AfterImage
 trigger1 = !Time
@@ -651,7 +691,7 @@ attr = A, SA
 guardflag = HA
 hitflag = MAF
 sparkno = -1
-hitsound = s7010, 0
+hitsound = s7040, 3
 guard.dist = 0
 ground.velocity = -6,-0.5
 ground.velocity = -6,-0.5

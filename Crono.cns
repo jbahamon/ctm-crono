@@ -7,7 +7,7 @@ attack = 100
 defence = 100
 fall.defence_up = 50
 liedown.time = 60
-airjuggle = 18
+airjuggle = 15
 sparkno = 2
 guard.sparkno = 40
 KO.echo = 0
@@ -83,20 +83,7 @@ down.friction.threshold = .05         ;If the player's speed drops below this th
 
 [Quotes]
 ; Up to 100 victory quotes can be specified per language (victory0 - victory99)
-victory1 = "The weak always strive to be weaker..."
-victory2 = "If history is to change, let it change. If the world is to be destroyed, so be it. If my fate is to die, I must simply laugh."
-victory3 = "Play with fire and you get burned."
-victory4 = "Say, can you hear that? \nIt's the sound of the Reaper..."
-victory5 = "The black wind begins to blow..."
-
-;Against Lavos
-victory6 = "It's over for you... \nYour life ends here!"
-
-;Against Frog
-victory7 = "I... it's that stupid frog! \nKissed any princesses lately?!"
-
-;Against Crono
-victory8 = "You got whacked, 'cuz you're weak."
+victory1 = "..."
 
 ;---------------------------------------------------------------------------
 ; Variable usage:
@@ -233,8 +220,10 @@ value = S7010, 3
 
 [State -3, Landing Sound]
 type = PlaySnd
-trigger1 = stateno = 100 && (AnimElemTime(1) = 1)
-value = S7010, 4
+triggerall = stateno = 100 
+trigger1 = (AnimElemTime(2) = 1)
+trigger2 = (AnimElemTime(5) = 1)
+value = S7010, 3
 
 [State -3, Landing Sound]
 type = PlaySnd

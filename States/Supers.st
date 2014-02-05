@@ -14,6 +14,11 @@ poweradd = -1000
 sprpriority = 2
 juggle = 14
 
+[State 2000, SNd]
+type = PlaySnd
+trigger1 = !Time
+value = S7200,0
+channel = 0
 
 [State 2000, up!]
 type = VarSet
@@ -99,13 +104,21 @@ sprpriority = 4
 ownpal = 1
 ignorehitpause = 1
 
+[State 2000, SNd]
+type = PlaySnd
+trigger1 = NumHelper(2000)
+value = S7200,1
+channel = 0
+persistent = 0
+
+
 [State 2000, Super Pause]
 type = superpause
 trigger1 = time = 1
 time = 50
 movetime = 50
 anim = -1
-sound = S7010,2
+sound = -1
 p2defmul = 1
 darken = 0
 
@@ -139,6 +152,7 @@ poweradd= 0
 ctrl = 0
 sprpriority = 3
 velset = 0,0
+juggle = 10
 
 [State 2020, Var]
 type = ParentVarSet
@@ -193,6 +207,7 @@ ground.slidetime=2
 ground.hittime=1
 ground.velocity=-1,-4;
 air.velocity=-1,-4;
+air.juggle =10
 fall=1
 fall.recover=0
 air.fall=1
@@ -209,7 +224,7 @@ nochainID = 2000
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit
-fvar(39) = parent, Fvar(39)*0.76
+fvar(39) = parent, Fvar(39)*0.73
 persistent = 0
 ignorehitpause = 1
 
@@ -448,7 +463,7 @@ trigger1 = time = 1
 time = 45
 movetime = 45
 anim = -1
-sound = S7010,2
+sound = S7200,2
 p2defmul = 1
 darken = 0
 
@@ -469,6 +484,11 @@ ctrl = 0
 anim = 2011
 sprpriority = 1
 velset = 3.3,-4
+
+[State 2011, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7000,1
 
 [State -3: AfterImageTime]
 type = AfterImageTime
@@ -547,6 +567,23 @@ physics = N
 movetype = A
 poweradd = 0
 velset = 0,0
+
+[State 1010, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7200,3
+channel = 0
+loop = 1
+ignorehitpause = 1
+
+
+[State 1010, Snd]
+type = PlaySnd
+trigger1 = Time = 80
+value = S7110,0
+channel = 0
+loop = 1
+ignorehitpause = 1
 
 [State 2023, Shake]
 type = BGPalFx
@@ -743,6 +780,16 @@ type = ChangeAnim
 trigger1 = Var(2)
 value = 2017
 persistent = 0
+
+
+[State 1010, Snd]
+type = PlaySnd
+trigger1 = Anim = 2017
+trigger1 = AnimElem = 2
+value = S7200,2
+channel = 0
+persistent = 0
+ignorehitpause = 1
 
 [State 2022, End]
 type = TargetState
@@ -992,7 +1039,7 @@ trigger1 = time = 1
 time = 50
 movetime = 50
 anim = -1
-sound = S7010,2
+sound = S7100,0
 p2defmul = 1
 darken = 0
 
@@ -1035,8 +1082,15 @@ physics = N
 movetype = A
 anim = 7103
 velset = 0,0
-juggle = 3
+juggle = 4
 sprpriority = 3
+
+
+[State 1001, NoShadow]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,1
+ignorehitpause = 1
 
 [State 1001, NoShadow]
 type = AssertSpecial
@@ -1085,6 +1139,7 @@ ground.velocity = -0.4,-3
 air.velocity  = -0.4, -3
 fall = 1
 air.fall = 1
+air.juggle = 4
 p2facing = 1
 palfx.invertall = 1
 palfx.color = 0
@@ -1105,7 +1160,7 @@ ignorehitpause = 1
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit
-fvar(39) = parent, Fvar(39)*0.88
+fvar(39) = parent, Fvar(39)*0.85
 persistent = 0
 ignorehitpause = 1
 
@@ -1199,7 +1254,7 @@ trigger1 = (ParentDist X <= 5) && (ParentDist Y <= 5) && (Time > 10)
 type = S
 movetype = I
 physics = S
-anim = 2020
+anim = 2100
 ctrl = 0
 velset = 0,0
 sprpriority = 1
@@ -1268,7 +1323,7 @@ time = 80
 movetime = 80
 anim = -1
 pos = 0, -20
-sound = S7010,2
+sound = S7200,2
 p2defmul = 1
 darken = 0
 
@@ -1364,7 +1419,7 @@ trigger1 = time = 1
 time = 32
 movetime = 32
 anim = -1
-sound = S7000,2
+sound = S7200,2
 p2defmul = 1
 darken = 0
 
@@ -1375,7 +1430,7 @@ attr = S,HT
 hitflag = MA-
 priority = 1, Miss
 sparkno = -1
-hitsound = S7002,3
+hitsound = S7040,2
 p1sprpriority = 1
 p2sprpriority = 0
 p1facing = 1
@@ -1419,6 +1474,13 @@ trigger1 = AnimElemNo(0) >= 2
 X = 3.3
 
 [State 2020, Attack]
+type = PlaySnd
+trigger1 = Time = 40
+channel = 0
+value = S7000,3
+
+
+[State 2020, Attack]
 type = ChangeState
 trigger1 = Time >= 65 && !MoveHit
 value = 2201
@@ -1453,7 +1515,6 @@ type = AfterImageTime
 trigger1 = !Time
 time = 0
 ignorehitpause = 1
-
 
 [State 1020, Pal]
 type = PalFX
@@ -1615,7 +1676,6 @@ ctrl = 0
 velset = 0, 2.7
 sprpriority = 2
 
-
 [State 200, Explod]
 type = Explod
 trigger1 = GameTime % 5 = 0
@@ -1669,6 +1729,13 @@ time = 18
 freq = 120
 persistent = 0
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = Anim = 2204
+trigger1 = AnimElem = 2
+value = S7040,2
+
 [State 2203, EnvShake]
 type= EnvShake
 trigger1 = AnimElemTime(AnimElemNo(0)) = 1
@@ -1677,6 +1744,15 @@ trigger1 = AnimElemNo(0) % 2 = 0
 ampl = 4
 time = 4
 freq = 120
+
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElemTime(AnimElemNo(0)) = 1
+trigger1 = AnimElemNo(0) = [3, 20]
+trigger1 = AnimElemNo(0) % 2 = 0 
+value = S7040,2
+
 
 [State 2102, Ki]
 type = Helper
@@ -1759,6 +1835,12 @@ movetype = I
 physics = N
 anim = 7250
 sprpriority = 2
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,1
+ignorehitpause = 1
 
 [State 2205, Assert]
 type = AngleDraw

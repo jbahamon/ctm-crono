@@ -117,18 +117,18 @@ var(21) = 0
 [State 190, 0]
 type = ChangeState
 trigger1 = Time
-value = 191 ;+ (Random % 2)
+value = 192 + (Random % 2)
 ctrl = 0
 
 ;===========================================================================
 ; Intros
 ;===========================================================================
 
-;Prophet Intro
+;Weapon Intro
 [Statedef 191]
 type = S
 ctrl = 0
-anim = 1901
+anim = 191
 velset = 0,0
 
 [State 191, 2] ;Assert this until you want "round 1, fight" to begin
@@ -139,195 +139,38 @@ flag = Intro
 [State 192, 1] ;Freeze animation until PreIntro is over
 type = ChangeAnim
 trigger1 = RoundState = 0
-value = 1901
-
-[State 194, helper]
-type = Helper
-trigger1 = !Time
-name = "Alfador"
-ID = 191
-stateno = 1910
-postype = p1
-pos = -30, 0
-ownpal = 1
-persistent = 0
+value = 191
 
 [State 192, 3] ;Change to stand state when done
 type = ChangeState
 trigger1 = AnimTime = 0
 value = 0
 
-;Alfador
-[Statedef 1910]
+
+;Sleeping Intro
+[Statedef 192]
 type = S
 ctrl = 0
-anim = 7150
+anim = 192
 velset = 0,0
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
 
 [State 192, 1] ;Freeze animation until PreIntro is over
 type = ChangeAnim
 trigger1 = RoundState = 0
-value = 7150
-
-[State 192, 1] ;Freeze animation until PreIntro is over
-type = Turn
-trigger1 = AnimElemTime(4) = 1
-persistent = 0
-
-[State 192, 1] ;Freeze animation until PreIntro is over
-type = VelSet
-trigger1 = AnimElemNo(0) >= 4
-X = 2.2
-
-[State 192, 3] ;End
-type = DestroySelf
-trigger1 = FrontEdgeBodyDist < -20
-
-;---------------------------------------------------------------------------
-; Gate
-[Statedef 192]
-type = A
-physics = N
-movetype = I
-ctrl = 0
-anim = 7200
-sprpriority = 1
-
-[State 191, 2]
-type = AssertSpecial
-trigger1 = Anim = 7200
-flag = NoShadow
-
-[State 191, 2]
-type = AssertSpecial
-trigger1 = 1
-flag = Intro
-
-[State 192, StartPos]
-type = VarSet
-trigger1 = !Time
-fvar(0) = Pos X
-
-[State 192, StartPos]
-type = PosAdd
-trigger1 = !Time
-X = -40
-Y = - 20
-
-[State 192, Spawn Reptites]
-type = Helper
-trigger1 = Anim = 7200
-trigger1 = !NumHelper(1920)
-helpertype = normal ;player
-name = "Gate"
-ID = 1920
-stateno = 1920
-postype = p1
-pos = 0, -35
-facing = 1
-keyctrl = 0
-ownpal = 1
-
-[State 192, StartPos]
-type = ChangeAnim
-trigger1 = NumHelper(1920)
-trigger1 = Helper(1920), Time = 60
 value = 192
 
-[State 191, Jump!]
-type = VelSet
-trigger1 = Anim = 192
-X = ((fvar(0) - Pos X)/20.0)*Facing
-Y = -3
-persistent = 0
-
-[State 192, Snd]
-type = PlaySnd
-trigger1 = Anim = 192
-value = S7000,2
-persistent = 0
-
-[State 191, Jump!]
-type = VelAdd
-trigger1 = Anim = 192
-Y = 0.34
-
-[State 191, Land]
-type = VelSet
-trigger1 = Anim = 192 && Pos Y >= 0
-Y = 0
-X = 0
-
-[State 192, Land]
-type = StateTypeSet
-trigger1 = Anim = 192 && !AnimTime
-statetype = S
-persistent = 0
-
-[State 191, Land]
-type = StateTypeSet
-trigger1 = Anim = 192 && Pos Y >= 0
-statetype = S
-persistent = 0
-
-[State 191, Land]
-type = PosSet
-trigger1 = Anim = 192 && Pos Y >= 0
-Y = 0
-X = fvar(0)
-persistent = 0
-
-[State 191, Land]
-type = ChangeAnim
-trigger1 = Anim = 192 && Pos Y >= 0
-value = 47
-persistent = 0
-
-[State 191, Land]
-type = ChangeAnim
-trigger1 = Anim = 47 && !AnimTime
-value = 0
-persistent = 0
-
-[State 191, 2]
-type = AssertSpecial
-trigger1 = 1
-flag = Intro
-
-[State 191, 3] ;Change to stand state when done
+[State 192, 3] ;Change to stand state when done
 type = ChangeState
-trigger1 = Anim = 0 && !NumHelper(1920)
+trigger1 = AnimTime = 0
 value = 0
-
-; Gate
-[Statedef 1920]
-type = S
-physics = N
-ctrl = 0
-anim = 7101
-velset = 0,0
-sprpriority = -1
-
-[State 1920, Random Start]
-type = AssertSpecial
-trigger1 = 1
-flag = Intro
-
-[State 1920, SprPriority]
-type = ChangeAnim
-trigger1 = Parent, Anim = 0
-value = 7106
-persistent = 0
-
-[State 1920, End]
-type = DestroySelf
-trigger1 = Anim = 7106
-trigger1 = !AnimTime
-trigger2 = RoundState > 1
-
 
 ;---------------------------------------------------------------------------
-; Taunt - Magic Toggle
+; Taunt
 [Statedef 195]
 type = S
 ctrl = 0
@@ -337,76 +180,16 @@ movetype = I
 physics = S
 sprpriority = 1
 
-[State 200, Explod]
-type = RemoveExplod
-trigger1 = !Time
-ID = 200
-ignorehitpause = 1
-
 [State 195, Switch Element]
-type = VarSet
-trigger1 = !Time
-trigger1 = !Var(21)
-V = 59
-value = (Var(59) + 1) % 3
-
-[State 200, Explod]
-type = Explod
-trigger1 = !Time
-trigger1 = !Var(21)
-anim = 7020 + Var(59)
-ID = 200
-pos = 0, -40
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = -1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 2
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
+type = PlaySnd
+trigger1 = AnimElem = 2
+trigger2 = AnimElem = 4
+value = S7010,0
 
 [State 195, 2]
 type = ChangeState
 trigger1 = AnimTime = 0
 value = 0
-ctrl = 1
-
-;===========================================================================
-; WinPoses
-;===========================================================================
-
-;SGS
-[Statedef 300]
-type = S
-sprpriority = -1
-
-[State 362, Anim]
-type = ChangeAnim
-trigger1 = PrevStateNo = 2102 && !AnimTime
-value = 2104
-
-[State 362, Kanji]
-type = helper
-trigger1 = !time && PrevStateNo = 2102 && !numhelper(2103)
-helpertype = normal
-stateno = 2103
-ID = 2103
-postype = left
-ownpal = 1
-persistent = 0
-
-[State 362, win]
-type = changestate
-trigger1 = time >= 120 && roundstate = 3
-value = ifelse(roundstate = 3, 180, 0)
 ctrl = 1
 
 ;---------------------------------------------------------------------------
