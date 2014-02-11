@@ -17,7 +17,7 @@ facep2 = 1
 
 [State 200, Explod]
 type = Explod
-trigger1 = Time < 50
+ trigger1 = Time < 50
 trigger1 = GameTime % 5 = 0
 anim = 7102
 ID = 1000
@@ -368,7 +368,7 @@ juggle  = 3
 ctrl = 0
 anim = 1020
 sprpriority = 1
-poweradd = -100
+poweradd = -250
 facep2 = 1
 
 [State 1100, JumpSnd]
@@ -395,12 +395,6 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 removeongethit = 1
-ignorehitpause = 1
-
-[State 1100, JumpSnd]
-type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7000,1
 ignorehitpause = 1
 
 [State 1000, Pawnch]
