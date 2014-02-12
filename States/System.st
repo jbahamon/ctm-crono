@@ -117,7 +117,7 @@ var(21) = 0
 [State 190, 0]
 type = ChangeState
 trigger1 = Time
-value = 192 + (Random % 2)
+value = 191 + (Random % 2)
 ctrl = 0
 
 ;===========================================================================
