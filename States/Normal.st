@@ -1052,14 +1052,15 @@ value = 0
 
 [State 800, Sound]
 type = PlaySnd
-trigger1 = AnimElem = 2
-value = S7050,0
+trigger1 = AnimElem = 3
+value = S7040,1
 channel = 0
+
 
 [State 800, Sound]
 type = PlaySnd
 trigger1 = AnimElem = 4
-value = S7040,1
+value = S7040,3
 channel = 0
 
 [State 801, Throw Enemy]
@@ -1067,31 +1068,45 @@ type = ScreenBound
 trigger1 = 1
 value = 0
 
+
+[State 802, LifeAdd]
+type = LifeAdd
+trigger1 = AnimElem = 5
+value = -42
+kill = Time > 60
+
+[State 802, Shake]
+type = EnvShake
+trigger1 = AnimElem = 5
+time = 5
+freq = 120
+ampl = 4
+
 [State 801, Throw Enemy]
 type = TargetState
-trigger1 = AnimElem = 5
+trigger1 = AnimElem = 6
 value = 803
 
 [State 801, Throw Enemy]
 type = TargetDrop
-trigger1 = AnimElem = 5
+trigger1 = AnimElem = 6
 
 [State 801, Throw Enemy]
 type = VelSet
-trigger1 = AnimElem = 5
+trigger1 = AnimElem = 6
 X = -FVar(0)/20.0
 Y = -FVar(1)/20.0 - 0.5 * 0.5 * 20
 
 [State 801, Throw Enemy]
 type = VelAdd
-trigger1 = AnimElemNo(0) = 5
+trigger1 = AnimElemNo(0) = 6
 Y = 0.5
 
 [State 801, End]
 type = ChangeState
-trigger1 = AnimElemNo(0) = 5
+trigger1 = AnimElemNo(0) = 6
 trigger1 = Vel Y > 0 && Vel Y > - Pos Y
-trigger2 = !NumTarget && AnimElemNo(0) < 5
+trigger2 = !NumTarget && AnimElemNo(0) < 6
 value = 621
 ctrl = 1
 
@@ -1110,27 +1125,28 @@ value = 2
 
 [State 802, LifeAdd]
 type = LifeAdd
-trigger1 = Time = 32
-trigger2 = Time = 59
-trigger3 = Time = 86
-value = -27
+trigger1 = Time = 37
+value = -42
 kill = Time > 60
-
 
 [State 802, Shake]
 type = EnvShake
-trigger1 = Time = 32
-trigger2 = Time = 59
-trigger3 = Time = 86
+trigger1 = Time = 37
 time = 5
 freq = 120
 ampl = 4
 
 [State 802, Shake]
 type = PalFX
-trigger1 = Time = 32
-trigger2 = Time = 59
-trigger3 = Time = 86
+trigger1 = Time = 37
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 5
+
+
+[State 802, Shake]
+type = PalFX
+trigger1 = Time = 76
 add = 200, 200, 200
 mul = 256, 256, 256
 time = 5
