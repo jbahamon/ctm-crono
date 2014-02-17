@@ -1261,7 +1261,7 @@ facep2 = 1
 
 [State 1000, Pawnch]
 type = Helper
-trigger1 = Time = 10
+trigger1 = Time > 40 && !NumHelper(7000) && !NumHelper(2100) && Var(21) > 0
 name = "Frenzy Clone"
 ID = 7200
 stateno = 7200
@@ -1272,29 +1272,6 @@ keyctrl = 0
 ownpal = 1
 persistent = 0
 supermovetime = 99999
-
-[State 200, Explod]
-type = Explod
-trigger1 = Time = 10
-anim = 7231
-ID = 200
-pos = 0, 0
-postype = p1  ;p2,front,back,left,right
-facing = Facing
-vfacing = 1
-bindtime = -1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 2
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
-supermovetime = 9999999
 
 [State 2010, NHB]
 type = NotHitBy
@@ -1318,8 +1295,8 @@ supermovetime = 9999
 [State 2110, Super Pause]
 type = SuperPause
 trigger1 = Time = 1
-time = 80
-movetime = 80
+time = 40
+movetime = 40
 anim = -1
 pos = 0, -20
 sound = S7200,2
@@ -1329,13 +1306,13 @@ darken = 0
 
 [State 2110, VarSet]
 type = VarSet
-trigger1 = Time > 1 && NumHelper(7200) 
+trigger1 = Time > 40
 v = 21
 value = 1
 
 [State 2110, End]
 type = ChangeState
-trigger1 = Time > 1 && !NumHelper(7000) && !NumHelper(2100) && Var(21) > 0
+trigger1 = Time > 40 && !NumHelper(7000) && !NumHelper(2100) && Var(21) > 0
 value = 0
 ctrl = 1
 

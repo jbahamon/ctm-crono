@@ -551,8 +551,14 @@ sprpriority = 3
 [State 1022, FollowPlayer]
 type = PosAdd
 trigger1 = 1
-X = (ParentDist X - 17 * Parent, Facing)/5.0 
+X = (ParentDist X - 17)/5.0 
 Y = (ParentDist Y - 30 + 10 * Sin(GameTime/20.0))/5.0
+ignorehitpause = 1
+
+
+[State 1022, FollowPlayer]
+type = Turn
+trigger1 = Facing != Parent, Facing
 ignorehitpause = 1
 
 [State 1022, FollowPlayer]
