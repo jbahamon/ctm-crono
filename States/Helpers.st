@@ -46,6 +46,22 @@ MoveType = I
 Physics = N
 ctrl=0
 
+[State 3510, Elem]
+Type = ChangeAnim
+trigger1 = root, selfanimexist(Root, Anim)
+trigger1 = ifelse((root, movetype = H), (root, stateno = [5000, 5300]), 1)
+trigger1 = Anim != Root, Anim || AnimElemNo(0) != Root, AnimElemNo(0)
+Value = Root, Anim
+Elem = Root, AnimElemNo(0)
+ignorehitpause = 1
+
+[State 775, customstatesanim]
+type = AssertSpecial
+trigger1 = root, movetype = H && (root, stateno != [5000, 5300])
+trigger2 = !root, selfanimexist(root, anim)
+flag = invisible
+ignorehitpause = 1
+
 [State 11777]
 Type=StateTypeSet ; You want to mimic the statetype of the player, to let the correct types of attacks hit only
 Trigger1 = root,statetype = A
@@ -69,12 +85,6 @@ Type = StateTypeSet
 Trigger1 = root,statetype = L
 trigger1 = statetype != L
 Statetype =L
-
-[State 6965]
-Type=ChangeAnim ; Helper copies the animation of the player.
-Trigger1=anim!=Root,anim
-value=Root,anim
-ignorehitpause=1
 
 [State 6965]
 Type=Assertspecial ; But is invisible
@@ -251,20 +261,20 @@ Value = Var((GameTime % 10 + 5) % 10)
 Elem = Var(10 + ((GameTime % 10 + 5) % 10))
 ignorehitpause = 1
 
-
-[State 3510, Positioning]
-Type = PosSet
-Trigger1 = 1
-X = Var(20 + ((GameTime % 10 + 5) % 10))
-Y = Var(30 + ((GameTime % 10 + 5) % 10))
-ignorehitpause = 1
-
 [State 775, customstatesanim]
 type = AssertSpecial
 trigger1 = root, movetype = H && (root, stateno != [5000, 5300])
 trigger2 = !root, selfanimexist(root, anim)
 trigger3 = Root, StateNo = 2200
 flag = invisible
+ignorehitpause = 1
+
+
+[State 3510, Positioning]
+Type = PosSet
+Trigger1 = 1
+X = Var(20 + ((GameTime % 10 + 5) % 10))
+Y = Var(30 + ((GameTime % 10 + 5) % 10))
 ignorehitpause = 1
 
 [State 775, spr]
