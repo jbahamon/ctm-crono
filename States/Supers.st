@@ -649,7 +649,7 @@ ignorehitpause =  1
 [State 2022, Var]
 type = VarSet
 trigger1 = !Time
-fvar(0) = Pos Y
+fvar(0) = IfElse(Pos Y > 0, 0, Pos Y)
 persistent = 0
 ignorehitpause = 1
 
@@ -671,7 +671,6 @@ type = VarAdd
 trigger1 = 1
 fvar(2) = facing * pi * (1/20.0 + (Time / 400000.0))
 ignorehitpause = 1
-
 
 [State 2022, Move]
 type = PosSet
@@ -722,7 +721,7 @@ value = 2013 + var(1)
 type = TargetBind
 trigger1 = Target, StateNo = 2013
 trigger1 = NumHelper(2010)
-pos = ((Helper(2010), Pos X) - Pos X) * Facing , FVar(3) - Pos Y
+pos = ((Helper(2010), Pos X) - Pos X) * Facing , FVar(1) - Pos Y
 time = 1
 ignorehitpause = 1
 
