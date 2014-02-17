@@ -19,6 +19,12 @@ trigger1 = 1
 source = 3,0
 dest = 1,palno
 
+[State 5900, 3] ;Change palette
+type = RemapPal
+trigger1 = 1
+source = 3,1
+dest = 1,palno
+
 [State 5900, 4] ;Intro for round 1
 type = ChangeState
 trigger1 = roundno = 1
