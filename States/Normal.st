@@ -1070,7 +1070,7 @@ value = 0
 
 
 [State 802, LifeAdd]
-type = LifeAdd
+type = TargetLifeAdd
 trigger1 = AnimElem = 5
 value = -42
 kill = Time > 60
