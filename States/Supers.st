@@ -607,6 +607,13 @@ trigger1 = NumTarget
 X = Target, Pos X - 20*Facing
 ignorehitpause = 1
 
+[State 2012, Pos]
+type = PosSet
+trigger1 = !Time
+trigger1 = Pos Y > Target, Pos Y 
+Y = Target, Pos Y
+ignorehitpause = 1
+
 [State 2022, !Push]
 type = PlayerPush
 trigger1 = 1
@@ -926,6 +933,11 @@ sprpriority = -1
 type = Width
 trigger1 = 1
 value = 0,0
+
+[State 2021, Invisible]	
+type = PosSet
+trigger1 = 1
+Y = 0
 
 [State 2021, Invisible]	
 type = PlayerPush
