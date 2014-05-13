@@ -44,13 +44,13 @@ walk.back = -1.7     ;Walk backward
 run.fwd  = 3.5, 0    ;Run forward (x, y)
 run.back = -3.5,-4.2 ;Hop backward (x, y)
 jump.neu = 0,-6    ;Neutral jumping velocity (x, y)
-jump.back = -1.5    ;Jump back Speed (x, y)
-jump.fwd = 1.5       ;Jump forward Speed (x, y)
-runjump.back = -1.8,-6 ;Running jump speeds (opt)
-runjump.fwd = 1.8,-6      ;.
+jump.back = -2.7    ;Jump back Speed (x, y)
+jump.fwd = 2.7       ;Jump forward Speed (x, y)
+runjump.back = -3.2,-6 ;Running jump speeds (opt)
+runjump.fwd = 3.2,-6      ;.
 airjump.neu = 0,-6      ;.
-airjump.back = -1.7      ;Air jump speeds (opt)
-airjump.fwd = 1.5         ;.
+airjump.back = -2.7      ;Air jump speeds (opt)
+airjump.fwd = 2.7         ;.
 air.gethit.groundrecover = -.15,-3.5  ;Velocity for ground recovery state (x, y) **MUGEN 1.0**
 air.gethit.airrecover.mul = .5,.2     ;Multiplier for air recovery velocity (x, y) **MUGEN 1.0**
 air.gethit.airrecover.add = 0,-4.5    ;Velocity offset for air recovery (x, y) **MUGEN 1.0**
@@ -160,12 +160,12 @@ ignorehitpause=1
 [State -2]
 Type= NotHitBy
 Trigger1= NumHelper(11777)>0 ; If the superarmor helper is active, the character cannot be hit by anything.
-value=SCA
+value=SCA, AA, AP, AT
 
 [State -2]
 Type= NotHitBy
 Trigger1= NumHelper(11777)>0 ; If the superarmor helper is active, the character cannot be hit by anything.
-value2=SCA ; This is for safety, as another Nothitby might override the first one, so better be safe and apply it to both slots.
+value2=SCA, AA, AP, AT; This is for safety, as another Nothitby might override the first one, so better be safe and apply it to both slots.
 
 
 ;---------------------------------------------------------------------------
@@ -186,7 +186,7 @@ ignorehitpause= 1
 [State -3, Dampener]
 Type = AttackMulSet
 Trigger1 = 1
-value = IfElse(Var(21) > 0, 0.35, fvar(39))
+value = IfElse(Var(21) > 0, 0.4, fvar(39))
 ignorehitpause = 1
 
 [State -3, EndProtect]

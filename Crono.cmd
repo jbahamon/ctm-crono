@@ -311,6 +311,36 @@ time=15
 ;---
 
 [Command]
+name = "qcbab"
+command =  ~D, DB, B, a+b
+time=15
+
+[Command]
+name = "qcbbc"
+command = ~D, DB, B, b+c
+time=15
+
+[Command]
+name = "qcbac"
+command = ~D, DB, B, a+c
+time=15
+
+[Command]
+name = "qcbab"
+command =  ~D, DB, B, ~a+b
+time=15
+
+[Command]
+name = "qcbbc"
+command = ~D, DB, B, ~b+c	
+time=15
+
+[Command]
+name = "qcbac"
+command = ~D, DB, B, ~a+c
+time=15
+
+[Command]
 name = "dfa"
 command = ~F, D, DF, ~a
 time = 20
@@ -659,17 +689,25 @@ trigger1 = ctrl
 [State -1, Cyclone]
 type = ChangeState
 value = 1010
-triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = command = "dfa" || command = "dfb" || command = "dfc"
 triggerall = statetype != A 
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
 trigger3 = (stateno = [400, 499]) && movecontact
 ;---------------------------------------------------------------------------
+[State -1, Lightning Burst]
+type = ChangeState
+value = 1003
+triggerall = command = "qcbab" || command = "qcbbc" || command = "qcbac"
+triggerall = roundstate = 2 && statetype != A && (numhelper(1000) > 0)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 299]) && MoveContact
+;---------------------------------------------------------------------------
 [State -1, Lightning]
 type = ChangeState
 value = 1000
-triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
-triggerall = roundstate = 2 && statetype != A && !numhelper(1000)
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype != A && (numhelper(1000) < 3)
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && MoveContact
 ;--------------------------------------------------------------------------
@@ -684,7 +722,7 @@ trigger2 = (StateNo = [600, 629]) && MoveContact
 ; Throws, Rolls, Etc
 ;===========================================================================
 
-[State -1, Magic Bind]
+[State -1, Cleave]
 type = ChangeState
 trigger1 = (command = "recovery" || command = "2p") && (command = "holdfwd" || command = "holdback")
 trigger1 = roundstate = 2 && ctrl && statetype = S && stateno != 100

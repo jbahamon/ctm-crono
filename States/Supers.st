@@ -152,7 +152,7 @@ poweradd= 0
 ctrl = 0
 sprpriority = 3
 velset = 0,0
-juggle = 10
+juggle = 0
 
 [State 2020, Var]
 type = ParentVarSet
@@ -171,6 +171,13 @@ ignorehitpause = 1
 type = VarSet
 trigger1 = !Time
 trigger1 = PrevStateNo != 2002
+var(2) = 0
+ignorehitpause = 1
+
+
+[State 2001, Anim]
+type = VarSet
+trigger1 = !Time
 var(0) = 0
 ignorehitpause = 1
 
@@ -191,26 +198,28 @@ ignorehitpause = 1
 
 [State 3101, hitdef]
 type = HitDef
-trigger1 = !Time
-trigger1 = AnimElemNo(0) < 30
+trigger1 = Time % 20 = 0
+trigger1 = Var(2) < 4
+trigger1 = Var(2) := (Var(2) + 1)
 attr = S, HP
-numhits=1
-damage=floor(153* parent, fvar(39)),0
+numhits=0
+damage=floor(51* parent, fvar(39)),0
 animtype=Hard
 hitflag = MAF
 hitsound = S7010,3
 guardflag=MA
-pausetime=0,60
+pausetime=0,22
 sparkno=-1
 ground.type=Low
-ground.slidetime=2
-ground.hittime=1
-ground.velocity=-1,-4;
-air.velocity=-1,-4;
-air.juggle =10
-fall=1
+ground.slidetime=0
+ground.hittime = 22
+ground.velocity = IfElse(Var(2) = 4, -1, 0), IfElse(Var(2) = 4, -4, 0)
+air.hittime = 22
+air.velocity = IfElse(Var(2) = 4, -1, 0), IfElse(Var(2) = 4, -4, 0)
+air.juggle = IfElse(Var(2) = 4, 10, 0)
+fall = (Var(2) = 4)
 fall.recover=0
-air.fall=1
+air.fall=(Var(2) = 4)
 p1sprpriority = 4
 p2facing=1
 palfx.invertall=1
@@ -218,13 +227,11 @@ palfx.color=0
 palfx.add = 120, 120, 30
 palfx.time=60
 getpower=0
-ID = 2000
-nochainID = 2000
 
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit
-fvar(39) = parent, Fvar(39)*0.73
+fvar(39) = parent, Fvar(39)*0.83
 persistent = 0
 ignorehitpause = 1
 
@@ -290,7 +297,6 @@ type = Trans
 trans = addalpha
 alpha = 256, 256
 ignorehitpause = 1
-
 
 [State 12007]
 Type=VarAdd
@@ -1284,6 +1290,14 @@ keyctrl = 0
 ownpal = 1
 persistent = 0
 supermovetime = 99999
+
+[State 6965]
+Type = PalFX
+trigger1 = !Time
+sinadd = 256, 256, 256, 64
+mul = 256, 256, 256
+time = 32
+ignorehitpause=1
 
 [State 2010, NHB]
 type = NotHitBy

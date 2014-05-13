@@ -125,14 +125,14 @@ value=0
 [State 6965, Var]
 Type = ParentVarSet
 Trigger1 = GetHitVar(damage) > 0
-var(22) = 1
+trigger1 = Parent, Var(22) > GetHitVar(hittime)
+var(22) = GetHitVar(hittime)
 ignorehitpause=1
 
 [State 6965, DestroySelf]
 Type = DestroySelf
 Trigger1 = !(Root, NumHelper(1020))
 ignorehitpause=1
-
 
 ;Frenzy
 [Statedef 7200]

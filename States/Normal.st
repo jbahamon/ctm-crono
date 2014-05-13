@@ -239,8 +239,8 @@ animtype = DiagUp
 ground.type = High
 ground.slidetime = 12
 ground.hittime  = 14
-ground.velocity = -6, -5
-air.velocity = -6, -5
+ground.velocity = -4, -6
+air.velocity = -4, -6
 air.juggle  = 6
 yaccel = 0.4
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -654,6 +654,12 @@ trigger1 = Anim = 610
 trigger1 = AnimElemNo(0) = 1
 Y = 0.9
 
+[State 610, Boom]
+type = VelMul
+trigger1 = !Time
+X = 0.4
+persistent = 0
+
 [State 610, 1]
 type = PlaySnd
 trigger1 = Anim = 610
@@ -692,17 +698,17 @@ hitflag = MAF
 guardflag = HA
 animtype = Medium
 priority = 3
-pausetime = 8,8
+pausetime = 9,9
 sparkno = S7007
 sparkxy = -10,10
 hitsound   = S7040,1
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 6
-ground.hittime  = 10
+ground.hittime  = 15
 ground.velocity = -0.5, 0
 air.velocity = -0.5,3
-air.hittime = 14
+air.hittime = 15
 air.juggle  = 4
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 36, 36
@@ -800,25 +806,20 @@ ignorehitpause = 1
 type = VelMul
 trigger1 = Anim = 620
 trigger1 = AnimElemNo(0) < 2
+X = 0.9
 Y = 0.9
 
 [State 620, VelAdd]
 type = VelAdd
 trigger1 = Anim = 620
 trigger1 = AnimElem = 2
-Y = - 4
+Y = - 2
 
 [State 620, VelAdd]
 type = PlaySnd
 trigger1 = Anim = 620
 trigger1 = AnimElem = 2
 value = S7000,1
-
-[State 620, VelAdd]
-type = VelSet
-trigger1 = Anim = 620
-trigger1 = AnimElem = 2
-X = 2
 
 [State 620, VelAdd]
 type = VelAdd
@@ -842,10 +843,11 @@ guardsound = 6,0
 animtype = Med
 ground.type = High
 ground.slidetime = 12
-ground.hittime  = 14
+ground.hittime  = 20
 ground.velocity = -2, 0	
 air.velocity = -2, 7
 air.juggle  = 7
+air.hittime = 20
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 36, 36
 palfx.add = 200, 200, 200
@@ -984,6 +986,12 @@ anim = 801
 sprpriority = 1
 poweradd = IfElse(Var(21) > 0, 0, 72)
 velset = 0,0
+
+[State 801, Turn]
+type = Turn
+trigger1 = Anim = 801
+trigger1 = AnimElem = 4
+trigger1 = Var(0) < 0
 
 [State 801, Helper]
 type = Helper

@@ -39,7 +39,7 @@ ignorehitpause = 1
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
-var(0) = IfElse(command = "qcfc", 2, IfElse(command = "qcfb", 1, 0))
+var(0) = IfElse(command = "qcbc", 2, IfElse(command = "qcbb", 1, 0))
 
 [State 1100, JumpSnd]
 type = PlaySnd
@@ -53,7 +53,7 @@ trigger1 = AnimElem = 3
 name = "Lightning"
 ID = 1000
 stateno = 1001
-pos = 50 + (50 + IfElse(Var(22) > 0, 30, 0)) * Var(0) , 0
+pos = (10 + 30 * Var(0)), -20
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
@@ -62,12 +62,41 @@ persistent = 0
 
 [State 1040, End]
 type = ChangeState
-trigger1 = Time > 60
+trigger1 = Time > 30
 value = 0
 ctrl = 1
 
-;The Lightning
+;Lightning Spark
 [Statedef 1001]
+type = A
+physics = N
+movetype = I
+anim = 7121
+ctrl = 0
+velset = 0,0
+sprpriority = 3
+
+[State 1001, ParentVar]
+type = VelSet
+trigger1 = 1
+Y = -0.2 * Sin(Time/20.0)
+ignorehitpause = 1
+
+[State 1001, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = NoShadow
+ignorehitpause = 1
+
+[State 1001, burst]
+type = ChangeState
+trigger1 = Time > 240
+trigger2 = Root, StateNo = 1003
+value = 1002
+ignorehitpause = 1
+
+;The Lightning
+[Statedef 1002]
 type = S
 physics = N
 movetype = A
@@ -75,6 +104,19 @@ anim = 7100 + IfElse(Root, Var(22) > 0, 3, 0)
 ctrl = 0
 velset = 0,0
 sprpriority = 3
+
+[State 1100, JumpSnd]
+type = Turn
+trigger1 = !Time
+trigger1 = (Random % 2) > 0
+
+ignorehitpause = 1
+
+[State 1100, JumpSnd]
+type = PosSet
+trigger1 = !Time
+Y = 0
+ignorehitpause = 1
 
 [State 1100, JumpSnd]
 type = PlaySnd
@@ -176,6 +218,7 @@ trigger1 = AnimElemTime(6) > 32
 trigger2 = MoveReversed
 ignorehitpause = 1
 
+[State 1002
 ;---------------------------------------------------------------------------
 ; Cyclone
 [Statedef 1010]
@@ -201,7 +244,7 @@ persistent = 0
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
-var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
+var(0) = ifelse(command = "dfc", 2, ifelse(command = "dfb", 1, 0))
 
 [State 1100, nothitby]
 type = nothitby
@@ -354,6 +397,56 @@ persistent = 0
 [State 1040, End]
 type = ChangeState
 trigger1 = Time > 30 && !AnimTime
+value = 0
+ctrl = 1
+
+;Lightning Burst
+[Statedef 1003]
+type    = S
+movetype= A
+physics = S
+juggle  = 3
+ctrl = 0
+anim = 1000
+sprpriority = 1
+poweradd = IfElse(Var(21) > 0 || Var(22) > 0, 0, 72)
+facep2 = 1
+
+[State 2010, Super Pause FX]
+type = PalFX
+trigger1 = time = [0, 32]
+add = 256 - 8 * Time, 256 - 8 * Time, 64 - 2 * Time
+time = 2
+
+[State 200, Explod]
+type = Explod
+ trigger1 = Time < 50
+trigger1 = GameTime % 5 = 0
+anim = 7102
+ID = 1000
+postype = p1  ;p2,front,back,left,right
+bindtime = 1
+vel = 0,-1 + (Random/1000.0)*0.7
+accel = 0,-0.3
+random = 27,7
+sprpriority = 2
+removetime = -2
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,0
+ignorehitpause = 1
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Time > 30
 value = 0
 ctrl = 1
 
@@ -581,7 +674,6 @@ physics = N
 juggle  = 3
 ctrl = 0
 anim = 1030
-velset = 0,0
 poweradd=IfElse(Var(21) > 0, 0, 115)
 sprpriority=1
 facep2= 1
@@ -591,6 +683,7 @@ type = ChangeAnim
 trigger1 = Time > 0
 trigger1 = Anim = 1030
 trigger1 = AnimElemNo(0) = 1
+trigger1 = AnimElemTime(1) > 5
 trigger1 = Command = "a" || Command = "b" || Command = "c"
 value = 1030
 elem = 2
@@ -644,14 +737,19 @@ var(0) = 0
 [State 1030, Jump]
 type = VelSet
 trigger1 = !Time
-X = 0.9
-Y = -4.1
+X = 1.2
+Y = -1
 
 [State 1030, Jump]
 type = VelAdd
 trigger1 = Anim = 1030
-trigger1 = AnimElemNo(0) = 1
-Y = 0.2
+Y = 0.1
+
+[State 1030, Fall]
+type = PlayerPush
+trigger1 = Anim = 1030
+value = 0
+ignorehitpause = 1
 
 [State 1030, Jump]
 type = VelSet
@@ -693,8 +791,8 @@ hitflag = MAF
 sparkno = -1
 hitsound = s7040, 3
 guard.dist = 0
-ground.velocity = -6,-0.5
-ground.velocity = -6,-0.5
+ground.velocity = -8,-0.8
+air.velocity = -8,-0.8
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
