@@ -1079,13 +1079,13 @@ value = 0
 
 [State 802, LifeAdd]
 type = TargetLifeAdd
-trigger1 = AnimElem = 5
+trigger1 = AnimElem = 6
 value = -42
 kill = Time > 60
 
 [State 802, Shake]
 type = EnvShake
-trigger1 = AnimElem = 5
+trigger1 = AnimElem = 6
 time = 5
 freq = 120
 ampl = 4

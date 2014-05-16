@@ -529,7 +529,7 @@ value = 0
 
 [State 2021, Hit]
 type = HitDef
-trigger1 = !Time
+trigger1 = Vel Y > 0
 attr = A, HT 
 hitflag = MA-
 priority = 4, Miss
@@ -559,6 +559,7 @@ fall.recover = 0
 p1sprpriority = 1
 p2sprpriority = 1
 kill = 0
+persistent = 0
 
 [State 620, Landing]
 type = ChangeState

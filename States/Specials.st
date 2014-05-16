@@ -53,13 +53,18 @@ trigger1 = AnimElem = 3
 name = "Lightning"
 ID = 1000
 stateno = 1001
-pos = (10 + 30 * Var(0)), -20
+pos = 10, -20
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
 
+[State 2010, Super Pause FX]
+type = PalFX
+trigger1 = time = [0, 32]
+add = 256 - 8 * Time, 256 - 8 * Time, 64 - 2 * Time
+time = 2
 [State 1040, End]
 type = ChangeState
 trigger1 = Time > 30
@@ -90,9 +95,13 @@ ignorehitpause = 1
 
 [State 1001, burst]
 type = ChangeState
-trigger1 = Time > 240
-trigger2 = Root, StateNo = 1003
+trigger1 = Root, StateNo = 1003
 value = 1002
+ignorehitpause = 1
+
+[State 1001, burst]
+type = DestroySelf
+trigger1 = Time > 600
 ignorehitpause = 1
 
 ;The Lightning
@@ -109,7 +118,6 @@ sprpriority = 3
 type = Turn
 trigger1 = !Time
 trigger1 = (Random % 2) > 0
-
 ignorehitpause = 1
 
 [State 1100, JumpSnd]
@@ -218,7 +226,57 @@ trigger1 = AnimElemTime(6) > 32
 trigger2 = MoveReversed
 ignorehitpause = 1
 
-[State 1002
+
+;Lightning Burst
+[Statedef 1003]
+type    = S
+movetype= A
+physics = S
+juggle  = 3
+ctrl = 0
+anim = 1000
+sprpriority = 1
+poweradd = 0
+facep2 = 1
+
+[State 2010, Super Pause FX]
+type = PalFX
+trigger1 = time = [0, 32]
+add = 256 - 8 * Time, 256 - 8 * Time, 64 - 2 * Time
+time = 2
+
+[State 200, Explod]
+type = Explod
+ trigger1 = Time < 50
+trigger1 = GameTime % 5 = 0
+anim = 7102
+ID = 1000
+postype = p1  ;p2,front,back,left,right
+bindtime = 1
+vel = 0,-1 + (Random/1000.0)*0.7
+accel = 0,-0.3
+random = 27,7
+sprpriority = 2
+removetime = -2
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,0
+ignorehitpause = 1
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Time > 30
+value = 0
+ctrl = 1
+
 ;---------------------------------------------------------------------------
 ; Cyclone
 [Statedef 1010]
@@ -400,57 +458,6 @@ trigger1 = Time > 30 && !AnimTime
 value = 0
 ctrl = 1
 
-;Lightning Burst
-[Statedef 1003]
-type    = S
-movetype= A
-physics = S
-juggle  = 3
-ctrl = 0
-anim = 1000
-sprpriority = 1
-poweradd = IfElse(Var(21) > 0 || Var(22) > 0, 0, 72)
-facep2 = 1
-
-[State 2010, Super Pause FX]
-type = PalFX
-trigger1 = time = [0, 32]
-add = 256 - 8 * Time, 256 - 8 * Time, 64 - 2 * Time
-time = 2
-
-[State 200, Explod]
-type = Explod
- trigger1 = Time < 50
-trigger1 = GameTime % 5 = 0
-anim = 7102
-ID = 1000
-postype = p1  ;p2,front,back,left,right
-bindtime = 1
-vel = 0,-1 + (Random/1000.0)*0.7
-accel = 0,-0.3
-random = 27,7
-sprpriority = 2
-removetime = -2
-sprpriority = 0
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 1
-ignorehitpause = 1
-
-[State 1100, JumpSnd]
-type = PlaySnd
-trigger1 = !Time
-value = S7100,0
-ignorehitpause = 1
-
-[State 1040, End]
-type = ChangeState
-trigger1 = Time > 30
-value = 0
-ctrl = 1
-
-
 ;---------------------------------------------------------------------------
 ;Volt Hit
 [Statedef 1020]
@@ -614,7 +621,7 @@ ignorehitpause = 1
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = AnimElem = 6
-var(22) = 360
+var(22) = 480
 persistent = 0
 ignorehitpause = 1
 
@@ -737,7 +744,7 @@ var(0) = 0
 [State 1030, Jump]
 type = VelSet
 trigger1 = !Time
-X = 1.2
+X = 1.5
 Y = -1
 
 [State 1030, Jump]
@@ -817,9 +824,283 @@ type = VelAdd
 trigger1 = Anim = 42
 Y = 0.3
 
-
 [State 1030, Landing]
 type = ChangeState
 trigger1 = Vel Y > 0
 trigger1 = pos y > -vel y
 value = 621
+
+;---------------------------------------------------------------------------
+; Slash
+[Statedef 1040]
+type    = S
+movetype= A
+physics = S
+juggle  = 3
+ctrl = 0
+anim = 1040
+sprpriority = 1
+poweradd = IfElse(Var(21) > 0 || Var(22) > 0, 0, 72)
+facep2 = 1
+
+[State 1010, Strength]
+type = VarSet
+trigger1 = !Time
+var(0) = IfElse(command = "qcfc", 2, IfElse(command = "qcfb", 1, 0))
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = !Time
+value = S7100,0
+ignorehitpause = 1
+
+[State 1000, Pawnch]
+type = Helper
+trigger1 = AnimElem = 2
+name = "Wind Slash"
+ID = 1040
+stateno = 1041
+pos = 0, 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+[State 1040, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+;Wind Slash
+[Statedef 1041]
+type = S
+physics = N
+movetype = A
+anim = 7141
+ctrl = 0
+velset = 0,0
+sprpriority = 2
+
+[State 1001, Speed]
+type = VelSet
+trigger1 = !Time
+X = IfElse(Parent, Var(0) = 2, 3.4, IfElse(Parent, Var(0) = 1, 2.9, 2.5))
+ignorehitpause = 1
+
+[State 1021, HitOverride]
+type = HitOverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP
+stateno = 1043
+ignorehitpause = 1
+
+[State 1021, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1001, Speed]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+ignorehitpause = 1
+
+[State 1001, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = NoShadow
+ignorehitpause = 1
+
+[State 1001, hitdef]
+type = HitDef
+triggerall = !MoveContact
+triggerall = !MoveReversed
+trigger1 = Time > 0
+priority = 6, Hit
+attr = S,SP
+damage = Floor(Parent, FVar(39)*60), 4
+animtype = Hard
+hitflag = MAF
+guardflag = H
+pausetime = 0, 12
+sparkno = S7140
+ground.type = High
+ground.slidetime = 12
+ground.hittime = 12
+ground.velocity = -0.4,0
+air.velocity  = -0.4, -1
+air.fall = 1
+p2facing = 1
+palfx.invertall = 1
+palfx.color = 0
+palfx.add = 120, 120, 20
+palfx.time = 12
+guard.dist = 100
+envshake.time = 8
+envshake.freq = 120
+envshake.ampl = 2
+getpower = IfElse(Parent, Var(21) > 0, 0, 20)
+
+[State 200, Explod]
+type = Explod
+triggerall = !MoveHit
+trigger1 = MoveContact
+trigger2 = MoveReversed
+anim = 7140
+ID = 1040
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7140
+ID = 1040
+postype = p1  ;p2,front,back,left,right
+facing = -1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1001, Dampen]
+Type = ParentVarset
+Trigger1 = MoveHit
+fvar(39) = parent, Fvar(39)*0.86
+persistent = 0
+ignorehitpause = 1
+
+[State 1000, Pawnch]
+type = Helper
+trigger1 = !Time
+name = "Slash Trail"
+ID = 1042
+stateno = 1042
+pos = 0, 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 1001, burst]
+type = ChangeState
+trigger1 = Time >= 60
+trigger2 = MoveReversed
+trigger3 = MoveContact
+value = 1043
+ignorehitpause = 1
+
+;Slash Trail
+[Statedef 1042]
+type = S
+physics = N
+movetype = A
+anim = 7141
+ctrl = 0
+velset = 0,0
+sprpriority = 2
+
+[State 1001, Speed]
+type = VelSet
+trigger1 = Time = 3
+X = Parent, Vel X
+
+[State 1001, Speed]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(0) + 1
+
+[State 1001, Speed]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 1001, Speed]
+type = ChangeAnim
+trigger1 = !Time
+value = (Parent, Anim) + 1
+
+[State 1000, Pawnch]
+type = Helper
+trigger1 = Time = 2
+trigger1 = Var(0) < 4
+name = "Slash Trail"
+ID = 1042
+stateno = 1042
+pos = 0, 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+[State 1001, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = NoShadow
+ignorehitpause = 1
+
+[State 1001, burst]
+type = ChangeState
+trigger1 = Parent, StateNo = 1043
+value = 1043
+
+
+;Wind Slash End
+[Statedef 1043]
+type = S
+physics = N
+movetype = I
+ctrl = 0
+sprpriority = 2
+
+[State 1001, ChangeState]
+type = VelMul
+trigger1 = 1
+X = 0.9
+
+[State 1001, ChangeState]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Anim = 7141
+value = 7146
+
+[State 1001, ChangeState]
+type = Trans
+trigger1 = Time = [0, 16]
+trans = addalpha
+alpha = 256 - Time * 16, 128 + Time * 8
+
+[State 1001, End]
+type = DestroySelf
+trigger1 = Time >= 16

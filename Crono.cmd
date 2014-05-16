@@ -699,17 +699,26 @@ trigger3 = (stateno = [400, 499]) && movecontact
 type = ChangeState
 value = 1003
 triggerall = command = "qcbab" || command = "qcbbc" || command = "qcbac"
-triggerall = roundstate = 2 && statetype != A && (numhelper(1000) > 0)
+triggerall = roundstate = 2 && statetype != A && (NumHelper(1000) > 0)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && MoveContact
+trigger2 = (stateno = [200, 499]) && MoveContact
 ;---------------------------------------------------------------------------
 [State -1, Lightning]
 type = ChangeState
 value = 1000
 triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
-triggerall = roundstate = 2 && statetype != A && (numhelper(1000) < 3)
+triggerall = roundstate = 2 && statetype != A && (NumHelper(1000) < 2)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && MoveContact
+trigger2 = (stateno = [200, 499]) && MoveContact
+;--------------------------------------------------------------------------
+[State -1, Wind Slash]
+type = ChangeState
+value = 1040
+triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
+triggerall = !NumHelper(1040)
+trigger1 = statetype != A
+trigger1 = ctrl
+trigger2 = (StateNo = [200, 499]) && MoveContact
 ;--------------------------------------------------------------------------
 [State -1, Spincut]
 type = ChangeState
