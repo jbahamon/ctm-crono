@@ -176,7 +176,7 @@ triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
 attr = S,SP
-damage = Floor(Parent, FVar(39)*60) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*50), 0)
+damage = Floor(Parent, FVar(39)*50) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*40), 0)
 animtype = Hard
 hitflag = MAF
 guardflag = H
@@ -924,7 +924,7 @@ triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
 attr = S,SP
-damage = Floor(Parent, FVar(39)*60), 4
+damage = Floor(Parent, FVar(39)*50), 4
 animtype = Hard
 hitflag = MAF
 guardflag = H
