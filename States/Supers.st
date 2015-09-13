@@ -1596,7 +1596,7 @@ trigger1 = Anim = 7300
 ID = 2200
 name = "Fake Crono"
 stateno = 2203
-pos = Floor(FVar(0))+ 30 + Target, Const(size.air.back), -154
+pos = Floor(FVar(0))+ 10 + Target, Const(size.air.back), -154
 postype = p1    ;p2,front,back,left,right
 facing = -1
 keyctrl = 0

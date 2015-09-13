@@ -96,6 +96,7 @@ ignorehitpause = 1
 [State 1001, burst]
 type = ChangeState
 trigger1 = Root, StateNo = 1003
+trigger2 = Time > 600
 value = 1002
 ignorehitpause = 1
 
@@ -471,6 +472,14 @@ sprpriority = 1
 poweradd = -250
 facep2 = 1
 
+
+[State 1100, JumpSnd]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
 [State 1100, JumpSnd]
 type = PlaySnd
 trigger1 = !Time
@@ -500,6 +509,7 @@ ignorehitpause = 1
 [State 1000, Pawnch]
 type = Helper
 trigger1 = AnimElem = 3
+trigger1 = Var(0) := 1
 name = "Self Lightning"
 ID = 1021
 stateno = 1021
@@ -514,6 +524,7 @@ persistent = 0
 type = Helper
 trigger1 = Var(22) > 0
 trigger1 = !NumHelper(1020)
+trigger1 = Var(0) := 2
 name = "Volt Spark"
 ID = 1020
 stateno = 1022
@@ -526,7 +537,7 @@ persistent = 0
 
 [State 1040, End]
 type = ChangeState
-trigger1 = NumHelper(1020) && !NumHelper(1021)
+trigger1 = Var(0) = 2
 value = 0
 ctrl = 1
 
