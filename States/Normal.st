@@ -58,9 +58,9 @@ guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 3             ;Time that the opponent slides back
 ground.hittime  = 13             ;Time opponent is in hit state
-ground.velocity = -0.8             ;Velocity at which opponent is pushed
+ground.velocity = -2             ;Velocity at which opponent is pushed
 air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
-air.velocity = -0.8,-.8           ;X-velocity at which opponent is pushed,
+air.velocity = -2,-.8           ;X-velocity at which opponent is pushed,
 ;Y-velocity at which opponent is pushed
 air.hittime = 12                 ;Time before opponent regains control in air
 air.juggle  = 2

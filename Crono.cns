@@ -121,7 +121,7 @@ ignorehitpause=1
 [State -2]
 Type = Helper
 Triggerall = NumHelper(11777) = 0 ; Create the superarmor helper if it doesn't exist.
-Trigger1 = NumHelper(1020) > 0
+Trigger1 = Var(22) > 0
 OwnPal = 1
 PosType = P1
 Pos = 0, 0
@@ -149,6 +149,13 @@ color = 256
 ignorehitpause = 1
 ;persistent = 
 
+[State -2, No Defense]
+type = AssertSpecial
+trigger1 = Var(22) > 0
+flag = NoCrouchGuard
+flag2 = NoAirGuard
+flag3 = NoStandGuard
+ignorehitpause = 1
 
 [State -2, VarSet]
 Type = VarAdd

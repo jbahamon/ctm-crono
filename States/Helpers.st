@@ -131,7 +131,7 @@ ignorehitpause=1
 
 [State 6965, DestroySelf]
 Type = DestroySelf
-Trigger1 = !(Root, NumHelper(1020))
+Trigger1 = (Root, Var(22) <= 0)
 ignorehitpause=1
 
 ;Frenzy

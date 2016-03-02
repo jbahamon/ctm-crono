@@ -23,6 +23,12 @@ channel = 0
 [State 2000, up!]
 type = VarSet
 trigger1 = !Time
+var(0) = 0
+persistent=0
+
+[State 2000, up!]
+type = VarSet
+trigger1 = !Time
 var(1) = 0
 persistent=0
 
@@ -121,6 +127,21 @@ anim = -1
 sound = -1
 p2defmul = 1
 darken = 0
+
+[State 3200, pullhelper]
+type = helper
+trigger1 =  Time > 50 && !NumHelper(7000)
+helpertype = normal
+stateno = 2005
+ID = 2005
+name = "Vacuum"
+postype = p2
+pos = enemynear, const(size.ground.back) -25, -ceil(enemy, pos y)
+persistent = 0
+size.ground.back = 5
+size.ground.front = 5
+size.height = 240
+persistent = 0
 
 [State 2000, Geyser]
 type = Helper
@@ -271,6 +292,13 @@ trans = addalpha
 alpha = 256, 256
 ignorehitpause = 1
 
+[State 2000, up!]
+type = ParentVarSet
+trigger1 = MoveContact
+var(0) = 1
+ignorehitpause = 1
+persistent=0
+
 [State 2003, End]
 type = DestroySelf
 trigger1 = !AnimTime
@@ -416,6 +444,67 @@ ignorehitpause = 1
 type = DestroySelf
 trigger1 = Time >= 66
 ignorehitpause = 1
+
+
+; Vacuum
+[Statedef 2005]
+physics = N
+velset = 0, 0
+anim = 2005
+
+[State 3205, NHB]
+type = nothitby
+trigger1 = 1
+time = -1
+value = SCA
+
+[State 3205, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = 2005
+ignorehitpause = 1
+
+[State 3205, bound]
+type = screenbound
+trigger1 = 1
+value = 0
+
+[State 3205, Turn]
+type = turn
+trigger1 = rootdist x < 5
+
+[State 3205, Dust]
+type = Makedust
+trigger1 = (p2bodydist x = [ -5, 5]) && (enemynear, statetype != A) && !(time % 12)
+pos = 0, 0
+spacing = 1
+
+[State 3205, Push]
+type = playerpush
+trigger1 = p2bodydist x = [ -10, 10]
+value = 1
+
+[State 3205, Pos]
+type = posset
+trigger1 = 1
+y = 0
+
+[State 3205, Vel]
+type = velset
+trigger1 = 1
+x = 250.0 / (rootdist x + 50.0)
+
+[State 3205, Pos]
+type = posadd
+trigger1 = p2bodydist x != [ -5, 5]
+x = ceil(p2dist x) - enemynear, const(size.ground.back) -5
+
+[State 3205, End]
+type = destroyself
+trigger1 = root, stateno != 2000 || root, var(0)
+trigger2 = Time  > 70
 
 ;---------------------------------------------------------------------------
 ; Confuse

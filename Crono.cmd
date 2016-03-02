@@ -681,52 +681,48 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 [State -1, Volt Hit]
 type = ChangeState
 value = 1020
-triggerall =  command = "dba" || command = "dbb" || command = "dbc"
-triggerall = !NumHelper(1020) && Var(22) <= 0
+triggerall = command = "dba" || command = "dbb" || command = "dbc"
+triggerall = Var(22) <= 0 || !NumHelper(1020)
+triggerall = Power >= 500
 trigger1 = statetype != A
 trigger1 = ctrl
-;---------------------------------------------------------------------------
-[State -1, Cyclone]
-type = ChangeState
-value = 1010
-triggerall = command = "dfa" || command = "dfb" || command = "dfc"
-triggerall = statetype != A 
-trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && movecontact
-trigger3 = (stateno = [400, 499]) && movecontact
-;---------------------------------------------------------------------------
-[State -1, Lightning Burst]
-type = ChangeState
-value = 1003
-triggerall = command = "qcbab" || command = "qcbbc" || command = "qcbac"
-triggerall = roundstate = 2 && statetype != A && (NumHelper(1000) > 0)
-trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
-;---------------------------------------------------------------------------
-[State -1, Lightning]
-type = ChangeState
-value = 1000
-triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
-triggerall = roundstate = 2 && statetype != A && (NumHelper(1000) < 2)
-trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
-;--------------------------------------------------------------------------
-[State -1, Wind Slash]
-type = ChangeState
-value = 1040
-triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
-triggerall = !NumHelper(1040)
-trigger1 = statetype != A
-trigger1 = ctrl
-trigger2 = (StateNo = [200, 499]) && MoveContact
+
 ;--------------------------------------------------------------------------
 [State -1, Spincut]
 type = ChangeState
 value = 1030
-triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
-trigger1 = statetype = A
+triggerall = Command = "dfa" || Command = "dfb" || Command = "dfc" 
+trigger1 = statetype != A
 trigger1 = ctrl
-trigger2 = (StateNo = [600, 629]) && MoveContact
+
+;---------------------------------------------------------------------------
+[State -1, Cyclone]
+type = ChangeState
+value = 1010
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = statetype != A 
+trigger1 = ctrl
+trigger2 = (stateno = [200, 299]) && movecontact
+trigger3 = (stateno = [400, 499]) && movecontact
+
+;---------------------------------------------------------------------------
+[State -1, Air Cyclone]
+type = ChangeState
+value = 1015
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = statetype = A 
+trigger1 = ctrl
+trigger2 = (stateno = [600, 699]) && movecontact
+
+;---------------------------------------------------------------------------
+[State -1, Lightning]
+type = ChangeState
+value = 1000
+triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
+triggerall = roundstate = 2 && statetype != A && !NumHelper(1000)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 499]) && MoveContact
+
 ;===========================================================================
 ; Throws, Rolls, Etc
 ;===========================================================================
