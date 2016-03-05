@@ -84,6 +84,11 @@ type = PlaySnd
 trigger1 = AnimElem = 2
 value = S7000, 0
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
+
 [State 200, 3]
 type = ChangeState
 trigger1 = AnimTime = 0
@@ -164,6 +169,11 @@ Trigger1 = MoveHit
 fvar(39) = fvar(39)*0.85
 persistent = 0
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 210, 5]
 type = ChangeState
@@ -257,6 +267,11 @@ Trigger1 = MoveHit
 fvar(39) = fvar(39)*0.78
 persistent = 0
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
 
 [State 220, 3]
 type = ChangeState

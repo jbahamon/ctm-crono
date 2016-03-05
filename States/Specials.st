@@ -29,7 +29,7 @@ ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
- trigger1 = Time < 50
+trigger1 = Time < 50
 trigger1 = GameTime % 5 = 0
 anim = 7102
 ID = 1000
@@ -156,7 +156,7 @@ triggerall = !MoveReversed
 trigger1 = Time > 0
 priority = 6, Hit
 attr = S,SP
-damage = Floor(Parent, FVar(39)*50) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*40), 0)
+damage = Floor(Parent, FVar(39)*82) + IfElse(Anim = 7103, Floor(Parent, FVar(39)*42), 0), 3 + 9 * (Anim = 7103)
 animtype = Hard
 hitflag = MAF
 guardflag = H
@@ -336,6 +336,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElemTime(2) = 0 || AnimTime = 0
 anim = 7110
 ID = 1011
@@ -359,6 +360,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 3
 anim = 7111
 ID = 1011
@@ -381,6 +383,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 4
 anim = 7110
 ID = 1011
@@ -403,6 +406,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 5
 anim = 7111
 ID = 1011
@@ -426,6 +430,7 @@ ignorehitpause = 1
 
 [State 1250, Hit]
 type = HitDef
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 2 || !AnimTime
 attr = S, SA
 damage = 51, 9
@@ -464,14 +469,26 @@ palfx.time = 10
 
 [State 1010, Snd]
 type = StopSnd
-trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1012
 channel = 0
 ignorehitpause = 1
 persistent = 0
 
 [State 1040, End]
-type = ChangeState
+type = StateTypeSet
+trigger1 = Anim = 1012
+movetype = I
+persistent = 0
+
+[State 1040, End]
+type = ChangeAnim
 trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1010
+value = 1012
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Anim = 1012 && !AnimTime
 value = 0
 ctrl = 1
 
@@ -506,6 +523,7 @@ persistent = 0
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1011
 trigger1 = AnimElemTime(2) = 0 || AnimTime = 0
 anim = 7110
 ID = 1011
@@ -528,6 +546,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1011
 trigger1 = AnimElem = 3
 anim = 7111
 ID = 1011
@@ -550,6 +569,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1011
 trigger1 = AnimElem = 4
 anim = 7110
 ID = 1011
@@ -572,6 +592,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1011
 trigger1 = AnimElem = 5
 anim = 7111
 ID = 1011
@@ -683,14 +704,26 @@ p2facing = -1
 
 [State 1010, Snd]
 type = StopSnd
-trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1012
 channel = 0
 ignorehitpause = 1
 persistent = 0
 
 [State 1040, End]
-type = ChangeState
+type = StateTypeSet
+trigger1 = Anim = 1012
+movetype = I
+persistent = 0
+
+[State 1040, End]
+type = ChangeAnim
 trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1011
+value = 1012
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Anim = 1012 && !AnimTime
 value = 0
 ctrl = 1
 
@@ -746,6 +779,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElemTime(2) = 0 || AnimTime = 0
 anim = 7110
 ID = 1011
@@ -769,6 +803,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 3
 anim = 7111
 ID = 1011
@@ -791,6 +826,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 4
 anim = 7110
 ID = 1011
@@ -813,6 +849,7 @@ ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 5
 anim = 7111
 ID = 1011
@@ -836,6 +873,7 @@ ignorehitpause = 1
 
 [State 1250, Hit]
 type = HitDef
+trigger1 = Anim = 1010
 trigger1 = AnimElem = 2 || !AnimTime
 attr = A, SA
 damage = 51, 9
@@ -872,13 +910,33 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 10
 
+
 [State 1010, Snd]
 type = StopSnd
-trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1012
 trigger2 = Vel Y > 0 && Vel Y > -Pos Y
 channel = 0
 ignorehitpause = 1
 persistent = 0
+
+
+[State 1040, End]
+type = StateTypeSet
+trigger1 = Anim = 1012
+movetype = I
+persistent = 0
+
+[State 1040, End]
+type = ChangeAnim
+trigger1 = Time > 30 && !AnimTime
+trigger1 = Anim = 1010
+value = 1012
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Anim = 1012 && !AnimTime
+value = 50
+ctrl = 0
 
 [State 1000, End]
 type = changestate
@@ -886,11 +944,6 @@ trigger1 = Vel Y > 0 && Vel Y > -Pos Y
 value = 52
 ctrl = 1
 
-[State 1040, End]
-type = ChangeState
-trigger1 = Time > 30 && !AnimTime
-value = 50
-ctrl = 0
 
 ;---------------------------------------------------------------------------
 ; EX Cyclone (Air)
@@ -1393,6 +1446,21 @@ type = Velmul
 trigger1 = 1
 x = 0.9 
 
+[State 1010, Jump]
+type = VelAdd
+trigger1 = Anim = 1030
+trigger1 = AnimElemNo(0) = 3
+trigger2 = Anim = 1031
+trigger2 = AnimElemNo(0) < 3
+Y = 0.45
+
+
+[State 1010, Jump]
+type = VelAdd
+trigger1 = Anim = 1031
+trigger1 = AnimElemNo(0) = 3
+Y = 0.15
+
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
@@ -1403,7 +1471,7 @@ type = StateTypeSet
 trigger1 = Anim = 1030
 trigger1 = AnimElem = 3
 statetype = A
-physics = A
+physics = N
 
 [State 1010, Jump]
 type = VelSet
@@ -1632,7 +1700,7 @@ type = StateTypeSet
 trigger1 = Anim = 1030
 trigger1 = AnimElem = 3
 statetype = A
-physics = A
+physics = N
 
 [State 1010, Jump]
 type = VelSet
@@ -1766,6 +1834,21 @@ envshake.freq = 120
 envshake.ampl = 4
 getpower=IfElse(Var(21) > 0, 0, 20)
 
+
+[State 1010, Jump]
+type = VelAdd
+trigger1 = Anim = 1030
+trigger1 = AnimElemNo(0) = 3
+trigger2 = Anim = 1031
+trigger2 = AnimElemNo(0) < 3
+Y = 0.45
+
+
+[State 1010, Jump]
+type = VelAdd
+trigger1 = Anim = 1031
+trigger1 = AnimElemNo(0) = 3
+Y = 0.15
 
 [State 1030, Hit]
 type = HitDef
