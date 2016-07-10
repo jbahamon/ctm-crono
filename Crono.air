@@ -1711,6 +1711,362 @@ Clsn2:1
 12000,1, 1,-15, 10
 
 
+; Alternate Stand
+[Begin Action 10000]
+Clsn2Default: 1
+  Clsn2[0] = -6, -31, 6, 0
+7501,2, 0,0, 150
+7501,1, 0,0, 3
+7501,0, 0,0, 3
+7501,1, 0,0, 3
+
+; Turning Alt
+[Begin Action 10005]
+Clsn2Default: 1
+  Clsn2[0] = -7, -32, 7, 0
+10006,0, 0,0, 4
+10006,0, 0,0, 4, H
+
+; Crouch Turn Alt
+[Begin Action 10006]
+Clsn2Default: 1
+  Clsn2[0] = -6, -27, 6, -1
+1020,0, 0,0, 4
+1020,0, 0,0, 4, H
+
+; Stand to Crouch Alt
+[Begin Action 10010]
+Clsn2Default: 1
+  Clsn2[0] = -6, -26, 6, 0
+10010,0, 0,0, 3
+
+; Crouching
+[Begin Action 10011]
+Clsn2Default: 1
+  Clsn2[0] = -7, -26, 7, 0
+1000,0, -2,0, -1
+
+; Crouch to Stand Alt
+[Begin Action 10012]
+Clsn2Default: 1
+  Clsn2[0] = -7, -26, 7, 0
+10010,0, 0,0, 3
+
+; Jump Start
+[Begin Action 10040]
+Clsn2: 1
+  Clsn2[0] = -6, -25, 8, 0
+1000,0, 0,-1, 3
+
+; Jump Up
+[Begin Action 10041]
+Clsn2:1
+  Clsn2[0] = -7, -27, 7, 0
+10040,0, 1,-1, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,1, 0,-5, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,2, 0,-5, 3
+Loopstart
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,3, 0,-5, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,2, 0,-5, 3
+
+; Jump Forwards
+[Begin Action 10042]
+Clsn2:1
+  Clsn2[0] = -7, -27, 7, 0
+10040,0, 0,0, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,1, 0,-5, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,2, 0,-5, 3
+Loopstart
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,3, 0,-5, 3
+Clsn2:1
+  Clsn2[0] = -6, -34, 6, -4
+10040,2, 0,-5, 3
+
+; Starting Jumping backwards
+[Begin Action 10043]
+Clsn2:1
+  Clsn2[0] = -6, -39, 6, -9
+1000,0, -2,-11, 3
+Clsn2:1
+  Clsn2[0] = -6, -39, 6, -9
+10107,0, 0,-6, -1
+
+; Jump Land
+[Begin Action 10047]
+Clsn2: 1
+  Clsn2[0] = -7, -24, 7, 0
+1000,0, -2,0, 6
+
+; Hop Backwards
+[Begin Action 10105]
+Clsn2: 1
+  Clsn2[0] = -8, -31, 8, -5
+10107,0, 0,0, 7
+
+; Standing Light
+[Begin Action 10200]
+Clsn2: 1
+  Clsn2[0] = -7, -28, 7, 0
+10200,0, 0,0, 4
+Clsn1: 1
+  Clsn1[0] = 3, -21, 17, -12
+Clsn2: 2
+  Clsn2[0] = -7, -28, 7, 0
+  Clsn2[1] = 3, -21, 17, -12
+10200,1, 0,0, 6
+Clsn2: 1
+  Clsn2[0] = -7, -28, 7, 0
+10200,1, 0,0, 3
+
+; Standing Hard
+[Begin Action 10210]
+Clsn2: 1
+  Clsn2[0] = -7, -31, 7, 0
+200,0, 0,0, 6
+Clsn1: 1
+  Clsn1[0] = 8, -30, 21, 0
+Clsn2: 2
+  Clsn2[0] = -3, -27, 10, 0
+  Clsn2[1] = 8, -30, 21, -1
+200,1, 0,0, 4
+Clsn2: 1
+  Clsn2[0] = -3, -27, 10, 0
+200,2, 0,0, 11
+
+; Standing Projectile
+[Begin Action 10220]
+Clsn2: 1
+  Clsn2[0] = -7, -28, 7, 0
+10220,0, 0,0, 9
+Clsn2: 2
+  Clsn2[0] = -6, -29, 8, 0
+  Clsn2[1] = 4, -20, 17, -10
+10220,1, 0,0, 28
+
+; Small Projectile
+[Begin Action 10221]
+Clsn2Default: 1
+  Clsn2[0] = -14, -5, 5, 5
+Clsn1Default: 1
+  Clsn1[0] = -14, -5, 5, 5
+7000,24, 0,0, 4, , A1
+7000,25, 0,0, 20, , A1
+7000,25, 0,0, 1, , A1
+7000,25, 0,0, 1, , AS192D160
+7000,25, 0,0, 1, , AS128D192
+7000,25, 0,0, 1, , AS64D224
+
+; Projectile Hit
+[Begin Action 10222]
+7000,26, 0,0, 4, , A1
+7000,27, 0,0, 4, , A1
+
+; Crouching Light
+[Begin Action 10400]
+Clsn2: 1
+  Clsn2[0] = -9, -24, 6, 0
+10400,0, 0,0, 3
+Clsn1: 1
+  Clsn1[0] = 1, -13, 15, -5
+Clsn2: 2
+  Clsn2[0] = -9, -24, 6, 0
+  Clsn2[1] = 1, -13, 15, -5
+10400,1, 0,0, 3
+Clsn2: 2
+  Clsn2[0] = -9, -24, 6, 0
+  Clsn2[1] = 1, -13, 15, -5
+10400,1, 0,0, 3
+Clsn2: 1
+  Clsn2[0] = -9, -24, 6, 0
+10400,0, 0,0, 4
+
+; Crouching Hard
+[Begin Action 10410]
+Clsn2: 1
+  Clsn2[0] = -8, -24, 6, 0
+410,0, 0,0, 9
+Clsn1: 2
+  Clsn1[0] = 10, -29, 20, -15
+  Clsn1[1] = 3, -25, 13, -8
+Clsn2: 3
+  Clsn2[0] = -8, -24, 6, 0
+  Clsn2[1] = 10, -29, 20, -15
+  Clsn2[2] = 3, -25, 13, -8
+410,1, 0,0, 7
+Clsn2: 2
+  Clsn2[0] = -8, -24, 6, 0
+  Clsn2[1] = 3, -24, 13, -8
+410,1, 0,0, 14
+
+; Crouching Projectile
+[Begin Action 10420]
+-1,0, 0,0, 10
+
+; Jump Light
+[Begin Action 10600]
+Clsn2: 1
+  Clsn2[0] = -5, -29, 10, 0
+10600,0, 0,0, 3
+Clsn1: 1
+  Clsn1[0] = 4, -18, 22, -10
+Clsn2: 2
+  Clsn2[0] = -4, -27, 11, 0
+  Clsn2[1] = 4, -18, 22, -10
+10600,1, 0,0, 11
+Clsn2: 2
+  Clsn2[0] = -4, -27, 11, 0
+  Clsn2[1] = 4, -18, 22, -10
+10600,1, 0,0, 3
+Clsn2: 1
+  Clsn2[0] = -7, -24, 7, 0
+1000,0, 0,0, -1
+
+; Jump Hard
+[Begin Action 10610]
+Clsn2: 1
+  Clsn2[0] = -7, -31, 7, -1
+10610,2, 0,0, 8
+Clsn1: 2
+  Clsn1[0] = 5, -32, 21, -4
+  Clsn1[1] = -1, -4, 19, 6
+Clsn2: 3
+  Clsn2[0] = -8, -30, 5, -2
+  Clsn2[1] = 5, -32, 21, -4
+  Clsn2[2] = -1, -4, 19, 7
+10610,1, 0,0, 5
+Clsn2: 1
+  Clsn2[0] = -8, -30, 7, -2
+10610,1, 0,0, 13
+Clsn2: 1
+  Clsn2[0] = -7, -24, 7, 0
+1000,0, 0,0, -1
+
+; Jump Down Kick
+[Begin Action 10611]
+Clsn2: 1
+  Clsn2[0] = -10, -28, 5, -3
+10040,3, -3,0, 7
+Clsn1: 1
+  Clsn1[0] = 4, -13, 18, 5
+Clsn2: 2
+  Clsn2[0] = -5, -24, 8, -1
+  Clsn2[1] = 4, -13, 18, 5
+11010,0, 2,3, -1
+
+; Jump Projectile
+[Begin Action 10620]
+-1,0, 0,0, 10
+; Sliding Kick
+[Begin Action 11000]
+Clsn2: 1
+  Clsn2[0] = -6, -24, 8, 0
+1000,0, 0,0, 10
+Clsn1: 1
+  Clsn1[0] = 3, -9, 26, 2
+Clsn2: 2
+  Clsn2[0] = -14, -8, 13, 1
+  Clsn2[1] = 2, -6, 23, 2
+11000,0, 0,0, 12
+Clsn2: 2
+  Clsn2[0] = -14, -8, 13, 1
+  Clsn2[1] = 2, -6, 23, 2
+11000,0, 0,0, 12
+Clsn2: 1
+  Clsn2[0] = -6, -24, 8, 0
+1000,0, 0,0, 12
+
+; Sliding Kick
+[Begin Action 11010]
+Clsn2: 1
+  Clsn2[0] = -4, -28, 7, -2
+10610,2, 0,-1, 6
+Clsn2: 1
+  Clsn2[0] = -4, -28, 7, -2
+11010,0, 2,1, 4
+Clsn1: 1
+  Clsn1[0] = 15, -8, 32, 1
+Clsn2: 1
+  Clsn2[0] = -8, -8, 28, 1
+11000,0, 5,0, 6
+Clsn1: 1
+  Clsn1[0] = 15, -8, 32, 1
+Clsn2: 1
+  Clsn2[0] = -8, -8, 28, 1
+11000,0, 5,0, 8
+
+; Triangle Kick
+[Begin Action 11010]
+Clsn2: 1
+  Clsn2[0] = -6, -24, 8, -1
+1000,0, 0,0, 6
+Clsn1: 1
+  Clsn1[0] = 4, -13, 17, 2
+Clsn2: 2
+  Clsn2[0] = -7, -29, 6, -2
+  Clsn2[1] = 3, -11, 14, 0
+11010,0, 0,0, 7
+Clsn2: 2
+  Clsn2[0] = -7, -29, 6, -2
+  Clsn2[1] = 3, -11, 14, 0
+11010,0, 0,0, 5
+
+; Repulse
+[Begin Action 11020]
+Clsn2: 1
+  Clsn2[0] = -5, -30, 7, 0
+11020,0, 0,0, 1
+Clsn2: 1
+  Clsn2[0] = -5, -30, 7, 0
+11020,0, 0,0, 1
+Clsn2: 1
+  Clsn2[0] = -5, -30, 7, 0
+11020,0, 0,0, 1
+Clsn2: 1
+  Clsn2[0] = -5, -30, 7, 0
+11020,0, 0,0, 1
+Clsn2: 1
+  Clsn2[0] = -5, -30, 7, 0
+11020,0, 0,0, 6
+Clsn1: 1
+  Clsn1[0] = -18, -22, 20, -9
+Clsn2: 2
+  Clsn2[0] = -5, -27, 7, 0
+  Clsn2[1] = -14, -19, 16, -11
+11020,1, 0,0, 2
+Clsn2: 2
+  Clsn2[0] = -5, -27, 7, 0
+  Clsn2[1] = -14, -19, 16, -11
+11020,1, 0,0, 12
+
+; Repulse Blast
+[Begin Action 11021]
+7000,25, 0,0, 1, , A1
+-1,0, 0,0, 1
+
+; Grounded Projectile
+[Begin Action 11030]
+Clsn2: 1
+  Clsn2[0] = -6, -25, 7, 0
+10200,0, 0,0, 7
+Clsn2: 2
+  Clsn2[0] = -5, -25, 8, 0
+  Clsn2[1] = 0, -25, 15, -10
+11030,1, 0,0, 15
+
 ; SVC Alternate Midnight Bliss
 [Begin Action 12000]
 12000,0, 0,0, -1
@@ -1724,6 +2080,10 @@ Clsn2:1
 12000,4, 0,0, 27
 12000,5, 0,0, 27
 
+
+; Head
+[Begin Action 14500]
+14500,0, 0,0, -1
 
 ; MB...
 [Begin Action 66660]
@@ -1746,6 +2106,3 @@ Loopstart
 12000,1, 0,0, -1
 
 
-; Head
-[Begin Action 14500]
-14500,0, 0,0, -1

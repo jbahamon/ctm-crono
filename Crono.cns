@@ -92,7 +92,7 @@ victory1 = "..."
 
 ; Var(21): Protect Timer
 ; Var(22): Spark Timer
-
+; Var(23): Air Movement
 
 ;FVar(29): Spark Damage
 ;FVar(39): Damage Dampener
@@ -107,6 +107,12 @@ victory1 = "..."
 ;---------------------------------------------------------------------------
 
 [Statedef -2]
+
+[State -2, AIR MOVEMENT]
+type = VarSet
+trigger1 = !Life
+v = 23
+value = 1
 
 [State -2, Dampener]
 Type=VarSet
@@ -245,4 +251,3 @@ trigger1 = stateno = 50 ;Jump
 trigger1 = (PrevStateNo != [200,1099]) && (PrevStateNo != [2000,2099])
 trigger2 = stateno = 105 ;Run-back
 value = S7010, 5
-

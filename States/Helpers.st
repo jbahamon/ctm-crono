@@ -625,16 +625,19 @@ ignorehitpause = 1
 [State 1030, Hit]
 type = HitDef
 trigger1 = Anim = 1030 && AnimElem = 1
-damage = 120, 10
+damage = 70,0
 pausetime = 12, 12
-attr = A, SA 
+animtype = Back
+attr = S, SA 
+guardflag = M
 hitflag = MAF
-guardflag = MA
 sparkno = -1
 hitsound = s7040, 3
 guard.dist = 0
-ground.velocity = -6,-0.5
-ground.velocity = -6,-0.5
+ground.velocity =  -1, -6
+air.velocity = -1, -6
+yaccel = 0.5
+forcestand = 1
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
@@ -646,7 +649,37 @@ envshake.time = 12
 envshake.freq = 120
 envshake.ampl = 4
 getpower=0
-ignorehitpause = 1
+
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = Anim = 1030
+trigger1 = AnimElem = 3
+damage = 18, 7
+pausetime = 12, 12
+animtype = Back
+attr = S, SA 
+guardflag = M
+hitflag = MAF
+sparkno = -1
+hitsound = s7040, 3
+guard.dist = 0
+ground.velocity =  -1, -6
+air.velocity = -1, -6
+yaccel = 0.5
+forcestand = 1
+fall = 1
+fall.recover = 1
+fall.recovertime = 120
+persistent = 0
+palfx.add=200,200,200
+palfx.mul=256,256,256
+palfx.time=18
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 4
+getpower=0
+
 
 [State 7200, End]
 type = DestroySelf

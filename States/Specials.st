@@ -1409,6 +1409,7 @@ type = DestroySelf
 trigger1 = Root, NumHelper(1000)
 trigger2 = Root, StateNo = 1011
 trigger3 = Root, StateNo = 1031
+trigger4 = Root, StateNo = 1016
 ignorehitpause = 1
 
 ;---------------------------------------------------------------------------
@@ -1668,7 +1669,7 @@ juggle  = 3
 ctrl = 0
 anim = 1030
 velset = 0,0
-poweradd=IfElse(Var(21) > 0, 0, 115)
+poweradd=0
 sprpriority=1
 facep2= 1
 
@@ -1802,7 +1803,7 @@ palfx.time=18
 envshake.time = 12
 envshake.freq = 120
 envshake.ampl = 4
-getpower=IfElse(Var(21) > 0, 0, 20)
+getpower=0
 
 
 [State 1030, Hit]
@@ -1832,7 +1833,7 @@ palfx.time=18
 envshake.time = 12
 envshake.freq = 120
 envshake.ampl = 4
-getpower=IfElse(Var(21) > 0, 0, 20)
+getpower=0
 
 
 [State 1010, Jump]

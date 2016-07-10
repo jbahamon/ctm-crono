@@ -470,6 +470,29 @@ name = "qcfc"
 command = ~D, DF, F, c
 time = 15
 
+[Command]
+name = "bdA"
+command = ~B, DB, D, a
+time = 15
+
+
+[Command]
+name = "bdA"
+command = ~B, DB, D, ~a
+time = 15
+
+
+[Command]
+name = "bfa"
+command = ~40$B, F, a
+time = 15
+
+[Command]
+name = "bfa"
+command = ~40$B, F, ~a
+time = 15
+
+
 ;-| Double Tap |-----------------------------------------------------------
 [Command]
 name = "FF"     ;Required (do not remove)
@@ -504,7 +527,10 @@ time = 1
 
 ;-| Dir + Button |---------------------------------------------------------
 
-
+[Command]
+name = "D+b"
+command = /$D,b
+time = 1
 
 ;-| Single Button |---------------------------------------------------------
 [Command]
@@ -604,6 +630,54 @@ time = 1
 ; that is executed once every game-tick, regardless of what other state
 ; you are in.
 
+    ;------Air Movement Commands--------
+    ;Air Movement
+    [Command]
+    name = "uf"
+    command = /UF
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "ub"
+    command = /UB
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "df"
+    command = /DF
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "db"
+    command = /DB
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "up"
+    command = /U
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "down"
+    command = /D
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "fow"
+    command = /F
+    time = 1
+     
+    ;Air Movement
+    [Command]
+    name = "back"
+    command = /B
+    time = 1
 
 ; Don't remove the following line. It's required by the CMD standard.
 [Statedef -1]
@@ -634,6 +708,7 @@ trigger1 = ctrl
 [State -1, Shining Sword Attack]
 type = ChangeState
 value = 2200
+triggerall = PalNo != 12
 triggerall = Command = "qcfhcba" || Command = "qcfhcbb" || Command = "qcfhcbc"
 triggerall = Var(21) > 0
 trigger1 = statetype != A
@@ -642,6 +717,7 @@ trigger1 = ctrl || ((stateno = [200, 299]) && time <= 10)
 [State -1, Lightning 2]
 type = ChangeState
 value = 2020
+triggerall = PalNo != 12
 triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2020)
@@ -654,6 +730,7 @@ trigger4 = ( StateNo = 2000 ) && Time && Var(1)
 [State -1, Luminaire]
 type = ChangeState
 value = 2000
+triggerall = PalNo != 12
 triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2000)
@@ -667,6 +744,7 @@ trigger4 = ( StateNo = 2020 ) && Time && Var(1)
 [State -1, Confuse]
 type = ChangeState
 value = 2010
+triggerall = PalNo != 12
 triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
 trigger1 = statetype != A
@@ -678,9 +756,56 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
+
+[State -1, Slide Kick]
+type = ChangeState
+value = 11010
+triggerall = PalNo = 12
+triggerall = command = "qcfb"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = MoveContact && stateno = [10200, 10499]
+trigger3 = StateNo = 11030 && NumHelper(11030)
+trigger4 = StateNo = 10220 && AnimElemNo(0) >= 2
+ignorehitpause = 1
+
+[State -1, Repulse]
+type = ChangeState
+value = 11020
+triggerall = PalNo = 12
+triggerall = command = "bfa"
+triggerall = statetype != A
+trigger1 = ctrl
+ignorehitpause = 1
+
+[State -1, Ground Projectile]
+type = ChangeState
+value = 11030
+triggerall = PalNo = 12
+triggerall = !NumHelper(11030)
+triggerall = command = "bdA"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = MoveContact && stateno = [10200, 10499]
+ignorehitpause = 1
+
+[State -1, Down Kick]
+type = ChangeState
+value = 10611
+triggerall = PalNo = 12
+triggerall = command = "D+b"
+trigger1 = statetype = A
+trigger1 = ctrl
+trigger2 = stateno = [10600, 10610]
+trigger2 = movecontact
+trigger3 = stateno = 1350 ;Air blocking
+ignorehitpause = 1
+
+
 [State -1, Volt Hit]
 type = ChangeState
 value = 1020
+triggerall = PalNo != 12
 triggerall = command = "dba" || command = "dbb" || command = "dbc"
 triggerall = Var(22) <= 0 || !NumHelper(1020)
 triggerall = Power >= 500
@@ -691,6 +816,7 @@ trigger1 = ctrl
 [State -1, Spincut]
 type = ChangeState
 value = 1030
+triggerall = PalNo != 12
 triggerall = Command = "dfa" || Command = "dfb" || Command = "dfc" 
 trigger1 = statetype != A
 trigger1 = ctrl
@@ -699,6 +825,7 @@ trigger1 = ctrl
 [State -1, Cyclone]
 type = ChangeState
 value = 1010
+triggerall = PalNo != 12
 triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = statetype != A 
 trigger1 = ctrl
@@ -709,6 +836,7 @@ trigger3 = (stateno = [400, 499]) && movecontact
 [State -1, Air Cyclone]
 type = ChangeState
 value = 1015
+triggerall = PalNo != 12
 triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = statetype = A 
 trigger1 = ctrl
@@ -718,6 +846,7 @@ trigger2 = (stateno = [600, 699]) && movecontact
 [State -1, Lightning]
 type = ChangeState
 value = 1000
+triggerall = PalNo != 12
 triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
 triggerall = roundstate = 2 && statetype != A && !NumHelper(1000)
 trigger1 = ctrl
@@ -736,6 +865,7 @@ value = 800
 [State -1, Frenzy]
 type = ChangeState
 value = 2100
+triggerall = PalNo != 12
 triggerall = Command = "a+c" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
 triggerall = Power >= 3000
 triggerall = Var(21) = 0
@@ -748,6 +878,7 @@ trigger1 = ctrl
 [State -1, Stand Light]
 type = ChangeState
 value = 200
+triggerall = PalNo != 12
 triggerall = command = "a"
 triggerall = command != "holddown"
 trigger1 = statetype = S
@@ -756,6 +887,7 @@ trigger1 = ctrl
 [State -1, Stand Mid]
 type = ChangeState
 value = 210
+triggerall = PalNo != 12
 triggerall = command = "b"
 triggerall = command != "holddown"
 trigger1 = statetype = S
@@ -767,9 +899,9 @@ trigger2 = movecontact
 [State -1, Stand Strong]
 type = ChangeState
 value = 220
+triggerall = PalNo != 12
 triggerall = command = "c"
 triggerall = command != "holddown"
-triggerall = !NumProjID(220)
 trigger1 = statetype = S
 trigger1 = ctrl
 trigger2 = (stateno = 200) || (stateno = 210)
@@ -789,6 +921,7 @@ trigger1 = ctrl
 [State -1, Crouching Light]
 type = ChangeState
 value = 400
+triggerall = PalNo != 12
 triggerall = command = "a"
 triggerall = command = "holddown"
 trigger1 = statetype != A
@@ -801,6 +934,7 @@ trigger2 = movecontact
 [State -1, Crouching Mid]
 type = ChangeState
 value = 410
+triggerall = PalNo != 12
 triggerall = command = "b"
 triggerall = command = "holddown"
 trigger1 = statetype != A
@@ -813,6 +947,7 @@ trigger2 = movecontact
 [State -1, Crouching Strong]
 type = ChangeState
 value = 420
+triggerall = PalNo != 12
 triggerall = command = "c"
 triggerall = command = "holddown"
 trigger1 = statetype != A
@@ -825,6 +960,7 @@ trigger2 = movecontact
 [State -1, Jump Light]
 type = ChangeState
 value = 600
+triggerall = PalNo != 12
 triggerall = command = "a"
 trigger1 = statetype = A
 trigger1 = ctrl
@@ -838,6 +974,7 @@ trigger3 = stateno = 1350 ;Air blocking
 [State -1, Jump Mid]
 type = ChangeState
 value = 610
+triggerall = PalNo != 12
 triggerall = command = "b"
 trigger1 = statetype = A
 trigger1 = ctrl
@@ -850,9 +987,99 @@ trigger3 = stateno = 1350 ;Air blocking
 [State -1, Jump Strong]
 type = ChangeState
 value = 620
+triggerall = PalNo != 12
 triggerall = command = "c"
 trigger1 = statetype = A
 trigger1 = ctrl
 trigger2 = (stateno = 600) || (stateno = 610)
 trigger2 = movecontact
 trigger3 = stateno = 1350 ;Air blocking
+
+
+;---------------------------------------------------------------------------
+
+[State -1, Alt Stand Light]
+type = ChangeState
+value = 10200
+triggerall = PalNo = 12
+triggerall = command = "a"
+triggerall = command != "holddown"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = StateNo = 10200 && MoveContact && PrevStateNo != 10200
+
+[State -1, Alt Stand Heavy]
+type = ChangeState
+value = 10210
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = command != "holddown"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = StateNo = 10200 && MoveContact
+ignorehitpause = 1
+
+[State -1, Alt Stand Projectile]
+type = ChangeState
+value = 10220
+triggerall = PalNo = 12
+triggerall = Command = "c"
+triggerall = Command != "holddown"
+triggerall = StateType!= A
+triggerall = Power >= 200
+triggerall = NumProjID(10220) = 0
+trigger1 = ctrl
+trigger2 = StateNo = [10200, 10210] 
+trigger2 = MoveContact
+ignorehitpause = 1
+
+[State -1, Crouch Light]
+type = ChangeState
+value = 10400
+triggerall = PalNo = 12
+triggerall = command = "a"
+triggerall = command = "holddown"
+triggerall = statetype != A
+trigger1 = ctrl
+ignorehitpause = 1
+
+[State -1, Crouch Mid]
+type = ChangeState
+value = 10410
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = command = "holddown"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = StateNo = [10200, 10400]
+trigger2 = MoveContact
+ignorehitpause = 1
+
+;---------------------------------------------------------------------------
+;Jump Light
+[State -1, Jump Light]
+type = ChangeState
+value = 10600
+triggerall = PalNo = 12
+triggerall = command = "a"
+trigger1 = statetype = A
+trigger1 = ctrl
+trigger2 = stateno = 1350 ;Air blocking
+trigger3 = StateNo = 10600 && MoveContact && PrevStateNo != 10600
+ignorehitpause = 1
+
+;---------------------------------------------------------------------------
+;Jump Mid
+[State -1, Jump Mid]
+type = ChangeState
+value = 10610
+triggerall = PalNo = 12
+triggerall = command = "b"
+trigger1 = statetype = A
+trigger1 = ctrl
+trigger2 = stateno = 10600
+trigger2 = movecontact
+trigger3 = stateno = 1350 ;Air blocking
+ignorehitpause = 1
+
+;---------------------------------------------------------------------------
