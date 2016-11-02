@@ -568,6 +568,12 @@ name = "start"
 command = s
 time = 1
 
+[Command]
+name = "holdb";Required (do not remove)
+command = /b
+time = 1
+
+
 ;-| Hold Dir |--------------------------------------------------------------
 
 [Command]
@@ -757,17 +763,6 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ; Special Moves
 ;===========================================================================
 
-[State -1, Slide Kick]
-type = ChangeState
-value = 11010
-triggerall = PalNo = 12
-triggerall = command = "qcfb"
-triggerall = statetype != A
-trigger1 = ctrl
-trigger2 = MoveContact && stateno = [10200, 10499]
-trigger3 = StateNo = 11030 && NumHelper(11030)
-trigger4 = StateNo = 10220 && AnimElemNo(0) >= 2
-ignorehitpause = 1
 
 [State -1, Repulse]
 type = ChangeState
@@ -776,29 +771,6 @@ triggerall = PalNo = 12
 triggerall = command = "bfa"
 triggerall = statetype != A
 trigger1 = ctrl
-ignorehitpause = 1
-
-[State -1, Ground Projectile]
-type = ChangeState
-value = 11030
-triggerall = PalNo = 12
-triggerall = !NumHelper(11030)
-triggerall = command = "bdA"
-triggerall = statetype != A
-trigger1 = ctrl
-trigger2 = MoveContact && stateno = [10200, 10499]
-ignorehitpause = 1
-
-[State -1, Down Kick]
-type = ChangeState
-value = 10611
-triggerall = PalNo = 12
-triggerall = command = "D+b"
-trigger1 = statetype = A
-trigger1 = ctrl
-trigger2 = stateno = [10600, 10610]
-trigger2 = movecontact
-trigger3 = stateno = 1350 ;Air blocking
 ignorehitpause = 1
 
 
@@ -998,7 +970,7 @@ trigger3 = stateno = 1350 ;Air blocking
 
 ;---------------------------------------------------------------------------
 
-[State -1, Alt Stand Light]
+[State -1, Alt Standing A]
 type = ChangeState
 value = 10200
 triggerall = PalNo = 12
@@ -1006,9 +978,18 @@ triggerall = command = "a"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = StateNo = 10200 && MoveContact && PrevStateNo != 10200
 
-[State -1, Alt Stand Heavy]
+
+[State -1, Alt Standing A* Combo]
+type = ChangeState
+value = (StateNo + 1)
+triggerall = PalNo = 12
+triggerall = command = "a"
+triggerall = command != "holddown"
+triggerall = Time > 0
+trigger1 = (StateNo = [10200, 10203]) && (Var(25) || MoveContact)
+
+[State -1, Alt Standing B]
 type = ChangeState
 value = 10210
 triggerall = PalNo = 12
@@ -1016,21 +997,68 @@ triggerall = command = "b"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = StateNo = 10200 && MoveContact
 ignorehitpause = 1
 
-[State -1, Alt Stand Projectile]
+[State -1, Alt Standing BB]
+type = ChangeState
+value = 10211
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = command != "holddown"
+trigger1 = StateNo = 10210 && (Var(25) || MoveContact)
+ignorehitpause = 1
+
+
+[State -1, Alt Standing AAB/AB]
+type = ChangeState
+value = 10212
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = (Var(25) || MoveContact)
+trigger1 = StateNo = 10201 
+trigger2 = StateNo = 10400
+ignorehitpause = 1
+
+[State -1, Alt Standing AAAAB]
+type = ChangeState
+value = 10213
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = (Var(25) || MoveContact)
+trigger1 = StateNo = 10203
+trigger1 = (Command != "holddown")
+ignorehitpause = 1
+
+
+[State -1, Alt C]
 type = ChangeState
 value = 10220
 triggerall = PalNo = 12
 triggerall = Command = "c"
 triggerall = Command != "holddown"
 triggerall = StateType!= A
-triggerall = Power >= 200
 triggerall = NumProjID(10220) = 0
 trigger1 = ctrl
-trigger2 = StateNo = [10200, 10210] 
-trigger2 = MoveContact
+ignorehitpause = 1
+
+[State -1, Alt AAC/AC]
+type = ChangeState
+value = 10221
+triggerall = PalNo = 12
+triggerall = Command = "c"
+triggerall = (Var(25) || MoveContact)
+trigger1 = StateNo = 10201 
+trigger2 = StateNo = 10400
+ignorehitpause = 1
+
+
+[State -1, Alt BC]
+type = ChangeState
+value = 10222
+triggerall = PalNo = 12
+triggerall = Command = "c"
+triggerall = (Var(25) || MoveContact)
+trigger1 = StateNo = 10210
 ignorehitpause = 1
 
 [State -1, Crouch Light]
@@ -1051,10 +1079,18 @@ triggerall = command = "b"
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = StateNo = [10200, 10400]
-trigger2 = MoveContact
 ignorehitpause = 1
 
+
+[State -1, Crouch Proj]
+type = ChangeState
+value = 10420
+triggerall = PalNo = 12
+triggerall = command = "c"
+triggerall = command = "holddown"
+triggerall = statetype != A
+trigger1 = ctrl
+ignorehitpause = 1
 ;---------------------------------------------------------------------------
 ;Jump Light
 [State -1, Jump Light]
@@ -1083,3 +1119,11 @@ trigger3 = stateno = 1350 ;Air blocking
 ignorehitpause = 1
 
 ;---------------------------------------------------------------------------
+[State -1, Air Proj]
+type = ChangeState
+value = 10620
+triggerall = PalNo = 12
+triggerall = command = "c"
+triggerall = statetype = A
+trigger1 = ctrl
+ignorehitpause = 1

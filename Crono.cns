@@ -90,10 +90,10 @@ victory1 = "..."
 
 ; Variables 0-20 are temporary and should be reset before use.
 
-; Var(21): Protect Timer
+; Var(21): Frenzy Timer
 ; Var(22): Spark Timer
-; Var(23): Air Movement
 
+; Var(25): Combo-ready (Alt Mode)
 ;FVar(29): Spark Damage
 ;FVar(39): Damage Dampener
 ;----------------------------------------------------------------------
