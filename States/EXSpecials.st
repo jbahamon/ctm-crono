@@ -1,5 +1,136 @@
+;Hyper Dash / Z Cancel
+[Statedef 11000]
+type    = U
+movetype= A
+physics = N
+juggle  = 8
+ctrl = 0
+sprpriority = 1
+poweradd= 72
+anim = IfElse(PrevStateNo = 10212, 11001, 11000)
+facep2 = 1
 
-;Repulsive Blast
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) = [2,3]
+trigger1 = AnimElemTime(2) % 4 = 0
+anim = 11002
+ID = 11000
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+
+;Thanks to Bia/SMEE for the heat-seeking projectile code :) 
+
+[State 3111, X]
+Type = VarSet
+Trigger1 = 1
+fvar(0) = (EnemyNear(0), Pos X- Pos X) * Facing
+ignorehitpause = 1
+
+[State 3111, Y]
+Type = VarSet
+trigger1 = 1
+fvar(1) = (EnemyNear(0), pos Y - Pos Y +Enemynear(0),Const(size.mid.pos.y))
+ignorehitpause = 1
+
+[State 3111, Vector Length]
+Type = VarSet
+trigger1 =1
+fvar(2) = Exp(0.5*ln((fvar(0) * fvar(0))+(fvar(1) * fvar(1))))
+ignorehitpause = 1
+
+[State 3111, vel]
+type = Velset
+trigger1 = AnimElemNo(0) = 2
+trigger1 = FVar(0) > 0
+x = Fvar(0)/fvar(2) * 7
+y = FVar(1)/fvar(2) * 7
+ignorehitpause = 1
+
+[State 1020, End]
+type = StateTypeSet
+trigger1 = AnimElem = 2
+statetype = A
+physics = N
+
+[State 1020, End]
+type = VelMul
+trigger1 = AnimElem = 3
+X = 0.5
+Y = 0.5
+
+[State 200, 1]
+type = HitDef
+trigger1 = !Time
+attr = A, SA                     ;Attribute: Standing, Normal Attack
+damage = 42, 0                   ;Damage that move inflicts, guard damage
+animtype = Medium                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
+guardflag = MA                    ;Flags on how move is to be guarded against
+hitflag = MAF                    ;Flags of conditions that move can hit
+priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
+;Hit/Miss/Dodge type (Def: Hit)
+pausetime = 6, 22                 ;Time attacker pauses, time opponent shakes
+sparkno = S7005                      ;Spark anim no (Def: set above)
+sparkxy = -7, -12               ;X-offset for the "hit spark" rel. to p2,
+;Y-offset for the spark rel. to p1
+hitsound = S0,0                  ;Sound to play on hit
+guardsound = 6, 0                ;Sound to play on guard
+ground.type = Low ;Type: High, Low, Trip (def: Normal)
+ground.slidetime = 14             ;Time that the opponent slides back
+ground.hittime  = 25             ;Time opponent is in hit state
+guard.hittime = 12
+air.hittime = 25
+ground.velocity = -3,0            ;Velocity at which opponent is pushed
+airguard.velocity = -.5, 0     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
+air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
+air.velocity = -2, 0           ;X-velocity at which opponent is pushed,
+;Y-velocity at which opponent is pushed
+air.hittime = 12                 ;Time before opponent regains control in air
+getpower = 72,36
+givepower = 36, 36
+envshake.time = 6
+envshake.freq = 120
+envshake.ampl = 3
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+
+[State 1020, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 50
+ctrl = 1
+
+;Suprise Attack - Rapid Sword Stream?
+[Statedef 11010]
+type    = S
+movetype= A
+physics = S
+juggle  = 8
+ctrl = 0
+sprpriority = 1
+poweradd= 72
+facep2 = 1
+
+[State 1020, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+; Blitz Attack - Change the Future
 [Statedef 11020]
 type    = S
 movetype= A
@@ -10,12 +141,45 @@ sprpriority = 1
 poweradd= 72
 facep2 = 1
 
+[State 1020, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+; Sleeper Hold - Shining Slash
+[Statedef 11030]
+type    = S
+movetype= A
+physics = S
+juggle  = 8
+ctrl = 0
+sprpriority = 1
+poweradd= 72
+facep2 = 1
+
+[State 1020, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+; Sparking
+[Statedef 11040]
+type    = S
+movetype= A
+physics = S
+juggle  = 8
+ctrl = 0
+sprpriority = 1
+poweradd= 72
+facep2 = 1
 
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 6
-anim = 11021
-ID = 11020
+anim = 11041
+ID = 11040
 pos = -17, -15
 postype = p1  ;p2,front,back,left,right
 facing = 1
@@ -36,8 +200,8 @@ ignorehitpause = 1
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 6
-anim = 11021
-ID = 11020
+anim = 11041
+ID = 11040
 pos = 17, -15
 postype = p1  ;p2,front,back,left,right
 facing = -1
@@ -57,14 +221,14 @@ ignorehitpause = 1
 
 [State 1010, Anim]
 type = ChangeAnim
-trigger1 = !Time && PrevStateNo != 7960
-value = 11020
+trigger1 = !Time && PrevStateNo != 11041
+value = 11040
 
 [State 220, Push]
 type = HitOverride
-trigger1 = Anim = 11020
+trigger1 = Anim = 11040
 trigger1 = AnimElemNo(0) < 5
-stateno = 11021
+stateno = 11041
 attr = SCA, AA, AP
 time = 1
 ignorehitpause = 1
@@ -133,7 +297,7 @@ ctrl = 1
 
 
 ;Super Armor State
-[Statedef 11021]
+[Statedef 11041]
 velset = 0,0
 Movetype = H
 
@@ -170,7 +334,7 @@ type = HitOverride
 trigger1= 1
 time = 1
 attr = SCA, AA, AP
-stateno = 11021
+stateno = 11041
 ignorehitpause = 1
 
 [State 999, LifeAdd]
@@ -189,5 +353,5 @@ ignorehitpause = 1
 [State 999, End]
 type = ChangeState
 trigger1 = Time >= floor(gethitvar(hittime) * 0.35)
-value = 11020
+value = 11040
 ignorehitpause = 1

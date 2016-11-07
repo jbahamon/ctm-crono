@@ -532,6 +532,12 @@ name = "D+b"
 command = /$D,b
 time = 1
 
+[Command]
+name = "F+z"
+command = /$F,z
+time = 1
+
+
 ;-| Single Button |---------------------------------------------------------
 [Command]
 name = "a"
@@ -763,6 +769,17 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ; Special Moves
 ;===========================================================================
 
+[State -1, Hyper Dash / Z Cancel]
+type = ChangeState
+value = 11000
+triggerall = PalNo = 12
+triggerall = command = "F+z"
+triggerall = Power >= 25
+triggerall = StateType != A
+trigger1 = ctrl && Power >= 50
+trigger2 = StateNo = 10212 && Time > 0 && Var(0)
+trigger3 = StateNo = 0 && PrevStateNo = 10212 && Time < 10
+ignorehitpause = 1
 
 [State -1, Repulse]
 type = ChangeState
@@ -1102,6 +1119,7 @@ trigger1 = statetype = A
 trigger1 = ctrl
 trigger2 = stateno = 1350 ;Air blocking
 trigger3 = StateNo = 10600 && MoveContact && PrevStateNo != 10600
+trigger4 = StateNo = 11000 && MoveContact
 ignorehitpause = 1
 
 ;---------------------------------------------------------------------------
@@ -1116,6 +1134,7 @@ trigger1 = ctrl
 trigger2 = stateno = 10600
 trigger2 = movecontact
 trigger3 = stateno = 1350 ;Air blocking
+trigger4 = StateNo = 11000 && MoveContact
 ignorehitpause = 1
 
 ;---------------------------------------------------------------------------
@@ -1126,4 +1145,5 @@ triggerall = PalNo = 12
 triggerall = command = "c"
 triggerall = statetype = A
 trigger1 = ctrl
+trigger2 = StateNo = 11000 && MoveContact
 ignorehitpause = 1

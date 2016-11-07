@@ -892,6 +892,17 @@ sprpriority = 1
 facep2 = 1
 
 [State 210, 1]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 210, 1]
+type = VarSet
+trigger1 = AnimElem = 3
+var(0) = 1
+ignorehitpause = 1
+
+[State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
 value = S7000, 1
