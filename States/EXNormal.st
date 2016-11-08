@@ -1193,13 +1193,6 @@ velset = 0,0
 anim = 10222
 sprpriority = 2
 
-[State 200, Dampen]
-Type=Varset
-Trigger1 = ProjHit = 1
-fvar(39) = fvar(39)*0.78
-persistent = 0
-ignorehitpause = 1
-
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
@@ -1285,7 +1278,7 @@ y = 4
 
 [State 1055, Hit]
 type = hitdef
-trigger1 = Root, StateNo = 10220
+trigger1 = Root, StateNo = 10620
 priority = 4, Hit
 attr = S, SP
 damage = ceil(47 * root, fvar(39)), 7

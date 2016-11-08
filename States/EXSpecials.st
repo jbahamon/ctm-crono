@@ -6,9 +6,17 @@ physics = N
 juggle  = 8
 ctrl = 0
 sprpriority = 1
-poweradd= 72
+poweradd= -IfElse(PrevStateNo = 10212, 25, 50)
 anim = IfElse(PrevStateNo = 10212, 11001, 11000)
 facep2 = 1
+
+
+[State 3111, X]
+Type = NotHitBy
+Trigger1 = AnimElemNo(0) = [2,3]
+value =, AP
+ignorehitpause = 1
+
 
 [State 200, Explod]
 type = Explod
@@ -23,7 +31,7 @@ vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
-scale = 1,1
+scale = 1.5,1.5
 sprpriority = 2
 ontop = 0
 shadow = 0,0,0
@@ -56,8 +64,19 @@ ignorehitpause = 1
 type = Velset
 trigger1 = AnimElemNo(0) = 2
 trigger1 = FVar(0) > 0
+trigger1 = !MoveContact
 x = Fvar(0)/fvar(2) * 7
 y = FVar(1)/fvar(2) * 7
+ignorehitpause = 1
+
+
+[State 3111, vel]
+type = Velset
+trigger1 = AnimElemNo(0) = 2
+trigger1 = FVar(0) > 0
+trigger1 = MoveContact
+x = Fvar(0)/fvar(2) * 3
+y = FVar(1)/fvar(2) * 3
 ignorehitpause = 1
 
 [State 1020, End]
@@ -67,10 +86,11 @@ statetype = A
 physics = N
 
 [State 1020, End]
-type = VelMul
+type = Null;VelMul
 trigger1 = AnimElem = 3
-X = 0.5
+trigger2 = MoveContact
 Y = 0.5
+X = 0.5
 
 [State 200, 1]
 type = HitDef
@@ -99,7 +119,7 @@ air.type = High                  ;Type: High, Low, Trip (def: same as ground.typ
 air.velocity = -2, 0           ;X-velocity at which opponent is pushed,
 ;Y-velocity at which opponent is pushed
 air.hittime = 12                 ;Time before opponent regains control in air
-getpower = 72,36
+getpower = 0,0
 givepower = 36, 36
 envshake.time = 6
 envshake.freq = 120
@@ -117,12 +137,144 @@ ctrl = 1
 [Statedef 11010]
 type    = S
 movetype= A
-physics = S
+physics = N
 juggle  = 8
 ctrl = 0
+anim = 11010
 sprpriority = 1
 poweradd= 72
 facep2 = 1
+velset = 0,0
+
+[State 3111, X]
+Type = VelSet
+Trigger1 = AnimElem = 2
+X = 3
+ignorehitpause = 1
+
+[State 3111, X]
+Type = PlayerPush
+Trigger1 = AnimElemNo(0) = 10
+value = 0
+ignorehitpause = 1
+
+[State 3111, X]
+Type = VelSet
+Trigger1 = AnimElem = 10
+X = 1.6
+ignorehitpause = 1
+
+
+[State 3111, X]
+Type = StateTypeSet
+Trigger1 = AnimElem = 11
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 2102, Sparks]
+type = Explod
+trigger1 = AnimElemNo(0) = 10
+trigger1 = AnimElemTime(10) % 8 = 0
+trigger1 = AnimElemTime(10) < 40
+anim = 7000 + (random % 2)
+ID = 11010
+sprpriority = 5
+postype = p1
+pos = 10, -15
+random = 10, 10
+facing = IfElse(Random % 2, 1, -1)
+vfacing = IfElse(Random % 2, 1, -1)
+ownpal = 1
+ontop = 1
+removetime = -2
+
+[State 2102, Sparks]
+type = Explod
+trigger1 = AnimElemNo(0) = 10
+trigger1 = AnimElemTime(10) % 8 = 4
+trigger1 = AnimElemTime(10) < 40
+anim = 7000 + (random % 2)
+ID = 11010
+sprpriority = 5
+postype = p1
+pos = 10, -15
+random = 10, 10
+facing = IfElse(Random % 2, 1, -1)
+vfacing = IfElse(Random % 2, 1, -1)
+ownpal = 1
+ontop = 1
+removetime = -2
+
+[State 200, 1]
+type = HitDef
+trigger1 = AnimElem = 8
+attr = S, SA                     ;Attribute: Standing, Normal Attack
+damage = 11, 0                   ;Damage that move inflicts, guard damage
+animtype = Medium                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
+guardflag = MA                    ;Flags on how move is to be guarded against
+hitflag = MAF                    ;Flags of conditions that move can hit
+priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
+;Hit/Miss/Dodge type (Def: Hit)
+pausetime = 0, 20                 ;Time attacker pauses, time opponent shakes
+sparkno = -1                      ;Spark anim no (Def: set above)
+;Y-offset for the spark rel. to p1
+hitsound = S0,0                  ;Sound to play on hit
+guardsound = 6, 0                ;Sound to play on guard
+ground.type = Low ;Type: High, Low, Trip (def: Normal)
+ground.slidetime = 14             ;Time that the opponent slides back
+ground.hittime  = 25             ;Time opponent is in hit state
+guard.hittime = 12
+air.hittime = 25
+ground.velocity = 0,0            ;Velocity at which opponent is pushed
+airguard.velocity = 0, 0     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
+air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
+air.velocity = 0, 0           ;X-velocity at which opponent is pushed,
+;Y-velocity at which opponent is pushed
+air.hittime = 12                 ;Time before opponent regains control in air
+getpower = 72,36
+givepower = 36, 36
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 7
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+
+[State 200, 1]
+type = HitDef
+trigger1 = AnimElem = 10
+attr = S, SA                     ;Attribute: Standing, Normal Attack
+damage = 82, 0                   ;Damage that move inflicts, guard damage
+animtype = Medium                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
+guardflag = MA                    ;Flags on how move is to be guarded against
+hitflag = MAF                    ;Flags of conditions that move can hit
+priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
+;Hit/Miss/Dodge type (Def: Hit)
+pausetime = 0, 22                 ;Time attacker pauses, time opponent shakes
+sparkno = -1                      ;Spark anim no (Def: set above)
+;Y-offset for the spark rel. to p1
+hitsound = S0,0                  ;Sound to play on hit
+guardsound = 6, 0                ;Sound to play on guard
+ground.type = Low ;Type: High, Low, Trip (def: Normal)
+ground.slidetime = 14             ;Time that the opponent slides back
+ground.hittime  = 25             ;Time opponent is in hit state
+guard.hittime = 12
+air.hittime = 25
+ground.velocity = 0,0            ;Velocity at which opponent is pushed
+airguard.velocity = 0, 0     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
+air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
+air.velocity = 0, 0           ;X-velocity at which opponent is pushed,
+;Y-velocity at which opponent is pushed
+air.hittime = 12                 ;Time before opponent regains control in air
+getpower = 72,36
+givepower = 36, 36
+envshake.time = 8
+envshake.freq = 120
+envshake.ampl = 12
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+numhits = 10
+
 
 [State 1020, End]
 type = ChangeState
@@ -134,18 +286,142 @@ ctrl = 1
 [Statedef 11020]
 type    = S
 movetype= A
-physics = S
+physics = N
 juggle  = 8
 ctrl = 0
-sprpriority = 1
-poweradd= 72
+sprpriority = 2
+poweradd= -25
+velset = 6,0
+anim = 11020
 facep2 = 1
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 6
+value = S3, 0
+channel = 0
+
+
+[State 210, 1]
+type = VelSet
+trigger1 = AnimElem = 5
+X = 0
+
+[State 1000, Pawnch]
+type = Helper
+trigger1 = AnimelemTime(6) = 0
+name = "Ki Blast"
+ID = 11020
+stateno = 11021
+pos = 18, -17
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
 
 [State 1020, End]
 type = ChangeState
 trigger1 = !AnimTime
 value = 0
 ctrl = 1
+
+; Ki Burst
+[Statedef 11021]
+type = A
+physics = N
+movetype = A
+ctrl = 0
+velset = 0, 0
+sprpriority = 4
+
+[State 10227, Anim]
+type = ChangeAnim
+trigger1 = !Time && PrevStateNo != 11021
+value = 11021
+
+[State 1001, Dampen]
+Type = ParentVarset
+Trigger1 = MoveHit
+trigger1 = !(target, time) && target, movetype = H
+fvar(39) = parent, Fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
+[State 1005, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = 11021
+ignorehitpause = 1
+
+[State 1005, HB]
+type = hitby
+trigger1 = PrevStateNo != 11021
+time = -1
+value = SCA, NP, SP, HP
+ignorehitpause = 1
+
+
+[State 1005, HB]
+type = nothitby
+trigger1 = PrevStateNo = 11021
+time = -1
+value = , AA, AP, AT
+ignorehitpause = 1
+
+[State 1005, timevar]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 1055, Hit]
+type = hitdef
+trigger1 = !(PrevStateNo = 11021)
+priority = 4, Hit
+attr = S, SP
+damage = ceil(127 * root, fvar(39)), 7
+animtype = Hard
+hitflag = MAF
+guardflag = MA
+pausetime = 0, 8
+sparkno = 10226
+sparkxy = -10, 0
+hitsound = S7020,5
+guardsound = s2, 0
+ground.type = High
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -5, -1
+guard.velocity = -0.5
+ground.cornerpush.veloff = 0
+air.velocity = -5, -1
+down.hittime = 20
+down.velocity = 0, 0
+fall = 1
+air.fall = 1
+fall.recover = 1
+fall.recovertime = 16
+getpower = 0,0
+givepower = 36, 36
+p1sprpriority = 4
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+envshake.time = 10
+envshake.freq = 120
+envshake.ampl = 8
+airguard.ctrltime = 16
+airguard.velocity = -2,-.5
+forcestand = 1
+persistent = 0
+
+[State 1006, End]
+type = destroyself
+trigger1 = !AnimTime
+trigger2 = Root, StateNo != 11020
+ignorehitpause = 1
 
 ; Sleeper Hold - Shining Slash
 [Statedef 11030]
