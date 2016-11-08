@@ -146,28 +146,36 @@ poweradd= 72
 facep2 = 1
 velset = 0,0
 
+
+[State 3111, X]
+Type = AssertSpecial
+Trigger1 = AnimElemNo(0) = [6,7]
+flag = noshadow
+ignorehitpause = 1
+
+
 [State 3111, X]
 Type = VelSet
-Trigger1 = AnimElem = 2
+Trigger1 = AnimElem = 3
 X = 3
 ignorehitpause = 1
 
 [State 3111, X]
 Type = PlayerPush
-Trigger1 = AnimElemNo(0) = 10
+Trigger1 = AnimElemNo(0) = 7
 value = 0
 ignorehitpause = 1
 
 [State 3111, X]
 Type = VelSet
-Trigger1 = AnimElem = 10
+Trigger1 = AnimElem = 7
 X = 1.6
 ignorehitpause = 1
 
 
 [State 3111, X]
 Type = StateTypeSet
-Trigger1 = AnimElem = 11
+Trigger1 = AnimElem = 8
 statetype = S
 physics = S
 ignorehitpause = 1
@@ -175,14 +183,14 @@ ignorehitpause = 1
 [State 2102, Sparks]
 type = Explod
 trigger1 = AnimElemNo(0) = 10
-trigger1 = AnimElemTime(10) % 8 = 0
-trigger1 = AnimElemTime(10) < 40
+trigger1 = AnimElemTime(7) % 6 = 0
+trigger1 = AnimElemTime(7) < 40
 anim = 7000 + (random % 2)
 ID = 11010
 sprpriority = 5
 postype = p1
-pos = 10, -15
-random = 10, 10
+pos = 5, -15
+random = 5, 5
 facing = IfElse(Random % 2, 1, -1)
 vfacing = IfElse(Random % 2, 1, -1)
 ownpal = 1
@@ -191,15 +199,15 @@ removetime = -2
 
 [State 2102, Sparks]
 type = Explod
-trigger1 = AnimElemNo(0) = 10
-trigger1 = AnimElemTime(10) % 8 = 4
-trigger1 = AnimElemTime(10) < 40
+trigger1 = AnimElemNo(0) = 7
+trigger1 = AnimElemTime(7) % 6 = 3
+trigger1 = AnimElemTime(7) < 40
 anim = 7000 + (random % 2)
 ID = 11010
 sprpriority = 5
 postype = p1
-pos = 10, -15
-random = 10, 10
+pos = 5, -15
+random = 5, 5
 facing = IfElse(Random % 2, 1, -1)
 vfacing = IfElse(Random % 2, 1, -1)
 ownpal = 1
@@ -208,41 +216,7 @@ removetime = -2
 
 [State 200, 1]
 type = HitDef
-trigger1 = AnimElem = 8
-attr = S, SA                     ;Attribute: Standing, Normal Attack
-damage = 11, 0                   ;Damage that move inflicts, guard damage
-animtype = Medium                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
-guardflag = MA                    ;Flags on how move is to be guarded against
-hitflag = MAF                    ;Flags of conditions that move can hit
-priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
-;Hit/Miss/Dodge type (Def: Hit)
-pausetime = 0, 20                 ;Time attacker pauses, time opponent shakes
-sparkno = -1                      ;Spark anim no (Def: set above)
-;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
-guardsound = 6, 0                ;Sound to play on guard
-ground.type = Low ;Type: High, Low, Trip (def: Normal)
-ground.slidetime = 14             ;Time that the opponent slides back
-ground.hittime  = 25             ;Time opponent is in hit state
-guard.hittime = 12
-air.hittime = 25
-ground.velocity = 0,0            ;Velocity at which opponent is pushed
-airguard.velocity = 0, 0     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
-air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
-air.velocity = 0, 0           ;X-velocity at which opponent is pushed,
-;Y-velocity at which opponent is pushed
-air.hittime = 12                 ;Time before opponent regains control in air
-getpower = 72,36
-givepower = 36, 36
-envshake.time = 12
-envshake.freq = 120
-envshake.ampl = 7
-ground.cornerpush.veloff = 0
-air.cornerpush.veloff = 0
-
-[State 200, 1]
-type = HitDef
-trigger1 = AnimElem = 10
+trigger1 = AnimElem = 7
 attr = S, SA                     ;Attribute: Standing, Normal Attack
 damage = 82, 0                   ;Damage that move inflicts, guard damage
 animtype = Medium                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
@@ -250,7 +224,7 @@ guardflag = MA                    ;Flags on how move is to be guarded against
 hitflag = MAF                    ;Flags of conditions that move can hit
 priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
 ;Hit/Miss/Dodge type (Def: Hit)
-pausetime = 0, 22                 ;Time attacker pauses, time opponent shakes
+pausetime = 0, 32                 ;Time attacker pauses, time opponent shakes
 sparkno = -1                      ;Spark anim no (Def: set above)
 ;Y-offset for the spark rel. to p1
 hitsound = S0,0                  ;Sound to play on hit
@@ -260,17 +234,16 @@ ground.slidetime = 14             ;Time that the opponent slides back
 ground.hittime  = 25             ;Time opponent is in hit state
 guard.hittime = 12
 air.hittime = 25
-ground.velocity = 0,0            ;Velocity at which opponent is pushed
-airguard.velocity = 0, 0     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
+ground.velocity = -2,-7            ;Velocity at which opponent is pushed
+airguard.velocity = -1, -3     ;Guard velocity in air (def: (air.xvel*1.5, air.yvel/2))
 air.type = High                  ;Type: High, Low, Trip (def: same as ground.type)
-air.velocity = 0, 0           ;X-velocity at which opponent is pushed,
+air.velocity = -2, -7           ;X-velocity at which opponent is pushed,
 ;Y-velocity at which opponent is pushed
-air.hittime = 12                 ;Time before opponent regains control in air
 getpower = 72,36
 givepower = 36, 36
-envshake.time = 8
+envshake.time = 32
 envshake.freq = 120
-envshake.ampl = 12
+envshake.ampl = 6
 ground.cornerpush.veloff = 0
 air.cornerpush.veloff = 0
 numhits = 10
