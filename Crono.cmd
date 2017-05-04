@@ -535,12 +535,10 @@ name = "a+x"
 command = /x,a
 time = 10
 
-
 [Command]
-name = "b+x"
-command = /b,x
+name = "a+x"
+command = /a,x
 time = 10
-
 
 [Command]
 name = "b+x"
@@ -552,10 +550,24 @@ name = "b+x"
 command = /x,b
 time = 10
 
-
 [Command]
 name = "b+x"
 command = /b,x
+time = 10
+
+[Command]
+name = "c+x"
+command = c+x
+time = 1
+
+[Command]
+name = "c+x"
+command = /x,c
+time = 10
+
+[Command]
+name = "c+x"
+command = /c,x
 time = 10
 
 ;-| Dir + Button |---------------------------------------------------------
@@ -802,6 +814,19 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ; Special Moves
 ;===========================================================================
 
+[State -1, Shining Slash]
+type = ChangeState
+value = 11030
+triggerall = PalNo = 12
+triggerall = command = "c+x"
+triggerall = StateType != A
+triggerall = Power >= 50
+trigger1 = ctrl 
+trigger2 = StateNo = 20
+trigger3 = StateNo = 100
+trigger4 = StateNo = 10220 && Time < 5
+ignorehitpause = 1
+
 [State -1, Blitz Attack]
 type = ChangeState
 value = 11020
@@ -812,6 +837,7 @@ triggerall = Power >= 25
 trigger1 = ctrl 
 trigger2 = StateNo = 20
 trigger3 = StateNo = 100
+trigger4 = StateNo = 10210 && Time < 5
 ignorehitpause = 1
 
 [State -1, Surprise Attack]
@@ -836,16 +862,6 @@ trigger1 = ctrl && Power >= 50
 trigger2 = StateNo = 10212 && Time > 0 && Var(0)
 trigger3 = StateNo = 0 && PrevStateNo = 10212 && Time < 10
 ignorehitpause = 1
-
-[State -1, Repulse]
-type = ChangeState
-value = 11020
-triggerall = PalNo = 12
-triggerall = command = "bfa"
-triggerall = statetype != A
-trigger1 = ctrl
-ignorehitpause = 1
-
 
 [State -1, Volt Hit]
 type = ChangeState

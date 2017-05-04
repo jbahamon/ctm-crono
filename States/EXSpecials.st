@@ -400,12 +400,194 @@ ignorehitpause = 1
 [Statedef 11030]
 type    = S
 movetype= A
-physics = S
+physics = N
 juggle  = 8
 ctrl = 0
 sprpriority = 1
 poweradd= 72
 facep2 = 1
+anim = 11030
+
+[State 1010, Jump]
+type = VelAdd
+trigger1 = AnimElemNo(0) > 1
+Y = 0.35
+
+[State 1010, Jump]
+type = StateTypeSet
+trigger1 = AnimElem = 2
+statetype = A
+physics = N
+
+[State 1010, Jump]
+type = VelSet
+trigger1 = AnimElem = 2
+X = 3
+Y = -3
+
+[State -3: AfterImageTime]
+type = AfterImageTime
+trigger1 = AnimElemNo(0) < 3
+time = 3
+ignorehitpause = 1
+
+[State 220, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
+[State 1020, Afterimage]
+type = AfterImage
+trigger1 = !Time
+length = 8
+palbright = 0, 0, 0
+palcolor = 256
+paladd = 1,1,1
+palcontrast = 256, 256, 256
+palmul = 1, 1, 1
+timegap  = 2
+framegap = 2
+trans = none
+;alpha = 256, 0
+time = 2; only 2 ticks!!!
+ignorehitpause = 1
+
+[State -3: AfterImageTime]
+type = AfterImageTime
+trigger1 = Anim != 11030
+time = 0
+ignorehitpause = 1
+
+[State 1030, Jump]
+type = PlaySnd
+trigger1 = !Time
+value = 7010,1
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 3
+anim = 7130
+ID = 1030
+pos = 20, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = 7
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = !Time
+damage = 84, 10
+pausetime = 12, 12
+animtype = Back
+attr = S, SA 
+guardflag = M
+hitflag = MAF
+sparkno = -1
+hitsound = s7040, 3
+guard.dist = 0
+ground.velocity =  -2, -8
+air.velocity = -2, -8
+yaccel = 0.5
+forcestand = 1
+fall = 1
+fall.recover = 1
+fall.recovertime = 120
+persistent = 0
+palfx.add=200,200,200
+palfx.mul=256,256,256
+palfx.time=18
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 4
+getpower=IfElse(Var(21) > 0, 0, 20)
+
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = Anim = 1030
+trigger1 = AnimElem = 3
+trigger1 = !movecontact && !movereversed
+damage = 28, 7
+pausetime = 12, 12
+animtype = Back
+attr = S, SA 
+guardflag = M
+hitflag = MAF
+sparkno = -1
+hitsound = s7040, 3
+guard.dist = 0
+ground.velocity = -2, -8
+air.velocity = -2, -8
+yaccel = 0.5
+forcestand = 1
+fall = 1
+fall.recover = 1
+fall.recovertime = 120
+persistent = 0
+palfx.add=200,200,200
+palfx.mul=256,256,256
+palfx.time=18
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 4
+getpower=IfElse(Var(21) > 0, 0, 20)
+
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = Anim = 1031
+trigger1 = !movereversed
+damage = 32, 8
+pausetime = 12, 12
+animtype = Hard
+ground.type = Low
+air.type = Low
+attr = S, SA 
+guardflag = M
+hitflag = MAF
+sparkno = -1
+hitsound = s7040, 3
+guard.dist = 0
+ground.velocity =  -5, -1
+air.velocity = -5, -1
+yaccel = 0.5
+forcestand = 1
+fall = 1
+fall.recover = 0
+fall.recovertime = 120
+persistent = 0
+palfx.add=200,200,200
+palfx.mul=256,256,256
+palfx.time=18
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 4
+getpower=IfElse(Var(21) > 0, 0, 20)
+
+
+[State 1030, Landing]
+type = ChangeState
+trigger1 = Vel Y > 0
+trigger1 = pos y > -vel y
+value = 621
 
 [State 1020, End]
 type = ChangeState

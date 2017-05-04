@@ -626,6 +626,12 @@ anim = 10210
 sprpriority = 2
 
 [State 15002, ComboVar]
+type = VelSet
+trigger1 = AnimElem = 2
+X = 3
+ignorehitpause = 1
+
+[State 15002, ComboVar]
 type = VarSet
 trigger1 = !Time
 var(25) = 0
@@ -718,6 +724,12 @@ velset = 0,0
 anim = 10211
 sprpriority = 1
 facep2 = 1
+
+[State 15002, ComboVar]
+type = VelSet
+trigger1 = AnimElemTime(2) = 1
+X = 3
+ignorehitpause = 1
 
 [State 210, 1]
 type = Varset
