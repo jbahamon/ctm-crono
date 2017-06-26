@@ -10,13 +10,11 @@ poweradd= -IfElse(PrevStateNo = 10212, 25, 50)
 anim = IfElse(PrevStateNo = 10212, 11001, 11000)
 facep2 = 1
 
-
 [State 3111, X]
 Type = NotHitBy
 Trigger1 = AnimElemNo(0) = [2,3]
 value =, AP
 ignorehitpause = 1
-
 
 [State 200, Explod]
 type = Explod
@@ -307,6 +305,12 @@ ctrl = 0
 velset = 0, 0
 sprpriority = 4
 
+
+[State 10227, Anim]
+type = PlaySnd
+trigger1 = !Time 
+value = S7100,1
+
 [State 10227, Anim]
 type = ChangeAnim
 trigger1 = !Time && PrevStateNo != 11021
@@ -404,7 +408,7 @@ physics = N
 juggle  = 8
 ctrl = 0
 sprpriority = 1
-poweradd= 72
+poweradd= -50
 facep2 = 1
 anim = 11030
 
@@ -494,94 +498,52 @@ ignorehitpause = 1
 [State 1030, Hit]
 type = HitDef
 trigger1 = !Time
-damage = 84, 10
+damage = 8, 0
 pausetime = 12, 12
 animtype = Back
-attr = S, SA 
+attr = A, SA 
 guardflag = M
 hitflag = MAF
 sparkno = -1
 hitsound = s7040, 3
 guard.dist = 0
-ground.velocity =  -2, -8
-air.velocity = -2, -8
-yaccel = 0.5
+ground.velocity = 0,0
+air.velocity = 0,0
 forcestand = 1
-fall = 1
-fall.recover = 1
-fall.recovertime = 120
+fall = 0
 persistent = 0
 palfx.add=200,200,200
 palfx.mul=256,256,256
 palfx.time=18
-envshake.time = 12
+envshake.time = 6
 envshake.freq = 120
 envshake.ampl = 4
-getpower=IfElse(Var(21) > 0, 0, 20)
+ID = 11030
+getpower=0,0
 
+[State 11030, Drop]
+type = TargetDrop
+trigger1 = NumTarget(11030) > 1
+keepone = 1
+ignorehitpause = 1
 
-[State 1030, Hit]
-type = HitDef
-trigger1 = Anim = 1030
-trigger1 = AnimElem = 3
-trigger1 = !movecontact && !movereversed
-damage = 28, 7
-pausetime = 12, 12
-animtype = Back
-attr = S, SA 
-guardflag = M
-hitflag = MAF
-sparkno = -1
-hitsound = s7040, 3
-guard.dist = 0
-ground.velocity = -2, -8
-air.velocity = -2, -8
-yaccel = 0.5
-forcestand = 1
-fall = 1
-fall.recover = 1
-fall.recovertime = 120
-persistent = 0
-palfx.add=200,200,200
-palfx.mul=256,256,256
-palfx.time=18
-envshake.time = 12
-envshake.freq = 120
-envshake.ampl = 4
-getpower=IfElse(Var(21) > 0, 0, 20)
+[State 1030, Landing]
+type = TargetBind
+trigger1 = NumTarget
+pos = 40, -20
+ignorehitpause = 1
 
+[State 11030, Change]
+type = TargetState
+trigger1 = NumTarget(11030)
+value = 11032
+ignorehitpause = 1
 
-[State 1030, Hit]
-type = HitDef
-trigger1 = Anim = 1031
-trigger1 = !movereversed
-damage = 32, 8
-pausetime = 12, 12
-animtype = Hard
-ground.type = Low
-air.type = Low
-attr = S, SA 
-guardflag = M
-hitflag = MAF
-sparkno = -1
-hitsound = s7040, 3
-guard.dist = 0
-ground.velocity =  -5, -1
-air.velocity = -5, -1
-yaccel = 0.5
-forcestand = 1
-fall = 1
-fall.recover = 0
-fall.recovertime = 120
-persistent = 0
-palfx.add=200,200,200
-palfx.mul=256,256,256
-palfx.time=18
-envshake.time = 12
-envshake.freq = 120
-envshake.ampl = 4
-getpower=IfElse(Var(21) > 0, 0, 20)
-
+[State 11030, Change]
+type = ChangeState
+trigger1 = NumTarget(11030)
+value = 11031
+ignorehitpause = 1
 
 [State 1030, Landing]
 type = ChangeState
@@ -594,6 +556,47 @@ type = ChangeState
 trigger1 = !AnimTime
 value = 0
 ctrl = 1
+
+; Sleeper Hold - Success
+[Statedef 11031]
+type    = S
+movetype= A
+physics = S
+juggle  = 8
+ctrl = 0
+sprpriority = 1
+anim = 11031
+poweradd= 0
+velset = 0,0
+facep2 = 1
+
+[State 1030, Landing]
+type = TargetBind
+trigger1 = NumTarget
+pos = 40, -20
+ignorehitpause = 1
+
+; Sleeper Hold - Get Hit
+[Statedef 11032]
+type    = A
+movetype= H
+physics = N
+juggle  = 8
+ctrl = 0
+sprpriority = -1
+poweradd= 0
+facep2 = 1
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11032
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
 
 ; Sparking
 [Statedef 11040]

@@ -11,6 +11,12 @@ anim = 10200                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 0
+
 [State 15002, ComboVar]
 type = VarSet
 trigger1 = !Time
@@ -44,7 +50,7 @@ pausetime = 12, 12                 ;Time attacker pauses, time opponent shakes
 sparkno = S7005                      ;Spark anim no (Def: set above)
 sparkxy = -5, -15               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,0                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 0             ;Time that the opponent slides back
@@ -93,6 +99,12 @@ anim = 10201                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 0
+
 [State 15002, ComboVar]
 type = VarSet
 trigger1 = !Time
@@ -126,7 +138,7 @@ pausetime = 18, 18                 ;Time attacker pauses, time opponent shakes
 sparkno = S7005                      ;Spark anim no (Def: set above)
 sparkxy = -7, -12               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,1                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 14             ;Time that the opponent slides back
@@ -177,6 +189,12 @@ anim = 10202                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 [State 15002, ComboVar]
 type = VelSet
 trigger1 = AnimElem = 2
@@ -223,7 +241,7 @@ pausetime = 22, 22                 ;Time attacker pauses, time opponent shakes
 sparkno = S7006                      ;Spark anim no (Def: set above)
 sparkxy = -5, -12               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,2                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = Low               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 23             ;Time that the opponent slides back
@@ -277,6 +295,12 @@ anim = 10203                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 [State 15002, ComboVar]
 type = VarSet
 trigger1 = !Time
@@ -316,7 +340,7 @@ pausetime = 12, 12 ;Time attacker pauses, time opponent shakes
 sparkno = S7006                      ;Spark anim no (Def: set above)
 sparkxy = -8, -10               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,3                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 13             ;Time that the opponent slides back
@@ -374,6 +398,12 @@ anim = 10204                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 [State -3, Dampener]
 Type = VelSet
 Trigger1 = AnimElem = 2
@@ -413,7 +443,7 @@ pausetime = 12, 12                 ;Time attacker pauses, time opponent shakes
 sparkno = S7006                      ;Spark anim no (Def: set above)
 sparkxy = -8, -10               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,4                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = Low               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 20
@@ -625,6 +655,12 @@ velset = 0,0
 anim = 10210
 sprpriority = 2
 
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 [State 15002, ComboVar]
 type = VelSet
 trigger1 = AnimElem = 2
@@ -684,7 +720,7 @@ pausetime = 16,16
 sparkno = S7000                      ;Spark anim no (Def: set above)
 sparkxy = -5, 0              ;X-offset for the "hit spark" rel. to p2,
 			;Y-offset for the spark rel. to p1
-hitsound   = S0,1
+hitsound   = S7040,1
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 12
@@ -816,7 +852,7 @@ priority = 4
 pausetime = 12, 12
 sparkno = S7001
 sparkxy = -5, -10
-hitsound   = S7040,1
+hitsound   = S7040,2
 guardsound = 6,0
 animtype = DiagUp
 ground.type = High
@@ -1053,7 +1089,7 @@ hitflag = MAF
 pausetime = 16,16
 sparkno = S7006                      ;Spark anim no (Def: set above)
 sparkxy = -8, -10               ;X-offset for the "hit spark" rel. to p2,Y
-hitsound   = S0,1
+hitsound   = S7020,5
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 12
@@ -1096,6 +1132,7 @@ velset = 0,0
 anim = 10220
 sprpriority = 2
 
+
 [State 200, Dampen]
 type = Varset
 trigger1 = ProjHit = 1
@@ -1106,8 +1143,7 @@ ignorehitpause = 1
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S3, 0
-channel = 0
+value = S7000, 1
 
 [State 220, 2]
 type = Projectile
@@ -1166,11 +1202,11 @@ fvar(39) = fvar(39)*0.8
 persistent = 0
 ignorehitpause = 1
 
+
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S3, 0
-channel = 0
+value = S7000, 1
 
 [State 1000, Pawnch]
 type = Helper
@@ -1208,8 +1244,7 @@ sprpriority = 2
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S3, 0
-channel = 0
+value = S7000, 1
 
 [State 1000, Pawnch]
 type = Helper
@@ -1553,6 +1588,11 @@ anim = 10400                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 0
+
 [State 200, Dampen]
 Type=Varset
 Trigger1 = MoveHit
@@ -1574,7 +1614,7 @@ pausetime = 12, 12                 ;Time attacker pauses, time opponent shakes
 sparkno = S7005                      ;Spark anim no (Def: set above)
 sparkxy = -5, -12               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7020,0                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = High               ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 3             ;Time that the opponent slides back
@@ -1619,6 +1659,13 @@ ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 10410                       ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+
+
+[State 210, 1]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7000, 1
+
 
 [State 200, Dampen]
 Type=Varset
@@ -1692,7 +1739,7 @@ ignorehitpause = 1
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S3, 0
+value = S7000, 1
 channel = 0
 
 [State 1000, Pawnch]
@@ -1755,7 +1802,7 @@ ignorehitpause = 1
 [State 600, 2]
 type = PlaySnd
 trigger1 = Time = 2
-value = S3, 2
+value = S7000, 0
 channel = 0
 
 [State 600, 2]
@@ -1849,7 +1896,7 @@ ignorehitpause = 1
 [State 600, 2]
 type = PlaySnd
 trigger1 = Time = 2
-value = S3, 2
+value = S7000, 1
 channel = 0
 
 
@@ -1910,7 +1957,7 @@ ignorehitpause = 1
 [State 210, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S3, 0
+value = S7000, 1
 channel = 0
 
 [State 1000, Pawnch]
