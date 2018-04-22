@@ -655,6 +655,12 @@ velset = 0,0
 anim = 10210
 sprpriority = 2
 
+[State 200, Dampen]
+Type=VelSet
+Trigger1 = AnimElem = 2
+X = 3
+persistent = 0
+ignorehitpause = 1
 
 [State 210, 1]
 type = PlaySnd
@@ -764,7 +770,7 @@ facep2 = 1
 [State 15002, ComboVar]
 type = VelSet
 trigger1 = AnimElemTime(2) = 1
-X = 3
+X = 4
 ignorehitpause = 1
 
 [State 210, 1]
@@ -809,10 +815,6 @@ color = 256
 mul = 256, 256, 256
 time = 2
 
-[State 210, 1]
-type = PlaySnd
-trigger1 = AnimElemTime(2) = 1
-value = S7000, 1
 
 [State 210, Explod]
 type = Explod
@@ -994,8 +996,8 @@ animtype = DiagUp
 ground.type = High
 ground.slidetime = 12
 ground.hittime  = 22
-ground.velocity = -1.5, -5
-air.velocity = -1.5, -5
+ground.velocity = -1.5, -3
+air.velocity = -1.5, -3
 air.juggle  = 6
 yaccel = 0.3
 getpower = 36, 18
@@ -1095,9 +1097,12 @@ ground.type = High
 ground.slidetime = 12
 ground.hittime  = 17
 guard.hittime = 16
-ground.velocity = -2, -8
-air.velocity = -2,-8
-yaccel = 0.4
+ground.velocity = -2, -9
+air.velocity = -2,-9
+fall = 1
+fall.recover = 1
+fall.recovertime = 40
+yaccel = 0.3
 ground.cornerpush.veloff = -10;
 air.cornerpush.veloff = -10;
 getpower = ifelse(p2movetype = H, 44, 101), 32
@@ -1816,7 +1821,7 @@ priority = 3
 pausetime = 7,8
 sparkno = S7005                      ;Spark anim no (Def: set above)
 sparkxy = -5, -15               ;X-offset for the "hit spark" rel. to p2,
-hitsound   =  S0,0
+hitsound = S7020,0
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 5
@@ -1911,7 +1916,7 @@ priority = 3
 pausetime = 7,8
 sparkno = S7006
 sparkxy = -10,-20
-hitsound   =  S0,0
+hitsound = S7020,4
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 5

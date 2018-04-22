@@ -10,6 +10,13 @@ poweradd= -IfElse(PrevStateNo = 10212, 25, 50)
 anim = IfElse(PrevStateNo = 10212, 11001, 11000)
 facep2 = 1
 
+
+[State 3111, X]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+value = S7020,5
+ignorehitpause = 1
+
 [State 3111, X]
 Type = NotHitBy
 Trigger1 = AnimElemNo(0) = [2,3]
@@ -22,15 +29,41 @@ trigger1 = AnimElemNo(0) = [2,3]
 trigger1 = AnimElemTime(2) % 4 = 0
 anim = 11002
 ID = 11000
-pos = 15, -15
+pos = 15, -13
 postype = p1  ;p2,front,back,left,right
 bindtime = -1
 vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
-scale = 1.5,1.5
+scale = 1,1
+sprpriority = -1
+trans=addalpha
+alpha= 150,0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) = [2,3]
+trigger1 = AnimElemTime(2) % 4 = 0
+anim = 11002
+ID = 11000
+pos = 15, -13
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
 sprpriority = 2
+trans=addalpha
+alpha= 120,256
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
@@ -63,8 +96,8 @@ type = Velset
 trigger1 = AnimElemNo(0) = 2
 trigger1 = FVar(0) > 0
 trigger1 = !MoveContact
-x = Fvar(0)/fvar(2) * 7
-y = FVar(1)/fvar(2) * 7
+x = Fvar(0)/fvar(2) * 9
+y = FVar(1)/fvar(2) * 9
 ignorehitpause = 1
 
 
@@ -104,7 +137,7 @@ pausetime = 6, 22                 ;Time attacker pauses, time opponent shakes
 sparkno = S7005                      ;Spark anim no (Def: set above)
 sparkxy = -7, -12               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = S7100,1                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = Low ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 14             ;Time that the opponent slides back
@@ -146,6 +179,14 @@ velset = 0,0
 
 
 [State 3111, X]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+value = S7010,1
+ignorehitpause = 1
+
+
+
+[State 3111, X]
 Type = AssertSpecial
 Trigger1 = AnimElemNo(0) = [6,7]
 flag = noshadow
@@ -178,22 +219,13 @@ statetype = S
 physics = S
 ignorehitpause = 1
 
+
 [State 2102, Sparks]
-type = Explod
-trigger1 = AnimElemNo(0) = 10
-trigger1 = AnimElemTime(7) % 6 = 0
+type = PlaySnd
+trigger1 = AnimElemNo(0) = 7
+trigger1 = AnimElemTime(7) % 10 = 0
 trigger1 = AnimElemTime(7) < 40
-anim = 7000 + (random % 2)
-ID = 11010
-sprpriority = 5
-postype = p1
-pos = 5, -15
-random = 5, 5
-facing = IfElse(Random % 2, 1, -1)
-vfacing = IfElse(Random % 2, 1, -1)
-ownpal = 1
-ontop = 1
-removetime = -2
+value = S7040, (Random % 4)
 
 [State 2102, Sparks]
 type = Explod
@@ -225,7 +257,7 @@ priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 defa
 pausetime = 0, 32                 ;Time attacker pauses, time opponent shakes
 sparkno = -1                      ;Spark anim no (Def: set above)
 ;Y-offset for the spark rel. to p1
-hitsound = S0,0                  ;Sound to play on hit
+hitsound = -1                  ;Sound to play on hit
 guardsound = 6, 0                ;Sound to play on guard
 ground.type = Low ;Type: High, Low, Trip (def: Normal)
 ground.slidetime = 14             ;Time that the opponent slides back
@@ -268,10 +300,9 @@ facep2 = 1
 
 [State 210, 1]
 type = PlaySnd
-trigger1 = AnimElem = 6
-value = S3, 0
+trigger1 = AnimElem = 2
+value = S7000, 1
 channel = 0
-
 
 [State 210, 1]
 type = VelSet
@@ -412,6 +443,7 @@ poweradd= -50
 facep2 = 1
 anim = 11030
 
+
 [State 1010, Jump]
 type = VelAdd
 trigger1 = AnimElemNo(0) > 1
@@ -462,11 +494,6 @@ trigger1 = Anim != 11030
 time = 0
 ignorehitpause = 1
 
-[State 1030, Jump]
-type = PlaySnd
-trigger1 = !Time
-value = 7010,1
-
 [State 220, Explod]
 type = Explod
 trigger1 = AnimElem = 3
@@ -499,7 +526,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 damage = 8, 0
-pausetime = 12, 12
+pausetime = 0, 0
 animtype = Back
 attr = A, SA 
 guardflag = M
@@ -539,6 +566,13 @@ trigger1 = NumTarget(11030)
 value = 11032
 ignorehitpause = 1
 
+
+[State 2102, Sparks]
+type = ChangeAnim
+trigger1 = NumTarget(11030)
+value = 11031
+ignorehitpause = 1
+
 [State 11030, Change]
 type = ChangeState
 trigger1 = NumTarget(11030)
@@ -559,22 +593,134 @@ ctrl = 1
 
 ; Sleeper Hold - Success
 [Statedef 11031]
-type    = S
+type    = A
 movetype= A
-physics = S
+physics = N
 juggle  = 8
 ctrl = 0
 sprpriority = 1
-anim = 11031
 poweradd= 0
 velset = 0,0
 facep2 = 1
 
+[State 1010, Jump]
+type = ChangeAnim
+trigger1 = !NumTarget && AnimElemNo(0) < 23
+value = 11032
+elem = 23
+
+
+[State 1030, Landing]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = AnimElemNo(0) = [2,20]
+trigger1 = (AnimElemTime(AnimElemNo(0)) = 0) && (AnimElemNo(0) % 2 > 0)
+value = 11032
+ignorehitpause = 1
+
+[State 2102, Sparks]
+type = PlaySnd
+trigger1 = AnimElemNo(0) = [2,20]
+trigger1 = (AnimElemTime(AnimElemNo(0)) = 0) && (AnimElemNo(0) % 2 > 0)
+value = S7040, (Random % 4)
+
 [State 1030, Landing]
 type = TargetBind
 trigger1 = NumTarget
-pos = 40, -20
+pos = 20, -14
 ignorehitpause = 1
+
+[State 1030, Landing]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = AnimElemNo(0) = [2,20]
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+value = -3
+kill = 0
+ignorehitpause = 1
+
+[State 1030, Landing]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = AnimElem = 22
+value = -40
+kill = 1
+ignorehitpause = 1
+
+[State 200, Explod]
+type = EnvShake
+trigger1 = AnimElem = 22
+ampl = 12
+time = 8
+freq = 120
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 22
+anim = 11033
+ID = 11030
+pos = 18, -14
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = 20
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1030, Landing]
+type = PlaySnd
+trigger1 = NumTarget
+trigger1 = AnimElem = 22
+value = S7100,1
+ignorehitpause = 1
+
+[State 1030, Landing]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = AnimElem = 22
+value = 11033
+ignorehitpause = 1
+
+
+[State 1030, Landing]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = AnimElem = 23
+value = 803
+ignorehitpause = 1
+
+[State 1030, Landing]
+type = TargetDrop
+trigger1 = AnimElem = 23
+ignorehitpause = 1
+
+[State 801, Throw Enemy]
+type = VelSet
+trigger1 = AnimElem = 23
+X = -3
+Y = -4
+
+[State 801, Throw Enemy]
+type = VelAdd
+trigger1 = AnimElemNo(0) = 23
+Y = 0.5
+
+[State 801, End]
+type = ChangeState
+trigger1 = AnimElemNo(0) = 23
+trigger1 = Vel Y > 0 && Vel Y > - Pos Y
+trigger2 = !NumTarget && AnimElemNo(0) < 6
+value = 621
+ctrl = 1
 
 ; Sleeper Hold - Get Hit
 [Statedef 11032]
@@ -586,6 +732,41 @@ ctrl = 0
 sprpriority = -1
 poweradd= 0
 facep2 = 1
+
+[State 2102, Sparks]
+type = PalFX
+trigger1 = !Time
+time = 3
+add = 220, 220, 220
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11032
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+
+; Sleeper Hold - Get Hit Strong
+[Statedef 11033]
+type    = A
+movetype= H
+physics = N
+juggle  = 8
+ctrl = 0
+sprpriority = -1
+poweradd= 0
+facep2 = 1
+
+[State 2102, Sparks]
+type = PalFX
+trigger1 = !Time
+time = 12
+add = 220, 220, 220
 
 [State 1032, Anim]
 type = ChangeAnim2
@@ -600,18 +781,26 @@ ctrl = 0
 
 ; Sparking
 [Statedef 11040]
-type    = S
+type    = U
 movetype= A
-physics = S
+physics = N
 juggle  = 8
 ctrl = 0
 sprpriority = 1
-poweradd= 72
+poweradd= 0
+velset = 0,0
 facep2 = 1
+
+[State 200, Explod]
+type = VarSet
+trigger1 = !Time
+v = 24
+value = 1
 
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 6
+trigger1 = !NumExplod(11040)
 anim = 11041
 ID = 11040
 pos = -17, -15
@@ -634,8 +823,9 @@ ignorehitpause = 1
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 6
+trigger1 = !NumExplod(11041)
 anim = 11041
-ID = 11040
+ID = 11041
 pos = 17, -15
 postype = p1  ;p2,front,back,left,right
 facing = -1
@@ -653,24 +843,41 @@ ownpal = 1
 removeongethit = 1
 ignorehitpause = 1
 
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 6
+trigger1 = !NumExplod(11042)
+anim = 11042
+ID = 11042
+pos = 0,0
+postype = p1  ;p2,front,back,left,right
+facing = -1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = 15
+scale = 2,2.5
+sprpriority = -2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+
 [State 1010, Anim]
 type = ChangeAnim
 trigger1 = !Time && PrevStateNo != 11041
 value = 11040
 
-[State 220, Push]
-type = HitOverride
-trigger1 = Anim = 11040
-trigger1 = AnimElemNo(0) < 5
-stateno = 11041
-attr = SCA, AA, AP
-time = 1
-ignorehitpause = 1
 
 [State 220, Push]
 type = NotHitBy
-trigger1 = AnimElemNo(0) < 5
-value = , AT
+trigger1 = 1
+value = SCA, AA, AT, AP
 time = 1
 ignorehitpause = 1
 
@@ -691,12 +898,11 @@ sparkxy = -10,-17
 hitsound = S2,1
 guardsound = 5,0
 ground.type = Low
-ground.velocity = -3, -5;-4
+ground.velocity = -6, -5;-4
 guard.velocity = -2
 ground.hittime = 16
 ground.slidetime = 16
-guard.velocity = -10
-air.velocity = -3,-5
+air.velocity = -6,-5
 airguard.velocity = -2, -3
 air.hittime = 16
 ground.cornerpush.veloff = 0
@@ -726,66 +932,7 @@ ignorehitpause = 1
 [State 1020, End]
 type = ChangeState
 trigger1 = !AnimTime
-value = 0
+value = IfElse(StateType = A, 50, 0)
 ctrl = 1
 
 
-;Super Armor State
-[Statedef 11041]
-velset = 0,0
-Movetype = H
-
-[State 999, PosFreeze]
-type = PosFreeze
-trigger1 = 1
-value = 1
-ignorehitpause = 1
-
-[State 999, 0]
-type = AssertSpecial
-ignorehitpause=1
-trigger1 = 1
-flag = NoStandGuard
-flag2 = NoCrouchGuard
-flag3 = NoAirGuard
-
-[State 899, NotHitBy]
-type = NotHitBy 
-trigger1 = !time
-value = SCA, AA, AP
-time = 100
-ignorehitpause=1
-
-[State 999, HitOver]
-type = NotHitBy
-trigger1= 1
-time = 1
-value= , AT
-ignorehitpause=1
-
-[State 999, HitOver]
-type = HitOverride
-trigger1= 1
-time = 1
-attr = SCA, AA, AP
-stateno = 11041
-ignorehitpause = 1
-
-[State 999, LifeAdd]
-type = LifeAdd
-trigger1 = Time = 0
-value = - floor(gethitvar(damage))
-ignorehitpause = 1
-
-[State 999, ChangeAnim]
-type = ChangeAnim
-trigger1 = Time < floor(gethitvar(hittime) * 0.35)
-value = Anim
-elem = AnimElemNo(0)
-ignorehitpause = 1
-
-[State 999, End]
-type = ChangeState
-trigger1 = Time >= floor(gethitvar(hittime) * 0.35)
-value = 11040
-ignorehitpause = 1

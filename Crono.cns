@@ -93,6 +93,8 @@ victory1 = "..."
 ; Var(21): Frenzy Timer
 ; Var(22): Spark Timer
 
+; Var(23): Custom State Checker
+; Var(24): Sparking used up
 ; Var(25): Combo-ready (Alt Mode)
 ;FVar(29): Spark Damage
 ;FVar(39): Damage Dampener
@@ -107,12 +109,6 @@ victory1 = "..."
 ;---------------------------------------------------------------------------
 
 [Statedef -2]
-
-[State -2, AIR MOVEMENT]
-type = VarSet
-trigger1 = !Life
-v = 23
-value = 1
 
 [State -2, Dampener]
 Type=VarSet
@@ -180,12 +176,19 @@ Type= NotHitBy
 Trigger1= NumHelper(11777)>0 ; If the superarmor helper is active, the character cannot be hit by anything.
 value2=SCA, AA, AP, AT; This is for safety, as another Nothitby might override the first one, so better be safe and apply it to both slots.
 
-
 ;---------------------------------------------------------------------------
 ; States that are executed when in self's state file (use statedef -3)
 ;---------------------------------------------------------------------------
 
 [Statedef -3]
+
+
+[State -3, IsCustomSet]
+type = VarSet
+trigger1 = 1
+v = 23
+value = GameTime
+ignorehitpause = 1
 
 [State -3, Prevent Undergound Juggles]
 type= targetbind

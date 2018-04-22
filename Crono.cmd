@@ -570,6 +570,21 @@ name = "c+x"
 command = /c,x
 time = 10
 
+[Command]
+name = "x+y"
+command = x+y
+time = 1
+
+[Command]
+name = "x+y"
+command = /x,y
+time = 10
+
+[Command]
+name = "x+y"
+command = /y,x
+time = 10
+
 ;-| Dir + Button |---------------------------------------------------------
 
 [Command]
@@ -813,6 +828,18 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
+
+[State -1, Sparking]
+type = ChangeState
+value = 11040
+triggerall = PalNo = 12
+trigger1 = command = "x+y"
+trigger1 = MoveType = H 
+trigger1 = (Stateno = [5000,5071]) || (Stateno = [5200, 5210])
+trigger1 = Life < 500
+trigger1 = GameTime = Var(23)
+trigger1 = !Var(24)
+ignorehitpause = 1
 
 [State -1, Shining Slash]
 type = ChangeState
@@ -1148,6 +1175,18 @@ triggerall = PalNo = 12
 triggerall = Command = "c"
 triggerall = (Var(25) || MoveContact)
 trigger1 = StateNo = 10210
+ignorehitpause = 1
+
+
+[State -1, Alt Standing AAAABC]
+type = ChangeState
+value = 13000
+triggerall = PalNo = 12
+;triggerall = Power >= 1000
+trigger1 = command = "c"
+trigger1 = (Var(25) || MoveContact)
+trigger1 = StateNo = 10213
+trigger1 = (Command != "holddown")
 ignorehitpause = 1
 
 [State -1, Crouch Light]
