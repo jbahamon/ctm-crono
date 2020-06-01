@@ -331,7 +331,7 @@ var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
 [State 1010, Jump]
 type = VelSet
 trigger1 = AnimElemNo(0) > 1
-X = 1 + 1*Var(0)
+X = 2 + Var(0)
 ignorehitpause = 1
 
 [State 220, Explod]
@@ -520,6 +520,12 @@ channel = 0
 loop = 1
 ignorehitpause = 1
 persistent = 0
+
+[State 1010, Jump]
+type = VelSet
+trigger1 = AnimElemNo(0) > 1
+X = 7
+ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
@@ -774,7 +780,7 @@ ignorehitpause = 1
 [State 1010, Jump]
 type = VelSet
 trigger1 = AnimElemNo(0) > 1
-X = 1 + 1*Var(0)
+X = 2 + Var(0)
 ignorehitpause = 1
 
 [State 220, Explod]
@@ -985,6 +991,12 @@ channel = 0
 loop = 1
 ignorehitpause = 1
 persistent = 0
+
+[State 1010, Jump]
+type = VelSet
+trigger1 = AnimElemNo(0) > 1
+X = 6
+ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod

@@ -509,15 +509,16 @@ trigger2 = Time  > 70
 ;---------------------------------------------------------------------------
 ; Confuse
 [Statedef 2010]
-type    = S
+type    = U
 movetype= A
-physics = S
+physics = N
 juggle  = 0
 poweradd= -1000
 ctrl = 0
 anim = 2010
 sprpriority = 1
 facep2 = 1
+velset = 0,0
 
 [State 2010, NHB]
 type = NotHitBy
@@ -578,7 +579,7 @@ poweradd= 0
 ctrl = 0
 anim = 2011
 sprpriority = 1
-velset = 3.3,-4
+velset = 6.4,-3
 
 [State 2011, Snd]
 type = PlaySnd
@@ -609,7 +610,7 @@ ignorehitpause = 1
 [State 2021, Jump]
 type = VelAdd
 trigger1 = 1
-Y = 0.3
+Y = 0.25
 
 [State 2021, Jump]
 type = PlayerPush

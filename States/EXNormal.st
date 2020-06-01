@@ -1,4 +1,4 @@
-; A
+; 5L
 [Statedef 10200]
 type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
@@ -40,7 +40,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 attr = S, NA                     ;Attribute: Standing, Normal Attack
-damage = 42, 0                   ;Damage that move inflicts, guard damage
+damage = 14, 0                   ;Damage that move inflicts, guard damage
 animtype = Light                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
 guardflag = MA                    ;Flags on how move is to be guarded against
 hitflag = MAF                    ;Flags of conditions that move can hit

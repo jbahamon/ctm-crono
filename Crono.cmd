@@ -177,27 +177,27 @@ time = 40
 [Command]
 name = "qcbhcfa"
 command = ~D, B, D, F, a
-time = 40
+time = 60
 [Command]
 name = "qcbhcfb"
 command = ~D, B, D, F, b
-time = 40
+time = 60
 [Command]
 name = "qcbhcfc"
 command = ~D, B, D, F, c
-time = 40
+time = 60
 [Command]
 name = "qcbhcfa"
 command = ~D, B, D, F, ~a
-time = 40
+time = 60
 [Command]
 name = "qcbhcfb"
 command = ~D, B, D, F, ~b
-time = 40
+time = 60
 [Command]
 name = "qcbhcfc"
 command = ~D, B, D, F, ~c
-time = 40
+time = 60
 
 ; ---
 
@@ -819,10 +819,10 @@ value = 2010
 triggerall = PalNo != 12
 triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
-trigger1 = statetype != A
 trigger1 = ctrl
-trigger2 = ( StateNo = [200,299] ) && MoveHit
-trigger3 = ( StateNo = [400,499] ) && MoveHit
+trigger2 = ( StateNo = [200,299] ) && AnimElemNo(0) > 1
+trigger3 = ( StateNo = [400,499] ) && AnimElemNo(0) > 1
+trigger4 = ( StateNo = [600,699] ) && AnimElemNo(0) > 1
 ;---------------------------------------------------------------------------
 
 ;===========================================================================
