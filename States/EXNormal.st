@@ -86,7 +86,7 @@ trigger1 = AnimTime = 0
 value = 0
 ctrl = 1
 
-; AA
+; 5LL
 [Statedef 10201]
 type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
