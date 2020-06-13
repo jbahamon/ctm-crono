@@ -1,5 +1,5 @@
 
-Crono by SilentProtagonist 
+Crono
 =========================
 
 Crono is a three-button character made for MUGEN 1.0.
