@@ -326,7 +326,7 @@ persistent = 0
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
-var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
+var(0) = ifelse(command = "qcfc", 2, ifelse(command = "qcfb", 1, 0))
 
 [State 1010, Jump]
 type = VelSet
@@ -482,7 +482,7 @@ persistent = 0
 
 [State 1040, End]
 type = ChangeAnim
-trigger1 = Time > 30 && !AnimTime
+trigger1 = Time > 50 && !AnimTime
 trigger1 = Anim = 1010
 value = 1012
 
@@ -523,7 +523,7 @@ persistent = 0
 
 [State 1010, Jump]
 type = VelSet
-trigger1 = AnimElemNo(0) > 1
+trigger1 = AnimElemNo(0) > 1 && !MoveHit
 X = 7
 ignorehitpause = 1
 
@@ -632,9 +632,9 @@ ignorehitpause = 1
 
 [State 1250, Hit]
 type = HitDef
-trigger1 = AnimElemTime(2) = 1
+trigger1 = AnimElemTime(2) = 1 || AnimElemTime(4) = 1
 attr = S, SA
-damage = 26, 2
+damage = 36, 2
 animtype = Hard
 guardflag = MA
 hitflag = MAF
@@ -646,9 +646,9 @@ guardsound = s2, 0
 ground.type = Low
 ground.slidetime = 16
 ground.hittime = 16
-ground.velocity = ifelse(p2dist x > 10, 4, 3), -2.3
+ground.velocity = -0.1, -2.3
 air.type = Low
-air.velocity = ifelse(p2dist x > 10, 4, 3), -2.3
+air.velocity = -0.1, -2.3
 air.juggle = 0
 ground.cornerpush.veloff = -1;-12.74
 guard.cornerpush.veloff = 0;-12.74
@@ -667,46 +667,7 @@ palfx.color = 0
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 10
-p2facing = 1
-forcestand = 1
 
-[State 1250, Hit]
-type = HitDef
-trigger1 = AnimElemTime(4) = 1
-attr = S, SA
-damage = 26, 2
-animtype = Hard
-guardflag = MA
-hitflag = MAF
-priority = 4, Hit
-pausetime = 5,0
-sparkno = -1
-hitsound = -1
-guardsound = s2, 0
-ground.type = Low
-air.type = Low
-ground.slidetime = 16
-ground.hittime = 16
-ground.cornerpush.veloff = -1;-12.74
-ground.velocity = -ifelse(p2dist x > 10, 4, 3), -2.3
-air.velocity = -ifelse(p2dist x > 10, 4, 3), -2.3
-guard.cornerpush.veloff = 0;-12.74
-getpower = 0
-givepower = 12, 12
-envshake.time = 8
-envshake.freq = 120
-envshake.ampl = 4
-fall = 1
-fall.recover = 0
-yaccel = 0.5
-airguard.ctrltime = 16
-airguard.velocity = -8, -1.5
-forcestand = 1
-palfx.color = 0
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 10
-p2facing = -1
 
 [State 1010, Snd]
 type = StopSnd
@@ -741,12 +702,17 @@ movetype= A
 physics = N
 juggle  = 5
 ctrl = 0
-velset = 0,-2.5
 anim = 1010
 sprpriority = 1
 poweradd = IfElse(Var(21) > 0, 0, 72)
 facep2 = 1
 
+[State 1010, Snd]
+type = VelMul
+trigger1 = AnimElemNo(0) = 0
+X = 0.99
+Y = 0.99
+ignorehitpause = 1
 
 [State 1010, Snd]
 type = ChangeState
@@ -769,18 +735,25 @@ persistent = 0
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
-var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
+var(0) = ifelse(command = "qcfc", 2, ifelse(command = "qcfb", 1, 0))
 
 [State 1010, Jump]
 type = VelAdd
 trigger1 = 1
-Y = 0.1
+Y = IfElse(Var(0) = 0, 0.2, IfElse(Var(0) = 1, 0.15, 0.1))
+ignorehitpause = 1
+
+[State 1010, Jump]
+type = VelSet
+trigger1 = AnimElem = 1
+Y = IfElse(Var(0) = 0, -4, IfElse(Var(0) = 1, -2, -1))
+persistent = 0
 ignorehitpause = 1
 
 [State 1010, Jump]
 type = VelSet
 trigger1 = AnimElemNo(0) > 1
-X = 2 + Var(0)
+X = 1 + 2.2* Var(0)
 ignorehitpause = 1
 
 [State 220, Explod]
@@ -994,8 +967,15 @@ persistent = 0
 
 [State 1010, Jump]
 type = VelSet
-trigger1 = AnimElemNo(0) > 1
+trigger1 = AnimElemNo(0) > 1 && !MoveHit
 X = 6
+ignorehitpause = 1
+
+
+[State 1010, Jump]
+type = VelMul
+trigger1 = AnimElemNo(0) > 1 && MoveHit
+X = 0.8
 ignorehitpause = 1
 
 [State 220, Explod]
@@ -1094,7 +1074,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElemTime(2) = 1
 attr = S, SA
-damage = 26, 2
+damage = 36, 2
 animtype = Hard
 guardflag = MA
 hitflag = MAF
@@ -1133,7 +1113,7 @@ forcestand = 1
 type = HitDef
 trigger1 = AnimElemTime(4) = 1
 attr = S, SA
-damage = 26, 2
+damage = 36, 2
 animtype = Hard
 guardflag = MA
 hitflag = MAF
@@ -1165,6 +1145,14 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 10
 p2facing = -1
+
+[State 1010, Jump]
+type = VelSet
+trigger1 = Anim = 105 && MoveHit
+X = -2
+Y = -4
+persistent = 0
+ignorehitpause = 1
 
 [State 1010, Jump]
 type = VelAdd
@@ -1207,8 +1195,17 @@ juggle  = 3
 ctrl = 0
 anim = 1020
 sprpriority = 1
-poweradd = -500
+poweradd = -250
 facep2 = 1
+
+[State 1100, JumpSnd]
+type = ChangeAnim
+triggerall = !Time
+trigger1 = PrevStateNo = [200, 299] 
+trigger2 = PrevStateNo = [400, 499]
+value = 1020
+elem = 2
+ignorehitpause = 1
 
 [State 1100, JumpSnd]
 type = VarSet
@@ -1224,7 +1221,7 @@ ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
-trigger1 = Time < 70
+trigger1 = AnimElemNo(0) < 3
 trigger1 = GameTime % 5 = 0
 anim = 7102
 ID = 1000
@@ -1563,7 +1560,7 @@ ignorehitpause = 1
 [State 1030, Hit]
 type = HitDef
 trigger1 = !Time
-damage = 77 + var(0) * 7, 10
+damage = 121 + var(0) * 7, 10
 pausetime = 12, 12
 animtype = Back
 attr = S, SA 
@@ -1624,7 +1621,7 @@ getpower=IfElse(Var(21) > 0, 0, 20)
 type = HitDef
 trigger1 = Anim = 1031
 trigger1 = !movereversed
-damage = 32, 8
+damage = 22, 8
 pausetime = 12, 12
 animtype = Hard
 ground.type = Low
@@ -1792,7 +1789,7 @@ ignorehitpause = 1
 [State 1030, Hit]
 type = HitDef
 trigger1 = !Time
-damage = 77 + var(0) * 7, 10
+damage = 147, 10
 pausetime = 12, 12
 animtype = Back
 attr = S, SA 
@@ -1822,7 +1819,7 @@ getpower=0
 type = HitDef
 trigger1 = Anim = 1030
 trigger1 = AnimElem = 3
-damage = 28, 7
+damage = 102, 7
 pausetime = 12, 12
 animtype = Back
 attr = S, SA 

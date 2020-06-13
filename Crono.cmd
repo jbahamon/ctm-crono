@@ -890,15 +890,26 @@ trigger2 = StateNo = 10212 && Time > 0 && Var(0)
 trigger3 = StateNo = 0 && PrevStateNo = 10212 && Time < 10
 ignorehitpause = 1
 
+[State -1, Lightning]
+type = ChangeState
+value = 1000
+triggerall = PalNo != 12
+triggerall = command = "dba" || command = "dbb" || command = "dbc"
+triggerall = roundstate = 2 && statetype != A && !NumHelper(1000)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 499]) && MoveContact
+	
 [State -1, Volt Hit]
 type = ChangeState
 value = 1020
 triggerall = PalNo != 12
-triggerall = command = "dba" || command = "dbb" || command = "dbc"
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = Var(22) <= 0 || !NumHelper(1020)
-triggerall = Power >= 500
+triggerall = Power >= 250
 trigger1 = statetype != A
 trigger1 = ctrl
+trigger2 = (StateNo = [200, 299]) || (StateNo = [400, 499])
+trigger2 = MoveHit
 
 ;--------------------------------------------------------------------------
 [State -1, Spincut]
@@ -914,7 +925,7 @@ trigger1 = ctrl
 type = ChangeState
 value = 1010
 triggerall = PalNo != 12
-triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
 triggerall = statetype != A 
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
@@ -925,20 +936,11 @@ trigger3 = (stateno = [400, 499]) && movecontact
 type = ChangeState
 value = 1015
 triggerall = PalNo != 12
-triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
 triggerall = statetype = A 
 trigger1 = ctrl
 trigger2 = (stateno = [600, 699]) && movecontact
 
-;---------------------------------------------------------------------------
-[State -1, Lightning]
-type = ChangeState
-value = 1000
-triggerall = PalNo != 12
-triggerall = Command = "qcfa" || Command = "qcfb" || Command = "qcfc" 
-triggerall = roundstate = 2 && statetype != A && !NumHelper(1000)
-trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
 
 ;===========================================================================
 ; Throws, Rolls, Etc
