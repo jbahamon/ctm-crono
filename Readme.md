@@ -5,102 +5,83 @@ What's missing:
 
 - More palettes.
 - Specific character interactions (intros, winposes, double techs, maybe)
+- 12p mode
 
 ## Moveset
 
-Crono is intended to be a somewhat of a rushdown character that has to stay close to the opponent to deal damage. 
-The following are his special and supermoves:
+Crono is intended to be a somewhat of a rushdown character that has to stay 
+close to the opponent to deal damage. 
 
-### Lightning: `D, B, DB + a/b/c` (Standing)
+The following are his special moves:
+
+### Lightning: `D, B, DB + a/b/c` (Ground)
 
 Crono summons a lightning from the sky. The button used determines the 
 position of the lightning.
 
-### Cyclone: `D, DF, F, + a/b/c` (Standing)
+### Cyclone: `D, DF, F, + a/b/c` (Ground/Air)
 
-Crono advances while spinning. The button used determines his movement 
-speed.
+Crono advances while spinning. The button used determines his movement speed.
 
-### **Spincut**: D, DF, F + a/b/c (Air)
+### **Spincut**: `D, F, DF + a/b/c` (Ground)
 
-Crono jumps in midair and makes a big cut with his sword. You can press an attack 
-button to cut early.
+Crono jumps into the air and swings his katana. Has some invincibility frames 
+on startup. Button determines the jump's height.
 
 
-**Volt Hit**: D, DF, F + a/b/c (Air) Uses 250 Power.
+### **Volt Hit**: `D, DB, B + a/b/c` (Ground) Uses 250 Power.
 
 Crono hits itself with lightning. A small spark will float near him and he will 
-glow with energy. If Crono gets hit while in this state, he will not flinch (he will
-take full damage, though) allowing you to counterattack, and the effect will end.
+glow with energy. 
 
-If you use Lightning while under the effects of Volt Hit, the summoned lightning will 
-be bigger and do more damage, spending the Volt Hit effect.
+Performing one of the previous special moves will consume the spark and improve
+the move in some way. Additionally, as long as he's glowing, Crono has super 
+armor for the next hit he takes. Both effects are independent.
 
-Supers
-------
+The following are his supermoves:
 
-**Luminaire**: D, DB, B, D, DB, B + a/b/c (Standing). Requires 1000 Power.
+### **Luminaire**: `D, DB, B, D, DB, B + a/b/c` (Ground). Requires 1000 Power.
 
 Crono floats and casts Luminaire around him.
     
-**Thundastorm**: D, DF, F, D, DF, F, a/b/c (Standing). Requires 1000 Power.
+### **Thundastorm**: `D, DF, F, D, DF, F, a/b/c` (Ground). Requires 1000 Power.
 
-Crono summons many lightning strikes in front of him, hitting his opponent
-multiple times. Try to use this as part of a combo.
+Crono summons many lightning strikes in front of him.
 
-**Confuse**: D, B, D, F + a/b/c (Standing) Requires 1000 Power. 
+### **Confuse**: `D, B, D, F + a/b/c` (Ground) Requires 1000 Power. 
 
-Crono jumps and executes his Confuse attack if it hits the enemy, hitting 
-multiple times.
+Crono jumps and performs his Confuse attack if it hits the enemy, hitting 
+multiple times. This is technically a throw.
 
-This is a throw, so keep in mind it won't work against unthrowable enemies 
-(bosses are an example).
+### Special Mode: **Frenzy**: `a + c` (Ground). Requires 3000 Power.
 
-Special Mode
-------------
+Crono gains invulnerable afterimages that follow him and copy each of his normal 
+attacks. Crono's Power will deplete automatically: when he runs out of Power,
+the mode ends.
 
-**Frenzy**: a + c (Standing). Requires 3000 Power.
-
-Crono enters a constant Confuse-like state, having afterimages that follow him and
-execute each one of his physical attacks. The afterimages are invulnerable. Try
-to execute a big combo!
-
-Your Power will automatically decrease: when you run out of Power, the mode ends.
-
-Final Move
-----------
-
-**Shining Sword Attack**: D, F, D, B + a/b/c (Standing, must have Berserker activated). Uses all of your Power.
+### Final Move: **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active). Uses all remaining Power.
 
 A super throw. Crono charges up electrical energy and advances towards its opponent. 
 If the hit connects, he will launch them into the air before delivering a series 
 of quick slashes, finishing with a huge lightning blast from his hand.
 
-"It's time you understood who I really am!"
-
-
-## Installation and Configuration
-
-CTM is based, as the name suggests, on the
-[MUGEN](https://en.wikipedia.org/wiki/M.U.G.E.N) fighting game engine. You just download it and run the `mugen/mugen.exe` file to launch the game.
-
-## Copyright, licensing, etc.
+# Copyright, licensing, etc.
 
 Use my code for whatever you want. Chrono Trigger and all of its characters are property of Square-Enix. This creation/adaptation was made for entertainment, not for profit. If you want to host this, modify or use it for your own purposes, try to contact me first.
 
-## Credits and Acknowledgments 
+# Credits and Acknowledgments 
 
 Thanks to:
 
-- All of my friends an family, for supporting me all this time.
+- My friends and family, for supporting me all this time.
 
-- The Spriters Resource (http://www.spriters-resource.com) for the sprites. Rips by Tonberry2k, Nemu, Dazz
+- [The Spriters Resource](http://www.spriters-resource.com) for the sprites. Rips by Tonberry2k, Nemu, Dazz
   and many others were incredibly useful.
 
-- The Chrono Compendium (http://chronocompendium.com). In particular, the user Dirtie ripped 
+- [The Chrono Compendium](http://chronocompendium.com). In particular, the user Dirtie ripped 
   a ton of Chrono Trigger sound effect and made them available to everyone.
 
-- The guys at the Mugen Fighters Guild forum (http://mugenguild.com/forumx/index.php),
+- The guys at the [Mugen Fighters Guild Forum](http://mugenguild.com/forumx/index.php),
   for answering my questions and helping me learn. Their Code Library/Snippet Section rocks.
 
 - So many MUGEN creators: PoTS, SMEE, Bia, warusaki3 and everyone who creates stuff that others can use.
