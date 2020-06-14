@@ -40,11 +40,11 @@ armor for the next hit he takes. Both effects are independent.
 
 The following are his supermoves:
 
-### **Luminaire**: `D, DB, B, D, DB, B + a/b/c` (Ground).
+### **Luminaire**: `D, DB, B, D, DB, B + a/b/c` (Ground)
 
 Requires 1000 Power. Crono floats and casts Luminaire around him.
     
-### **Thundastorm**: `D, DF, F, D, DF, F, a/b/c` (Ground).
+### **Thundastorm**: `D, DF, F, D, DF, F, a/b/c` (Ground)
 
 Requires 1000 Power. Crono summons many lightning strikes in front of him.
 
@@ -53,13 +53,13 @@ Requires 1000 Power. Crono summons many lightning strikes in front of him.
 Requires 1000 Power. Crono jumps and performs his Confuse attack if it hits 
 the enemy, hitting multiple times. This is technically a throw.
 
-### Special Mode: **Frenzy**: `a + c` (Ground).
+### Special Mode: **Frenzy**: `a + c` (Ground)
 
 Requires 3000 Power. Crono gains invulnerable afterimages that follow him and
 copy each of his normal attacks. Crono's Power will deplete automatically: 
 when he runs out of Power, the mode ends.
 
-### **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active).
+### **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active)
 
 Spends all remaining Power. A super throw. Crono charges up electrical energy and
 advances towards its opponent. If the hit connects, he will launch them into the air 
