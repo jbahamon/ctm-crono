@@ -29,10 +29,10 @@ Crono jumps into the air and swings his katana. Has some invincibility frames
 on startup. Button determines the jump's height.
 
 
-### **Volt Hit**: `D, DB, B + a/b/c` (Ground) Uses 250 Power.
+### **Volt Hit**: `D, DB, B + a/b/c` (Ground) 
 
-Crono hits itself with lightning. A small spark will float near him and he will 
-glow with energy. 
+Requires 250 Power. Crono hits itself with lightning. A small spark will float 
+near him and he will glow with energy. 
 
 Performing one of the previous special moves will consume the spark and improve
 the move in some way. Additionally, as long as he's glowing, Crono has super 
@@ -40,30 +40,30 @@ armor for the next hit he takes. Both effects are independent.
 
 The following are his supermoves:
 
-### **Luminaire**: `D, DB, B, D, DB, B + a/b/c` (Ground). Requires 1000 Power.
+### **Luminaire**: `D, DB, B, D, DB, B + a/b/c` (Ground).
 
-Crono floats and casts Luminaire around him.
+Requires 1000 Power. Crono floats and casts Luminaire around him.
     
-### **Thundastorm**: `D, DF, F, D, DF, F, a/b/c` (Ground). Requires 1000 Power.
+### **Thundastorm**: `D, DF, F, D, DF, F, a/b/c` (Ground).
 
-Crono summons many lightning strikes in front of him.
+Requires 1000 Power. Crono summons many lightning strikes in front of him.
 
-### **Confuse**: `D, B, D, F + a/b/c` (Ground) Requires 1000 Power. 
+### **Confuse**: `D, B, D, F + a/b/c` (Ground)
 
-Crono jumps and performs his Confuse attack if it hits the enemy, hitting 
-multiple times. This is technically a throw.
+Requires 1000 Power. Crono jumps and performs his Confuse attack if it hits 
+the enemy, hitting multiple times. This is technically a throw.
 
-### Special Mode: **Frenzy**: `a + c` (Ground). Requires 3000 Power.
+### Special Mode: **Frenzy**: `a + c` (Ground).
 
-Crono gains invulnerable afterimages that follow him and copy each of his normal 
-attacks. Crono's Power will deplete automatically: when he runs out of Power,
-the mode ends.
+Requires 3000 Power. Crono gains invulnerable afterimages that follow him and
+copy each of his normal attacks. Crono's Power will deplete automatically: 
+when he runs out of Power, the mode ends.
 
-### Final Move: **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active). Uses all remaining Power.
+### Final Move: **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active).
 
-A super throw. Crono charges up electrical energy and advances towards its opponent. 
-If the hit connects, he will launch them into the air before delivering a series 
-of quick slashes, finishing with a huge lightning blast from his hand.
+Spends all remaining Power. A super throw. Crono charges up electrical energy and
+advances towards its opponent. If the hit connects, he will launch them into the air 
+before delivering a series of quick slashes, finishing with a huge lightning blast from his hand.
 
 # Copyright, licensing, etc.
 
