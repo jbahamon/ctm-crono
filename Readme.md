@@ -59,7 +59,7 @@ Requires 3000 Power. Crono gains invulnerable afterimages that follow him and
 copy each of his normal attacks. Crono's Power will deplete automatically: 
 when he runs out of Power, the mode ends.
 
-### Final Move: **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active).
+### **Shining Sword Attack**: `D, F, D, B + a/b/c` (Ground while Frenzy is active).
 
 Spends all remaining Power. A super throw. Crono charges up electrical energy and
 advances towards its opponent. If the hit connects, he will launch them into the air 
