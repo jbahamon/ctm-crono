@@ -71,11 +71,11 @@ towards its opponent. If the hit connects, he will launch them into the air
 before delivering a series of quick slashes, finishing with a huge lightning blast 
 from his hand. Qualifies as a throw.
 
-# Copyright, licensing, etc.
+## Copyright, licensing, etc.
 
 Use my code for whatever you want. Chrono Trigger and all of its characters are property of Square-Enix. This creation/adaptation was made for entertainment, not for profit. If you want to host this, modify or use it for your own purposes, try to contact me first.
 
-# Credits and Acknowledgments 
+## Credits and Acknowledgments 
 
 Thanks to:
 
